@@ -11,7 +11,7 @@ window = Window("BK7084: 02-Transformation")
 window.create_camera(Vec3(-15.0, 8.0, 0.0), Vec3(0, 0, 0), Vec3.unit_y(), 60.0)
 
 '''
-Assignment 1: Basic transformation
+Assignment 3: Hierarchical transformation
 ----------------------------------
 
 Please read the part one of the accompanying PDF file for an explanation of this assignment.
