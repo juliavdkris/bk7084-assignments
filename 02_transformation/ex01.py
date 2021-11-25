@@ -37,57 +37,78 @@ def translate(x: float, y: float, z: float) -> Mat4:
     Returns:
         Mat4
     """
-    # mat = Mat4(
-    #     [
-    #         [0, 0, 0, 0],
-    #         [0, 0, 0, 0],
-    #         [0, 0, 0, 0],
-    #         [0, 0, 0, 0]
-    #     ]
-    # )
-    return Mat4.identity()
+    mat = Mat4(
+        [
+            [1, 0, 0, 0],
+            [0, 1, 0, 0],
+            [0, 0, 1, 0],
+            [0, 0, 0, 1]
+        ]
+    )
+    return mat
 
 
-def rotate_x(angle: float, degrees=False) -> Mat4:
+def rotate_x(angle: float) -> Mat4:
     """
     Creates a rotation matrix around the x-axis.
 
     Args:
-        angle (float): Rotation angle, in radians by default.
-        degrees (bool): Specifies how we treat the angle.
+        angle (float): Rotation angle in radians.
 
     Returns:
         Mat4
     """
-    return Mat4.identity()
+    mat = Mat4(
+        [
+            [1, 0, 0, 0],
+            [0, 1, 0, 0],
+            [0, 0, 1, 0],
+            [0, 0, 0, 1]
+        ]
+    )
+    return mat
 
 
-def rotate_y(angle: float, degrees=False) -> Mat4:
+def rotate_y(angle: float) -> Mat4:
     """
     Creates a rotation matrix around the y-axis.
 
     Args:
-        angle (float): Rotation angle, in radians by default.
-        degrees (bool): Specifies how we treat the angle.
+        angle (float): Rotation angle in radians.
 
     Returns:
         Mat4
     """
-    return Mat4.identity()
+    mat = Mat4(
+        [
+            [1, 0, 0, 0],
+            [0, 1, 0, 0],
+            [0, 0, 1, 0],
+            [0, 0, 0, 1]
+        ]
+    )
+    return mat
 
 
-def rotate_z(angle: float, degrees=False) -> Mat4:
+def rotate_z(angle: float) -> Mat4:
     """
     Creates a rotation matrix around the z-axis.
 
     Args:
-        angle (float): Rotation angle, in radians by default.
-        degrees (bool): Specifies how we treat the angle.
+        angle (float): Rotation angle in radians.
 
     Returns:
         Mat4
     """
-    return Mat4.identity()
+    mat = Mat4(
+        [
+            [1, 0, 0, 0],
+            [0, 1, 0, 0],
+            [0, 0, 1, 0],
+            [0, 0, 0, 1]
+        ]
+    )
+    return mat
 
 
 def scale(x: float, y: float, z: float) -> Mat4:
@@ -102,7 +123,15 @@ def scale(x: float, y: float, z: float) -> Mat4:
     Returns:
         Mat4
     """
-    return Mat4.identity()
+    mat = Mat4(
+        [
+            [1, 0, 0, 0],
+            [0, 1, 0, 0],
+            [0, 0, 1, 0],
+            [0, 0, 0, 1]
+        ]
+    )
+    return mat
 
 
 cube_x = Mesh('./assets/cube.obj', color=PaletteDefault.RedB.as_color())

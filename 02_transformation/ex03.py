@@ -10,7 +10,7 @@ from bk7084.scene import Mesh
 window = Window("BK7084: 02-Transformation")
 window.create_camera(Vec3(-15.0, 8.0, 0.0), Vec3(0, 0, 0), Vec3.unit_y(), 60.0)
 
-'''
+"""
 Assignment 3: Hierarchical transformation
 =======
 
