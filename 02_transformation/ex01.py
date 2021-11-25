@@ -65,12 +65,13 @@ def rotate_x(angle: float) -> Mat4:
     Creates a rotation matrix around the x-axis.
 
     Args:
-        angle (float): Rotation angle in radians.
+        angle (float): Rotation angle in degrees.
 
     Returns:
         Mat4
     """
     # [Assignment] complete this matrix
+    # hint: you can compute cos and sin with np.cos(angle) and np.sin(angle)
     mat = Mat4(
         [
             [1, 0, 0, 0],
@@ -87,12 +88,13 @@ def rotate_y(angle: float) -> Mat4:
     Creates a rotation matrix around the y-axis.
 
     Args:
-        angle (float): Rotation angle in radians.
+        angle (float): Rotation angle in degrees.
 
     Returns:
         Mat4
     """
     # [Assignment] complete this matrix
+    # hint: you can compute cos and sin with np.cos(angle) and np.sin(angle)
     mat = Mat4(
         [
             [1, 0, 0, 0],
@@ -109,12 +111,13 @@ def rotate_z(angle: float) -> Mat4:
     Creates a rotation matrix around the z-axis.
 
     Args:
-        angle (float): Rotation angle in radians.
+        angle (float): Rotation angle in degrees.
 
     Returns:
         Mat4
     """
     # [Assignment] complete this matrix
+    # hint: you can compute cos and sin with np.cos(angle) and np.sin(angle)
     mat = Mat4(
         [
             [1, 0, 0, 0],
@@ -189,13 +192,13 @@ def on_key_press(key, mods):
         car.apply_transformation(translate(0.0, 0.0, 0.5))
 
     if key == KeyCode.X:
-        car.apply_transformation(rotate_x(1/4 * np.pi))
+        car.apply_transformation(rotate_x(45))
 
     if key == KeyCode.Y:
-        car.apply_transformation(rotate_y(1/4 * np.pi))   
+        car.apply_transformation(rotate_y(45))   
 
     if key == KeyCode.Z:
-        car.apply_transformation(rotate_z(1/4 * np.pi))   
+        car.apply_transformation(rotate_z(45))   
 
     if key == KeyCode.S:
         car.apply_transformation(scale(0.9, 0.9, 0.9))
