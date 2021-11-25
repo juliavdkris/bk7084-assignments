@@ -24,6 +24,8 @@ Be sure to read section 4 in the accompanying PDF before you start this exercise
 
 First, copy the transformation matrix construction functions from ex01 here:
 """
+# TODO copy the completed functions from ex01
+
 def translate(x: float, y: float, z: float) -> Mat4:
     return Mat4.identity()
 
