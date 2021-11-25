@@ -21,7 +21,7 @@ Your tasks:
   a. translation matrix 
   b. rotation matrix
   c. scaling matrix
-2.
+2. Move the car to reach the red cube and blue cube inside
 '''
 
 
