@@ -10,7 +10,7 @@ from bk7084.scene import Mesh
 window = Window("BK7084: 02-Transformation [ex02]", width=1024, height=1024)
 window.create_camera(Vec3(-200.0, 80.0, 0.0), Vec3(0, 0, 0), Vec3.unit_y(), 60.0,)
 
-'''
+"""
 Assignment 2: Order of transformations
 ----------------------------------
 
@@ -19,7 +19,7 @@ Please read the part one of the accompanying PDF file for an explanation of this
 Your tasks:
 1. Reuse transformation functions created in the first assignment.
 2. Apply any transformation you want to construct the lamp.
-'''
+"""
 
 
 def translate(x: float, y: float, z: float) -> Mat4:
@@ -215,7 +215,7 @@ def on_key_press(key, mods):
         if KeyModifier.Ctrl in mods:
             lamp.reset_transformation()
         else:
-            lamp.apply_transformation(Mat4.from_axis_angle(Vec3.unit_y(), 5.0, True))
+            lamp.apply_transformation(Mat4.from_axis_angle(Vec3.unit_y(), 90.0, True))
 
 
 app.init(window)

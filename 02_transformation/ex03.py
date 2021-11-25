@@ -12,7 +12,7 @@ window.create_camera(Vec3(-15.0, 8.0, 0.0), Vec3(0, 0, 0), Vec3.unit_y(), 60.0)
 
 '''
 Assignment 3: Hierarchical transformation
-----------------------------------
+=======
 
 Please read the part one of the accompanying PDF file for an explanation of this assignment.
 
@@ -22,7 +22,7 @@ Your tasks:
   b. rotation matrix
   c. scaling matrix
 2. Move the car to reach the red cube and blue cube inside
-'''
+"""
 
 
 def translate(x: float, y: float, z: float) -> Mat4:
