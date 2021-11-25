@@ -12,15 +12,15 @@ window = Window("BK7084: 02-Transformation [ex02]", width=1024, height=1024)
 window.create_camera(Vec3(-200.0, 80.0, 0.0), Vec3(0, 0, 0), Vec3.unit_y(), 60.0,)
 
 """
-Assignment 2: Composing transformations
---------------------------------------
+Exercise 2: Composing transformations
+---------------------------------------
 
 You are going to construct a virtual lamp by composing transformation matrices.
 When you first run this program, you will see a blue lamp in the far-left corner.
 There's also a lamp base at the opposite corner in red and components of the lamp at the center.
-It's up to you to place the components of the lamp in the right position on the base of the lamp.
+It's up to you to place the components of the red lamp in the right position on the base of the lamp.
 
-Be sure to read section 4 in the accompanying PDF before you start this assignment.
+Be sure to read section 4 in the accompanying PDF before you start this exercise.
 
 First, copy the transformation matrix construction functions from ex01 here:
 """
@@ -72,27 +72,27 @@ lamp_seg0.apply_transformation(translate(-53, -36, 48))
 
 # Lamp's 1st connector
 lamp_con0 = Mesh('./assets/con01.obj', color=PaletteDefault.BlackB.as_color())
-# [Assignment] Place in the right configuration
+# TODO: Place in the right configuration
 
 # Lamp's 2nd segment
 lamp_seg1 = Mesh('./assets/seg02.obj', color=PaletteDefault.WhiteB.as_color())
-# [Assignment] Place in the right configuration
+# TODO: Place in the right configuration
 
 # Lamp's 2nd connector
 lamp_con1 = Mesh('./assets/con02.obj', color=PaletteDefault.BlackB.as_color())
-# [Assignment] Place in the right configuration
+# TODO: Place in the right configuration
 
 # Lamp's 3rd segment
 lamp_seg2 = Mesh('./assets/seg03.obj', color=PaletteDefault.WhiteB.as_color())
-# [Assignment] Place in the right configuration
+# TODO: Place in the right configuration
 
 # Lamp's 3rd connector
 lamp_con2 = Mesh('./assets/con03.obj', color=PaletteDefault.BlackB.as_color())
-# [Assignment] Place in the right configuration
+# TODO: Place in the right configuration
 
 # Lamp's head
 lamp_head = Mesh('./assets/head.obj', color=PaletteDefault.YellowA.as_color())
-# [Assignment] Place in the right configuration
+# TODO: Place in the right configuration
 
 """
 You don't need to change the code below to finish the assignment.

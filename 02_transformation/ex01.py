@@ -12,10 +12,10 @@ window = Window("BK7084: 02-Transformation [ex01]", width=1024, height=1024)
 window.create_camera(Vec3(-15.0, 8.0, 0.0), Vec3(0, 0, 0), Vec3.unit_y(), 60.0)
 
 """
-Assignment 1: Basic transformation
+Exercise 1: Basic transformation
 ----------------------------------
 
-In this assignment, you will create transformation matrices from scratch.
+In this first exercise, you will create transformation matrices from scratch.
 If you succeed, you can control a virtual car with your keyboard when you run this file:
 [up, down, left, right] translate the car forward, backward, left, or right;
 [X] rotate the car 45 degrees around the x-axis;
@@ -48,7 +48,7 @@ def translate(x: float, y: float, z: float) -> Mat4:
     Returns:
         Mat4
     """
-    # [Assignment] complete this matrix
+    # TODO: complete this matrix
     mat = Mat4(
         [
             [1, 0, 0, 0],
@@ -70,7 +70,7 @@ def rotate_x(angle: float) -> Mat4:
     Returns:
         Mat4
     """
-    # [Assignment] complete this matrix
+    # TODO: complete this matrix
     # hint: you can compute cos and sin with np.cos(angle) and np.sin(angle)
     mat = Mat4(
         [
@@ -93,7 +93,7 @@ def rotate_y(angle: float) -> Mat4:
     Returns:
         Mat4
     """
-    # [Assignment] complete this matrix
+    # TODO: complete this matrix
     # hint: you can compute cos and sin with np.cos(angle) and np.sin(angle)
     mat = Mat4(
         [
@@ -116,7 +116,7 @@ def rotate_z(angle: float) -> Mat4:
     Returns:
         Mat4
     """
-    # [Assignment] complete this matrix
+    # TODO: complete this matrix
     # hint: you can compute cos and sin with np.cos(angle) and np.sin(angle)
     mat = Mat4(
         [
@@ -141,7 +141,7 @@ def scale(x: float, y: float, z: float) -> Mat4:
     Returns:
         Mat4
     """
-    # [Assignment] complete this matrix
+    # TODO: complete this matrix
     mat = Mat4(
         [
             [1, 0, 0, 0],
