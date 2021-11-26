@@ -19,7 +19,7 @@ window.create_camera(Vec3(0, 0.0, 10.0), Vec3(0, 0, 0), Vec3.unit_y(), 60.0)
 
 # Create a triangle and ray and set the animation flag
 triangle = Triangle([-2, -2, 1], [2, -2, 1], [0, 2, 1])
-ray = Ray([0, -3, 2], [4, 4, 0])
+ray = Ray([0, -3, 2], [4, 4, 1])
 animate = True
 
 """
