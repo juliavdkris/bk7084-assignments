@@ -1,0 +1,26 @@
+# 1st segment
+translate (-53, -36, 48)
+
+# 1st connector
+rotate 180 degrees around y axis
+translate (-55, -23, 48)
+
+# 2nd segment
+rotate 30 degrees around x axis
+translate (-53, -1, 61)
+
+# 2nd connector
+rotate 180 degrees around y axis
+translate (-55, 20, 72)
+
+# 3rd segment
+rotate -39 degrees around x axis
+translate (-53, 40, 58)
+
+# 3rd connector
+rotate 180 degrees around y axis
+translate (-55, 59, 40)
+
+# Lamp's head
+rotate -210 degrees around x axis
+translate (-53, 48, 21)
