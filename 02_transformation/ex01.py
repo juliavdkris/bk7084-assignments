@@ -14,7 +14,7 @@ window.create_camera(Vec3(-15.0, 8.0, 0.0), Vec3(0, 0, 0), Vec3.unit_y(), 60.0)
 
 """
 Exercise 1: Basic transformation
-----------------------------------
+--------------------------------
 
 First update your bk7084 package with pip:
 $ conda activate compsim

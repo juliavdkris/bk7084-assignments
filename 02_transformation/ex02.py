@@ -14,7 +14,7 @@ window.create_camera(Vec3(-200.0, 80.0, 0.0), Vec3(0, 0, 0), Vec3.unit_y(), 60.0
 
 """
 Exercise 2: Composing transformations
----------------------------------------
+-------------------------------------
 
 You are going to construct a virtual lamp by composing transformation matrices.
 When you first run this program, you will see a blue lamp in the far-left corner.

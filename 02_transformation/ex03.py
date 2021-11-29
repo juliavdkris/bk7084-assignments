@@ -12,7 +12,7 @@ window = Window("BK7084: 02-Transformation [ex03]", width=1024, height=1024)
 window.create_camera(Vec3(-100.0, 50.0, 0.0), Vec3(0, 0, 0), Vec3.unit_y(), 60.0)
 
 """
-Assignment 3: Hierarchical transformation
+Exercise 3: Hierarchical transformation
 -----------------------------------------
 
 For your final assignment, you will apply the transformations you created
