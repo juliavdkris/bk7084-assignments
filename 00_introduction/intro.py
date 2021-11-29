@@ -217,7 +217,7 @@ Let's see another example: a matrix that scales only the x-axis by 3:
 | 0  1  0 |
 | 0  0  1 |
 
-The x axis is placed changed to [3 0 0] (the first column) and the y and z axis stay the same.
+The x axis is changed to [3 0 0] (the first column) and the y and z axis stay the same.
 
 What do you think the following matrix does to the axes?
   x  y  z
