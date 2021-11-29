@@ -1,3 +1,4 @@
+import os.path as osp
 from bk7084 import Window, app
 from bk7084.app.window.input import KeyCode, KeyModifier
 from bk7084.geometry import Triangle, Ray, Line, Box
@@ -163,11 +164,12 @@ def scale(x: float, y: float, z: float) -> Mat4:
 You don't need to change the code below to finish the assignment.
 """
 
-cube_x = Mesh('./assets/cube.obj', color=PaletteDefault.RedB.as_color())
+assignment_directory = osp.dirname(osp.abspath(__file__))
+cube_x = Mesh(osp.join(assignment_directory, 'assets/cube.obj'), color=PaletteDefault.RedB.as_color())
 cube_x.initial_transformation = Mat4.from_translation(Vec3(8.0, 0.0, 0.0)) * Mat4.from_scale(Vec3(0.2))
-cube_z = Mesh('./assets/cube.obj', color=PaletteDefault.BlueA.as_color())
+cube_z = Mesh(osp.join(assignment_directory, 'assets/cube.obj'), color=PaletteDefault.BlueA.as_color())
 cube_z.initial_transformation = Mat4.from_translation(Vec3(0.0, 0.0, 8.0)) * Mat4.from_scale(Vec3(0.2))
-car = Mesh('./assets/car.obj', color=PaletteDefault.RedA.as_color())
+car = Mesh(osp.join(assignment_directory, 'assets/car.obj'), color=PaletteDefault.RedA.as_color())
 
 
 @window.event
