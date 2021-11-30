@@ -46,12 +46,12 @@ We will use these shaders to draw the earth object seen in this exercise.
 Actually, you don't need to do anything in this file, all tasks should be completed in ex01.vert.
 Open up ex01.vert and continue from there.
 """
-
-earth = Mesh(osp.join(assignment_directory, 'assets/spot.obj'), color=PaletteDefault.BlueB.as_color())
+# Spot the cow model courtesy of Keenan Crane (CC0) https://www.cs.cmu.edu/~kmcrane/Projects/ModelRepository/#spot
+spot = Mesh(osp.join(assignment_directory, 'assets/spot.obj'), color=PaletteDefault.BlueB.as_color())
 
 @window.event
 def on_draw(dt):
-    draw(earth)
+    draw(spot)
 
 app.init(window)
 app.run()
