@@ -55,7 +55,7 @@ void main() {
     Note that you also need to tell GLSL what the type is of each *new* variable.
     You can do this by first writing the type and then the name of the variable:
     */
-    vec3 new_position = a_position - 0.1 * a_normal;
+    vec3 new_position = a_position;
 
     /*
     You don't need to change the code after this comment.
