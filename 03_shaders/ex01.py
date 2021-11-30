@@ -8,7 +8,7 @@ from bk7084.scene import Mesh
 
 
 window = Window("BK7084: 03-Shaders [ex01]", width=1024, height=1024)
-window.create_camera(Vec3(-100.0, 50.0, 0.0), Vec3(0, 0, 0), Vec3.unit_y(), 60.0)
+window.create_camera(Vec3(-2.0, 1.0, -2.0), Vec3(0, 0, 0), Vec3.unit_y(), 60.0)
 assignment_directory = osp.dirname(osp.abspath(__file__))
 
 """
@@ -47,8 +47,7 @@ Actually, you don't need to do anything in this file, all tasks should be comple
 Open up ex01.vert and continue from there.
 """
 
-earth = Mesh(osp.join(assignment_directory, 'assets/earth.obj'), color=PaletteDefault.GreenA.as_color())
-earth.initial_transformation = Mat4.from_scale(Vec3(0.3))
+earth = Mesh(osp.join(assignment_directory, 'assets/spot.obj'), color=PaletteDefault.BlueB.as_color())
 
 @window.event
 def on_draw(dt):
