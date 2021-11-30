@@ -8,11 +8,11 @@ a */
 /*
 The second thing you need to know: every line in your program should end with a semicolon ;
 Anytime your program fails to run, first check your code to see if you forgot about a semicolon anywhere!
-VS Code might not understand GLSL yet. You can install an extension like 'GLSL Syntax for VS Code'
+VS Code might not understand GLSL yet. You can install the extension 'GLSL Syntax for VS Code'
 which can help you find bugs before you make them.
 
-First, we tell GLSL which version it should use (3.3)
-This line does not need a semicolon, as it's not really part of the program.
+First, we tell the compiler which version it should use to translate your GLSL code.
+This line does not need a semicolon, as it's not part of the program itself.
 */
 #version 330
 
@@ -25,7 +25,7 @@ layout (location = 1) in vec4 a_color;
 layout (location = 2) in vec3 a_normal;
 
 /*
-Next, we tell the shader which outputs to expect. We use these outputs in the fragment shader.
+Next, we tell the shader which outputs to return. We use these outputs in the fragment shader.
 */
 out vec4 v_color;
 out vec3 v_normal;
@@ -47,7 +47,7 @@ Each shader program needs a main function. This is the program that is run by yo
 */
 void main() {
     /*
-    Now, here are your tasks:
+    Now, here are your tasks. Modify the line right after this comment to:
     [a] Scale the input models by multiplying each position with a scaling factor.
     [b] Move the vertex positions in the direction of the vertex normals `a_normal`. Do you understand what is happening?
     [c] Move the vertex positions in the inverse direction of the vertex normals. What is happening?
@@ -58,7 +58,7 @@ void main() {
     vec3 new_position = a_position;
 
     /*
-    You don't need to change the following code.
+    You don't need to change the code after this comment.
     
     Here, we apply the model, view, and project matrix to the input positions
     and output them to a special variable which is reserved by GLSL: gl_Position

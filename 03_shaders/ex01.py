@@ -31,7 +31,11 @@ In the next exercise, you can explore what is possible with a pixel (or fragment
 
 Shaders often run on a GPU (graphics programming unit), which has a lot of cores to run shaders in parallel.
 To run a shader on the GPU, we do need to write our shaders in a special language, called GLSL (OpenGL Shading Language).
+The program is 'compiled' separately and then sent to your GPU.
+Compilation is the process of translating code from human-readable language to machine language.
+
 For this exercise, we load these programs from two files: ex01.vert (vertex shader) and ex01.frag (fragment shader).
+The 'VertexShader' and 'PixelShader' classes take care of compiling your code and making it ready for your GPU.
 """
 window.default_shader = ShaderProgram(
     VertexShader.from_file(osp.join(assignment_directory, 'ex01.vert')),
