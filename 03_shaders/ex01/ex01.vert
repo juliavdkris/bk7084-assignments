@@ -69,9 +69,10 @@ void main() {
     Be aware of some differences from Python: No Capital Letters and no square brackets []!
 
     Note that you also need to tell GLSL what the type is of each *new* variable.
+    You should not do this for a variable that has already been created.
     You can do this by first writing the type and then the name of the variable:
     */
-    vec3 new_position = rotate * a_position;
+    vec3 new_position = a_position;
 
     /*
     You don't need to change the code after this comment.
