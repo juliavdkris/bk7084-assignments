@@ -17,14 +17,22 @@ You can finish the two tasks by completing the two functions:
 2. compute_toon_color
 
 First, try to think about how you would implement each effect.
-Use a piece of paper and draw the situation.
+Look up 'rim light' and 'toon shading' on Google images to understand what each effect looks like.
+Then use a piece of paper and draw the situation to think about how you should achieve the effect.
+Draw a camera, an object, and a light source.
+- Where on the object does the rim light show up?
+- How can you determine this location based on the information the shader has?
+  There are a couple of hints in the functions.
+Don't give up too quickly. Even if you can't completely finish the exercise on your own,
+it helps to first think about how to achieve the goals with the tools you know. 
+
 If you can't figure it out, follow the tutorials provided in ex04.py.
 */
 vec3 compute_rim_light(vec3 color) {
     // We give you the viewing direction v
     vec3 v = -frag_pos;
 
-    // TODO compute a rim light value based on the viewing direction and the normal of the fragment
+    // TODO compute a rim light value based on the viewing direction and the normal
     // Hint 1: you can get the normal with v_normal
     // Hint 2: you can apply a smooth threshold with 
     // >>> smoothstep(start, end, value)
