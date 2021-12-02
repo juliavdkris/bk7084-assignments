@@ -43,7 +43,7 @@ window.default_shader = ShaderProgram(
     PixelShader.from_file(osp.join(assignment_directory, 'ex01.frag'))
 )
 """
-We will use these shaders to draw the earth object seen in this exercise.
+We will use these shaders to draw the cow object seen in this exercise.
 Actually, you don't need to do anything in this file, all tasks should be completed in ex01.vert.
 Open up ex01.vert and continue from there.
 """

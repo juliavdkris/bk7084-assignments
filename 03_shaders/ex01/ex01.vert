@@ -1,15 +1,17 @@
 // Welcome to your first GLSL program! This is going to be a bit different from Python.
 // the first thing you might notice: comments start with two dashes // and multiline comments start with a
-/* and 
+/*
+and 
 end
 with
-a */
+a
+*/
 
 /*
 The second thing you need to know: every line in your program should end with a semicolon ;
 Anytime your program fails to run, first check your code to see if you forgot about a semicolon anywhere!
 VS Code might not understand GLSL yet. You can install the extension 'GLSL Syntax for VS Code'
-which can help you find bugs before you make them.
+which can make your code more readable and help you find bugs before you make them.
 
 First, we tell the compiler which version it should use to translate your GLSL code.
 This line does not need a semicolon, as it's not part of the program itself.
@@ -18,7 +20,10 @@ This line does not need a semicolon, as it's not part of the program itself.
 
 /*
 Then we tell the shader which inputs it can expect.
-These are the position of each vertex, the color of each vertex and the normals on each vertex.
+These are the position of each vertex, the color of each vertex,
+a texture coordinate and the normals on each vertex.
+The texture coordinate is the coordinate in a texture file that belongs to the vertex.
+The normal is a vector pointing away from the surface.
 */
 layout (location = 0) in vec3 a_position;
 layout (location = 1) in vec4 a_color;
@@ -26,7 +31,8 @@ layout (location = 2) in vec3 a_texcoord;
 layout (location = 3) in vec3 a_normal;
 
 /*
-Next, we tell the shader which outputs to return. We use these outputs in the fragment shader.
+Next, we tell the shader which outputs to return.
+We can use these outputs in the fragment shader.
 */
 out vec4 v_color;
 out vec3 v_normal;
@@ -45,19 +51,27 @@ uniform mat4 view_mat;
 uniform mat4 proj_mat;
 
 /*
-Each shader program needs a main function. This is the program that is run by your GPU.
+Each shader program needs a main function. This is function that your GPU calls.
 */
 void main() {
     /*
     Now, here are your tasks. Modify the line right after this comment to:
-    [a] Scale the input models by multiplying each position with a scaling factor.
+    [a] Scale the model by multiplying each position with a scaling factor.
     [b] Move the vertex positions in the direction of the vertex normals `a_normal`. Do you understand what is happening?
     [c] Move the vertex positions in the inverse direction of the vertex normals. What is happening?
+    [d] Translate all vertices by (0.5, 1, -1).
+    [e] Rotate the model by 1.57 radians around the x axis. Use mat3 to create a rotation matrix:
+    >>> mat3 matrix = mat3(
+        a, b, c,
+        d, e, f,
+        g, h, i
+        );
+    Be aware of some differences from Python: No Capital Letters and no square brackets []!
 
     Note that you also need to tell GLSL what the type is of each *new* variable.
     You can do this by first writing the type and then the name of the variable:
     */
-    vec3 new_position = a_position;
+    vec3 new_position = rotate * a_position;
 
     /*
     You don't need to change the code after this comment.
