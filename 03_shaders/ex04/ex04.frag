@@ -39,8 +39,8 @@ vec3 compute_toon_color(vec3 color) {
 
 
 void main() {
-    /* vec4 color = texture(in_texture, v_texcoord); */
-    vec4 color = v_color;
+    vec4 color = texture(in_texture, v_texcoord);
+    /* vec4 color = v_color; */
 
     vec3 rim_color = compute_rim_light(color.xyz);
     vec3 toon_color = compute_toon_color(color.xyz);

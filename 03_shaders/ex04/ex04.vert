@@ -23,8 +23,7 @@ void main() {
 
     v_color = a_color;
     v_texcoord = a_texcoord;
-    //v_normal = mat3(transpose(inverse(view_mat * model_mat))) * a_normal;
-    v_normal = normalize(mat3(view_mat * model_mat) * a_normal);
+    v_normal = mat3(transpose(inverse(view_mat * model_mat))) * a_normal;
 
     gl_Position = proj_mat * view_mat * model_mat * vec4(a_position, 1.0);
 }
