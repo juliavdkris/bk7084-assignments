@@ -55,7 +55,7 @@ void main() {
     // These lines project the input position to the world space.
     frag_pos = vec3(view_mat * model_mat * vec4(new_position, 1.0));
     light_pos = vec3(view_mat * vec4(600.0, 600.0, 600.0, 1.0));
-    world_pos = vec3(view_mat * vec4(a_position, 1.0));
+    world_pos = vec3(view_mat * vec4(new_position, 1.0));
 
     v_color = a_color;
     v_texcoord = a_texcoord;
