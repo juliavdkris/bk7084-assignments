@@ -1,7 +1,6 @@
 import os.path as osp
 from bk7084 import Window, app
 from bk7084.app.window.input import KeyCode
-from bk7084.geometry import Triangle
 from bk7084.math import Vec3, Mat4
 from bk7084.misc import PaletteDefault
 from bk7084.graphics import draw, ShaderProgram, VertexShader, PixelShader
@@ -16,7 +15,13 @@ assignment_directory = osp.dirname(osp.abspath(__file__))
 Exercise 1: Vertex Shader
 -------------------------
 
-This week, you got an introduction to the modern graphics pipeline.
+First update your bk7084 package with pip:
+$ conda activate compsim
+$ pip install --upgrade bk7084
+
+Make sure that you have also activated the compsim environment in Visual Studio Code (bottom left, Python 3...)
+
+This week, you're introduced to the modern graphics pipeline.
 An important component of the graphics pipeline is a shader.
 A shader is a small program with only a few in- and outputs which can be applied to data *in parallel*.
 This means that shaders can be applied to a lot of pieces of data at the same time, speeding up computations drastically.
@@ -45,7 +50,9 @@ window.default_shader = ShaderProgram(
 """
 We will use these shaders to draw the cow object seen in this exercise.
 Actually, you don't need to do anything in this file, all tasks should be completed in ex01.vert.
-Open up ex01.vert and continue from there.
+Open up `ex01.vert` and continue from there.
+
+You can press `A` when the program is running to animate the model.
 """
 # Spot the cow model courtesy of Keenan Crane (CC0) https://www.cs.cmu.edu/~kmcrane/Projects/ModelRepository/#spot
 spot = Mesh(osp.join(assignment_directory, '../assets/spot.obj'), color=PaletteDefault.BlueB.as_color())

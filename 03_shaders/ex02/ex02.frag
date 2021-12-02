@@ -1,5 +1,15 @@
+/*
+Welcome to your first fragment shader.
+You're already familiar with some basics of shaders,
+so feel free to scroll down to the next comment to get started.
+*/
 # version 330
 
+/*
+Remember the out variables in the vertex shader?
+You can use these variables as in variables in the fragment shader.
+You 'plug in' the variables by setting these in and out variables.
+*/
 in vec4 v_color;
 in vec3 v_normal;
 in vec2 v_texcoord;
@@ -12,7 +22,11 @@ out vec4 frag_color;
 uniform bool shading_enabled;
 uniform sampler2D in_texture;
 
-/* Shading functions - not related with today's exercise. */
+/*
+This function computes what the object looks like under a given light condition (shading).
+You don't have to change this function, but if you're interested in what it takes to get
+lighting on an object, you're free to read through it.
+*/
 vec3 blinnPhongBRDF(vec3 light_dir, vec3 view_dir, vec3 normal, vec3 diffuse_color, vec3 specular_color, float shininess) {
     vec3 color = diffuse_color;
     vec3 half_dir = normalize(view_dir + light_dir);
@@ -43,47 +57,69 @@ vec4 shading(vec3 diffuse_color) {
     return vec4(luminance, 1.0);
 }
 
-const float intensity_threshold = 0.5;
+/*
+As mentioned before, in this exercise, you will threshold the texture based on its intensity.
+Your first task is to write a function to calculate the intensity of a color.
 
-/// Function to calculate the intensity of a color.
-///
-/// Note: You can access to color elements by indexing:
-///     color.x or color.r
-///     color.y or color.g
-///     color.z or color.b
-///
-/// There are two ways to calculate the intensity of a color:
-///   1. Average method
-///
-///      The intensity will be the average value of its three channels.
-///
-///   2. Luminosity method
-///
-///      Human eys have different sensitivity over red, green and blue lights.
-///      Thus we use weighted value to compute intensity. Weights are given:
-///      R -- 0.299
-///      G -- 0.587
-///      B -- 0.114
+There are two ways to calculate the intensity of a color:
+  1. Average method
+     The intensity will be the average value of its three channels.
+
+  2. Luminosity method
+     Human eyes have different sensitivity over red, green and blue lights.
+     Thus we use weighted value to compute intensity. Weights are given:
+     R -- 0.299
+     G -- 0.587
+     B -- 0.114
+
+[a] Complete the intensity function below.
+Note: You can access color elements by indexing:
+    color.x or color.r
+    color.y or color.g
+    color.z or color.b
+*/
 float intensity(vec3 color) {
-    return 1.0;
+
+    // TODO complete function
+    return 0.299 * color.r + 0.587 * color.g + 0.114 * color.b;
+    // return 1.0;
 }
 
-void main() {
-    /// Here we want to draw the texture, thus instead of using
-    ///     vec4 color = v_color;
-    /// we now get color directly from the loaded texture.
+const float intensity_threshold = 0.5;
 
+void main() {
+    /*
+    Each 'fragment' will be colored using the color from a texture.
+    Instead of using v_color, we're going to look up the color in a texture.
+    The texture is given by in_texture and the coordinate in the texture that belongs to this fragment
+    is given by v_texcoord. Then, the `texture` function looks up the color.
+    */
     vec4 tex_color = texture(in_texture, v_texcoord);
 
-    /// Task:
-    ///     1. Write a function to calculate the intensity of the color.
-    ///     2. Use this intensity to decide whether use the texture color (tex_color)
-    ///        or vertex color (v_color) for the final output.
-    ///        If the intensity of the texture color is less (or greater) than
-    ///        intensity_threshold, we use vertex color, otherwise texture color
+    /*
+    You just wrote a function to calculate the intensity of a color.
+    [b] Now use this intensity to decide whether use the texture color (tex_color)
+    or vertex color (v_color) for the final output.
+    If the intensity of the texture color is less (or greater) than
+    intensity_threshold, we use vertex color, otherwise texture color.
+    
+    Hint 1:
+    if and else statements are written in a different way than in Python.
+    Check the lines below for an example of how to use if and else.
+
+    Hint 2:
+    You can get a vec3 from a vec4 object by calling color.xyz or color.rgb
+    */
     vec4 color = tex_color;
 
-    /// Write the code here to test intensity
+    // TODO use intensity function to threshold color
+
+    /*
+    Now that you know how to adjust colors, try a couple of other things:
+    [c] Multiply the color with a scaling factor. What's happening?
+    [d] Divide the color with a number.
+    [e] Multiply the color with a vec4 that you define yourself. Can you explain what is happening?
+    */
 
     if (shading_enabled) {
         frag_color = shading(color.xyz);
