@@ -10,7 +10,7 @@ in vec3 world_pos;
 out vec4 frag_color;
 
 uniform bool shading_enabled;
-uniform sampler2D texture;
+uniform sampler2D in_texture;
 
 /* Shading functions - not related with today's exercise. */
 vec3 blinnPhongBRDF(vec3 light_dir, vec3 view_dir, vec3 normal, vec3 diffuse_color, vec3 specular_color, float shininess) {
@@ -73,7 +73,7 @@ void main() {
     ///     vec4 color = v_color;
     /// we now get color directly from the loaded texture.
 
-    vec4 tex_color = texture2D(texture, v_texcoord);
+    vec4 tex_color = texture(in_texture, v_texcoord);
 
     /// Task:
     ///     1. Write a function to calculate the intensity of the color.
