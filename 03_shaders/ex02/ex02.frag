@@ -6,9 +6,9 @@ so feel free to scroll down to the next comment to get started.
 # version 330
 
 /*
-Remember the out variables in the vertex shader?
-You can use these variables as in variables in the fragment shader.
-You 'plug in' the variables by setting these in and out variables.
+Remember the `out` variables in the vertex shader?
+You can use these variables as `in` variables in the fragment shader.
+You 'plug in' the variables by setting these `in` and `out` variables.
 */
 in vec4 v_color;
 in vec3 v_normal;
@@ -23,7 +23,8 @@ uniform bool shading_enabled;
 uniform sampler2D in_texture;
 
 /*
-This function computes what the object looks like under a given light condition (shading).
+This function computes what the object looks like under a given light condition.
+This is called *shading*, not to be confused with a *shader*.
 You don't have to change this function, but if you're interested in what it takes to get
 lighting on an object, you're free to read through it.
 */
@@ -81,8 +82,7 @@ Note: You can access color elements by indexing:
 float intensity(vec3 color) {
 
     // TODO complete function
-    return 0.299 * color.r + 0.587 * color.g + 0.114 * color.b;
-    // return 1.0;
+    return 1.0;
 }
 
 const float intensity_threshold = 0.5;

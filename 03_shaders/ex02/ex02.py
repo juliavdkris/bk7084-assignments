@@ -23,7 +23,7 @@ and try a couple of simple operations to become acquainted.
 
 Try running this file first. Different from the last exercise, the cow now has different colours.
 This is achieved using a *texture*. A texture is an image that is wrapped around a 3D object.
-The way this is done is by matching each vertex with a coordinate in the texture.
+The way this is done is by matching each vertex with a coordinate in the texture, a texture coordinate.
 
 In the exercise, you will try a couple of operations to change the colour of the texture.
 One example is thresholding the texture based on the intensity of the colour.

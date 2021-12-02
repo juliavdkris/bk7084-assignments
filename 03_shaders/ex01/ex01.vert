@@ -22,8 +22,6 @@ This line does not need a semicolon, as it's not part of the program itself.
 Then we tell the shader which inputs it can expect.
 These are the position of each vertex, the color of each vertex,
 a texture coordinate and the normals on each vertex.
-The texture coordinate is the coordinate in a texture file that belongs to the vertex.
-The normal is a vector pointing away from the surface.
 */
 layout (location = 0) in vec3 a_position;
 layout (location = 1) in vec4 a_color;
@@ -57,9 +55,10 @@ void main() {
     /*
     Now, here are your tasks. Modify the line right after this comment to:
     [a] Scale the model by multiplying each position with a scaling factor.
-    [b] Move the vertex positions in the direction of the vertex normals `a_normal`. Do you understand what is happening?
+    [b] Move the vertex positions in the direction of the 0.05 times the  vertex normals `a_normal`.
+        Do you understand what is happening?
     [c] Move the vertex positions in the inverse direction of the vertex normals. What is happening?
-    [d] Translate all vertices by (0.5, 1, -1).
+    [d] Translate all vertices by (0.5, 0.5, -0.5).
     [e] Rotate the model by 1.57 radians around the x axis. Use mat3 to create a rotation matrix:
     >>> mat3 matrix = mat3(
         a, b, c,
@@ -72,6 +71,7 @@ void main() {
     You should not do this for a variable that has already been created.
     You can do this by first writing the type and then the name of the variable:
     */
+    // TODO update this line to fulfill the tasks
     vec3 new_position = a_position;
 
     /*

@@ -22,18 +22,19 @@ $ pip install --upgrade bk7084
 Make sure that you have also activated the compsim environment in Visual Studio Code (bottom left, Python 3...)
 
 This week, you're introduced to the modern graphics pipeline.
-An important component of the graphics pipeline is a shader.
-A shader is a small program with only a few in- and outputs which can be applied to data *in parallel*.
-This means that shaders can be applied to a lot of pieces of data at the same time, speeding up computations drastically.
+An important component of the graphics pipeline is a *shader*
+and you will program a shader yourself in this exercise.
+A shader is a small program with only a few in- and outputs that can be applied to data *in parallel*.
+In other words, a shader can be applied to a lot of data at the same time, speeding up computations drastically.
 This concept is important for graphics programming, but also for simulation and machine learning.
 Anytime you can split up a large tasks into small chunks that can be run in parallel, shader-like programs can be used.
 
 There are different kinds of shaders for different kinds of data.
-Some examples are vertex shaders (applied to each vertex) and pixel shaders (applied to each pixel).
-In the graphics pipeline, the vertex shader is followed by the pixel shader,
-so you can use output from the vertex shader as input to the pixel shader.
+Some examples are vertex shaders (applied to each vertex) and fragment (or pixel) shaders (applied to each pixel).
+In the graphics pipeline, the vertex shader is followed by the fragment shader,
+so you can use output from the vertex shader as input to the fragment shader.
 In this exercise, you will get introduced to a vertex shader and try a few simple operations.
-In the next exercise, you can explore what is possible with a pixel (or fragment) shader
+In the next exercise, you can explore what is possible with a fragment shader.
 
 Shaders often run on a GPU (graphics programming unit), which has a lot of cores to run shaders in parallel.
 To run a shader on the GPU, we do need to write our shaders in a special language, called GLSL (OpenGL Shading Language).
@@ -50,7 +51,7 @@ window.default_shader = ShaderProgram(
 """
 We will use these shaders to draw the cow object seen in this exercise.
 Actually, you don't need to do anything in this file, all tasks should be completed in ex01.vert.
-Open up `ex01.vert` and continue from there.
+First run this program and then open up `ex01.vert` and continue from there.
 
 You can press `A` when the program is running to animate the model.
 """
