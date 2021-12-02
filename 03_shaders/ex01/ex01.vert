@@ -81,12 +81,12 @@ void main() {
     and output them to a special variable which is reserved by GLSL: gl_Position
     */
     gl_Position = proj_mat * view_mat * model_mat * vec4(new_position, 1.0);
-    // The color is piped forward unchanged.
+    // The color is sent to the fragment shader unchanged.
     v_color = a_color;
     
     // Finally, we output a couple of variables used by the fragment shader to determine colours.
-    frag_pos = vec3(view_mat * model_mat * vec4(a_position, 1.0));
-    world_pos = (model_mat * vec4(a_position, 1.0)).xyz;
+    frag_pos = vec3(view_mat * model_mat * vec4(new_position, 1.0));
+    world_pos = (model_mat * vec4(new_position, 1.0)).xyz;
     light_pos = vec3(view_mat * vec4(600.0, 600.0, 600.0, 1.0));
     v_texcoord = a_texcoord;
     v_normal = mat3(transpose(inverse(view_mat * model_mat))) * a_normal;
