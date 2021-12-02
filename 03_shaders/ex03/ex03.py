@@ -18,7 +18,15 @@ Exercise 3: Vertex to fragment shader
 Now that you know what you can do in the vertex and fragment shader,
 let's see how you can combine the two for some interesting effects.
 
+Remember that you passed variables from the vertex shader to the fragment shader
+with the `in` and `out` variables?
+In this exercise, you will use these variables and see what happens in-between.
+If everything that you output in the vertex shader is defined at the vertices,
+how does the fragment shader get information per pixel?
 
+There is a 'hidden' step performed by your GPU, which is interpolation.
+Values from the vertices are interpolated to values on the triangles.
+In this exercise, we'll experiment with this and use a time variable to animate effects.
 
 Open up `ex03.vert` to continue.
 """

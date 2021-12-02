@@ -92,13 +92,13 @@ void main() {
     Each 'fragment' will be colored using the color from a texture.
     Instead of using v_color, we're going to look up the color in a texture.
     The texture is given by in_texture and the coordinate in the texture that belongs to this fragment
-    is given by v_texcoord. Then, the `texture` function looks up the color.
+    is given by v_texcoord. The `texture` function looks up the color.
     */
     vec4 tex_color = texture(in_texture, v_texcoord);
 
     /*
     You just wrote a function to calculate the intensity of a color.
-    [b] Now use this intensity to decide whether use the texture color (tex_color)
+    [b] Now use this intensity to decide whether to use the texture color (tex_color)
     or vertex color (v_color) for the final output.
     If the intensity of the texture color is less (or greater) than
     intensity_threshold, we use vertex color, otherwise texture color.
@@ -116,7 +116,7 @@ void main() {
 
     /*
     Now that you know how to adjust colors, try a couple of other things:
-    [c] Multiply the color with a scaling factor. What's happening?
+    [c] Multiply the color with a number. What's happening?
     [d] Divide the color with a number.
     [e] Multiply the color with a vec4 that you define yourself. Can you explain what is happening?
     */
