@@ -25,7 +25,7 @@ a texture coordinate and the normals on each vertex.
 */
 layout (location = 0) in vec3 a_position;
 layout (location = 1) in vec4 a_color;
-layout (location = 2) in vec3 a_texcoord;
+layout (location = 2) in vec2 a_texcoord;
 layout (location = 3) in vec3 a_normal;
 
 /*
@@ -34,7 +34,7 @@ We can use these outputs in the fragment shader.
 */
 out vec4 v_color;
 out vec3 v_normal;
-out vec3 v_texcoord;
+out vec2 v_texcoord;
 out vec3 frag_pos;
 out vec3 light_pos;
 out vec3 world_pos;
