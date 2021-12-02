@@ -1,5 +1,6 @@
 import os.path as osp
 from bk7084 import Window, app
+from bk7084.app.window.input import KeyCode
 from bk7084.geometry import Triangle
 from bk7084.math import Vec3, Mat4
 from bk7084.misc import PaletteDefault
@@ -50,9 +51,22 @@ Open up ex01.vert and continue from there.
 spot = Mesh(osp.join(assignment_directory, '../assets/spot.obj'), color=PaletteDefault.BlueB.as_color())
 # spot.shading_enabled = False  # Disable or enable shading in shader.
 
+animate = False
+
 @window.event
 def on_draw(dt):
     draw(spot)
+
+@window.event
+def on_key_press(key, mods):
+    global animate
+    if key == KeyCode.A:
+        animate = not animate
+
+@window.event
+def on_update(dt):
+    if animate:
+        spot.apply_transformation(Mat4.from_axis_angle(Vec3.unit_y(), 45.0 * dt, True))
 
 app.init(window)
 app.run()
