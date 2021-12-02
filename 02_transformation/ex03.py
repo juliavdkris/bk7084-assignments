@@ -1,3 +1,4 @@
+import os.path as osp
 from bk7084 import Window, app
 from bk7084.app.window.input import KeyCode, KeyModifier
 from bk7084.geometry import Triangle, Ray, Line, Box
@@ -11,7 +12,7 @@ window = Window("BK7084: 02-Transformation [ex03]", width=1024, height=1024)
 window.create_camera(Vec3(-100.0, 50.0, 0.0), Vec3(0, 0, 0), Vec3.unit_y(), 60.0)
 
 """
-Assignment 3: Hierarchical transformation
+Exercise 3: Hierarchical transformation
 -----------------------------------------
 
 For your final assignment, you will apply the transformations you created
@@ -55,13 +56,14 @@ def scale(x: float, y: float, z: float) -> Mat4:
 """
 Here, we load the planets, no need to adjust anything here yet.
 """
-earth = Mesh('./assets/earth.obj', color=PaletteDefault.GreenA.as_color())
+assignment_directory = osp.dirname(osp.abspath(__file__))
+earth = Mesh(osp.join(assignment_directory, 'assets/earth.obj'), color=PaletteDefault.GreenA.as_color())
 earth.initial_transformation = Mat4.from_scale(Vec3(0.1))
 
-moon = Mesh('./assets/moon.obj', color=PaletteDefault.WhiteB.as_color())
+moon = Mesh(osp.join(assignment_directory, 'assets/moon.obj'), color=PaletteDefault.WhiteB.as_color())
 moon.initial_transformation = Mat4.from_scale(Vec3(0.2))
 
-sun = Mesh('./assets/sun.obj', color=PaletteDefault.YellowA.as_color())
+sun = Mesh(osp.join(assignment_directory, 'assets/sun.obj'), color=PaletteDefault.YellowA.as_color())
 sun.initial_transformation = Mat4.from_scale(Vec3(0.15))
 
 """

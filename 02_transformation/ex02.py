@@ -1,3 +1,4 @@
+import os.path as osp
 from bk7084 import Window, app
 from bk7084.app.window.input import KeyCode, KeyModifier
 from bk7084.geometry import Triangle, Ray, Line, Box
@@ -13,7 +14,7 @@ window.create_camera(Vec3(-200.0, 80.0, 0.0), Vec3(0, 0, 0), Vec3.unit_y(), 60.0
 
 """
 Exercise 2: Composing transformations
----------------------------------------
+-------------------------------------
 
 You are going to construct a virtual lamp by composing transformation matrices.
 When you first run this program, you will see a blue lamp in the far-left corner.
@@ -59,41 +60,42 @@ You have two ways to apply a transformation.
 Note that the order you multiply transformation matrices is the reverse of chaining transformations.
 """
 
+assignment_directory = osp.dirname(osp.abspath(__file__))
 # Different parts of the lamp
 # Lamp model by https://sketchfab.com/Bharad CC BY 4.0
-lamp = Mesh('./assets/lamp.obj', color=PaletteSvg.DeepSkyBlue.as_color())
+lamp = Mesh(osp.join(assignment_directory, 'assets/lamp.obj'), color=PaletteSvg.DeepSkyBlue.as_color())
 lamp.apply_transformation(translate(50, -52, -50))
 
 # Lamp's base
-lamp_base = Mesh('./assets/base.obj', color=PaletteDefault.RedB.as_color())
+lamp_base = Mesh(osp.join(assignment_directory, 'assets/base.obj'), color=PaletteDefault.RedB.as_color())
 lamp_base.apply_transformation(translate(-53, -47, 48))
 
 # Lamp's 1st segment
-lamp_seg0 = Mesh('./assets/seg01.obj', color=PaletteDefault.WhiteB.as_color())
+lamp_seg0 = Mesh(osp.join(assignment_directory, 'assets/seg01.obj'), color=PaletteDefault.WhiteB.as_color())
 lamp_seg0.apply_transformation(translate(-53, -36, 48))
 
 # Lamp's 1st connector
-lamp_con0 = Mesh('./assets/con01.obj', color=PaletteDefault.BlackB.as_color())
+lamp_con0 = Mesh(osp.join(assignment_directory, 'assets/con01.obj'), color=PaletteDefault.BlackB.as_color())
 # TODO: Place in the right configuration
 
 # Lamp's 2nd segment
-lamp_seg1 = Mesh('./assets/seg02.obj', color=PaletteDefault.WhiteB.as_color())
+lamp_seg1 = Mesh(osp.join(assignment_directory, 'assets/seg02.obj'), color=PaletteDefault.WhiteB.as_color())
 # TODO: Place in the right configuration
 
 # Lamp's 2nd connector
-lamp_con1 = Mesh('./assets/con02.obj', color=PaletteDefault.BlackB.as_color())
+lamp_con1 = Mesh(osp.join(assignment_directory, 'assets/con02.obj'), color=PaletteDefault.BlackB.as_color())
 # TODO: Place in the right configuration
 
 # Lamp's 3rd segment
-lamp_seg2 = Mesh('./assets/seg03.obj', color=PaletteDefault.WhiteB.as_color())
+lamp_seg2 = Mesh(osp.join(assignment_directory, 'assets/seg03.obj'), color=PaletteDefault.WhiteB.as_color())
 # TODO: Place in the right configuration
 
 # Lamp's 3rd connector
-lamp_con2 = Mesh('./assets/con03.obj', color=PaletteDefault.BlackB.as_color())
+lamp_con2 = Mesh(osp.join(assignment_directory, 'assets/con03.obj'), color=PaletteDefault.BlackB.as_color())
 # TODO: Place in the right configuration
 
 # Lamp's head
-lamp_head = Mesh('./assets/head.obj', color=PaletteDefault.YellowA.as_color())
+lamp_head = Mesh(osp.join(assignment_directory, 'assets/head.obj'), color=PaletteDefault.YellowA.as_color())
 # TODO: Place in the right configuration
 
 """
