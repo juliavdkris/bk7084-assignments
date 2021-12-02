@@ -11,37 +11,40 @@ out vec4 frag_color;
 
 uniform sampler2D in_texture;
 
+/*
+You can finish the two tasks by completing the two functions:
+1. compute_rim_light
+2. compute_toon_color
+
+First, try to think about how you would implement each effect.
+Use a piece of paper and draw the situation.
+If you can't figure it out, follow the tutorials provided in ex04.py.
+*/
 vec3 compute_rim_light(vec3 color) {
-    /// View direction
+    // We give you the viewing direction v
     vec3 v = -frag_pos;
 
-    /// The rim contribution.
-    float vdn = 1.0 - max(dot(v, v_normal), 0.0);
+    // TODO compute a rim light value based on the viewing direction and the normal of the fragment
+    // Hint 1: you can get the normal with v_normal
+    // Hint 2: you can apply a smooth threshold with 
+    // >>> smoothstep(start, end, value)
 
-    return vec3(smoothstep(0.6, 1.0, vdn)) * color.xyz;
+    return color;
 }
 
 vec3 compute_toon_color(vec3 color) {
+    // Given a light direction
     vec3 light_dir = normalize(light_pos - frag_pos);
-    float intensity = dot(light_dir, v_normal);
 
-    if (intensity > 0.95)
-        return color * 0.95;
-    else if (intensity > 0.8)
-        return color * 0.8;
-    else if (intensity > 0.6)
-        return color * 0.6;
-    else if (intensity > 0.25)
-        return color * 0.3;
-    else
-        return color * 0.2;
+    // TODO compute a toon color based on the light direction and the normal of the point.
+
+    return color;
 }
-
 
 void main() {
     vec4 color = texture(in_texture, v_texcoord);
-    /* vec4 color = v_color; */
 
+    // Here, we combine the light contributions of each effect.
     vec3 rim_color = compute_rim_light(color.xyz);
     vec3 toon_color = compute_toon_color(color.xyz);
 
