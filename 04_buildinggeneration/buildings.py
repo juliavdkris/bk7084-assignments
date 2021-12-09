@@ -69,4 +69,4 @@ class Office(Building):
             The maximum width for each component.
     """
     def __init__(self, num_floors, max_width):
-        super().__init__(name='highrise')
+        super().__init__(name='office')
