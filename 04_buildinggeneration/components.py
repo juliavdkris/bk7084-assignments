@@ -4,39 +4,56 @@ from bk7084.misc import PaletteDefault as Palette
 from bk7084.scene.mesh import SubMesh
 
 
-class Wall(Component):
-    def __init__(self, w, h, texture1, texture2):
+class SimpleWall(Component):
+    def __init__(self, w=1, h=1, texture='assets/textures/brick.jpg'):
         super().__init__()
         self._mesh = Mesh(
-            vertices=[[-w / 2.0, -h / 2.0, 0.0], [w / 2.0, -h / 2.0, 0.0], [w / 2.0, h / 2.0, 0.0], [-w / 2.0, h / 2.0, 0.0],
-                      [-w, -h, 0.0], [w, -h, 0.0], [w, h, 0.0], [-w, h, 0.0]],
+            vertices=[[-w / 2, 0, 0], [w / 2, 0, 0], [w / 2, h, 0], [-w / 2, h, 0]],
             colors=[Palette.BlueA.as_color()],
-            normals=[[0.0, 0.0, 1.0]],
-            uvs=[[0.0, 0.0], [1.0, 0.0], [1.0, 1.0], [0.0, 1.0], [0.25, 0.25], [0.75, 0.25], [0.75, 0.75], [0.25, 0.75]],
-            triangles=[[(0, 1, 5, 4), (4, 5, 1, 0), (0, 0, 0, 0)],
-                       [(1, 2, 6, 5), (5, 6, 2, 1), (0, 0, 0, 0)],
-                       [(2, 3, 7, 6), (6, 7, 3, 2), (0, 0, 0, 0)],
-                       [(3, 0, 4, 7), (7, 4, 0, 3), (0, 0, 0, 0)],
-                       [(0, 1, 2, 3), (0, 1, 2, 3), (0, 0, 0, 0)]])
-
-        self._mesh.update_sub_mesh(0, SubMesh(name='body', triangles=[0, 1, 2, 3]), texture=texture1)
-        self._mesh.append_sub_mesh(SubMesh(name='window', triangles=[4]), texture=texture2)
-        self._mesh.texture_enabled = True
-        self._mesh.apply_transformation(Mat4.from_rotation_y(45, True))
+            normals=[[0, 0, 1]],
+            uvs=[[0, 0], [1, 0], [1, 1], [0, 1]],
+            triangles=[[(0, 1, 2, 3), (0, 1, 2, 3), (0, 0, 0, 0)]],
+            texture=texture
+        )
 
     @property
     def mesh(self) -> Mesh:
         return self._mesh
 
+
+class Wall(Component):
+    def __init__(self, w=1, h=1, texture1='assets/textures/brick.jpg', texture2='assets/textures/window.jpg'):
+        super().__init__()
+        self._mesh = Mesh(
+            vertices=[[-w / 4, h / 4, 0], [w / 4, h / 4, 0], [w / 4, 3 * h / 4, 0], [-w / 4, 3 * h / 4, 0],
+                      [-w / 2, 0, 0], [w / 2, 0, 0], [w / 2, h, 0], [-w / 2, h, 0]],
+            colors=[Palette.BlueA.as_color()],
+            normals=[[0, 0, 1]],
+            uvs=[[0, 0], [1, 0], [1, 1], [0, 1], [0.25, 0.25], [0.75, 0.25], [0.75, 0.75], [0.25, 0.75]],
+            triangles=[[(0, 1, 5, 4), (4, 5, 1, 0), (0, 0, 0, 0)],
+                       [(1, 2, 6, 5), (5, 6, 2, 1), (0, 0, 0, 0)],
+                       [(2, 3, 7, 6), (6, 7, 3, 2), (0, 0, 0, 0)],
+                       [(3, 0, 4, 7), (7, 4, 0, 3), (0, 0, 0, 0)],
+                       [(0, 1, 2, 3), (0, 1, 2, 3), (0, 0, 0, 0)]]
+        )
+
+        self._mesh.update_sub_mesh(0, SubMesh(name='wall', triangles=[0, 1, 2, 3]), texture=texture1)
+        self._mesh.append_sub_mesh(SubMesh(name='window', triangles=[4]), texture=texture2)
+
+    @property
+    def mesh(self) -> Mesh:
+        return self._mesh
+
+
 class Ground(Component):
-    def __init__(self, y=-0.01, width=20, repeat_texture=5, texture='assets/textures/grass.jpg'):
+    def __init__(self, y=-0.01, width=20, repeat_texture=8, texture='assets/textures/grass.jpg'):
         super().__init__()
         self._mesh = Mesh(
             vertices=[[-width / 2, y, -width / 2], [width / 2, y, -width / 2],
                       [width / 2, y, width / 2], [-width / 2, y, width / 2]],
             colors=[Palette.GreenA.as_color()],
-            normals=[[0.0, 1.0, 0.0]],
-            uvs=[[0.0, 0.0], [repeat_texture, 0.0], [repeat_texture, repeat_texture], [0.0, repeat_texture]],
+            normals=[[0, 1, 0]],
+            uvs=[[0, 0], [repeat_texture, 0], [repeat_texture, repeat_texture], [0, repeat_texture]],
             triangles=[[(0, 1, 2, 3), (0, 1, 2, 3), (0, 0, 0, 0)]],
             texture=texture
         )

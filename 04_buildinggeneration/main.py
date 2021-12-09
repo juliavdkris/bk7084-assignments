@@ -1,25 +1,31 @@
-from bk7084 import Window, app, Camera
-from bk7084.app.window.input import KeyCode
+from bk7084 import Window, app
+from bk7084.graphics import draw
+from bk7084.geometry import Line
 from bk7084.math import Vec3, Mat4
 from bk7084.misc import PaletteDefault as Palette
-from bk7084.graphics import draw, PointLight
-from bk7084.scene import Mesh, Building, Component
 
 from buildings import *
 from components import *
 
 # Setup window and add camera
-window = Window("BK7084: Construction", width=1024, height=1024)
-window.create_camera(Vec3(4, 2.0, 4.0), Vec3(0, 0, 0), Vec3.unit_y(), 60.0, zoom_enabled=True)
+window = Window("BK7084: Construction", width=1024, height=1024, clear_color=Palette.BlueA.as_color())
+window.create_camera(Vec3(8, 6, 8), Vec3(0, 0, 0), Vec3.unit_y(), 60, zoom_enabled=True, safe_rotations=True)
 
 ground = Ground()
 
 buildings = []
-buildings.append(Skyscraper())
+buildings.append(Skyscraper(1, 1))
 
 @window.event
 def on_draw(dt):
     ground.draw()
+    for i in range(21):
+        if i == 10:
+            draw(Line([Vec3(-10, 0, -10 + i), Vec3(10, 0, -10 + i)], (Palette.RedA.as_color(),)))
+            draw(Line([Vec3(-10 + i, 0, -10), Vec3(-10 + i, 0, 10)], (Palette.BlueA.as_color(),)))
+        else:
+            draw(Line([Vec3(-10, 0, -10 + i), Vec3(10, 0, -10 + i)], (Palette.BlackA.as_color(),)))
+            draw(Line([Vec3(-10 + i, 0, -10), Vec3(-10 + i, 0, 10)], (Palette.BlackA.as_color(),)))
     for building in buildings:
         building.draw()
 
