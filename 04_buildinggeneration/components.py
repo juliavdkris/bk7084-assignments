@@ -5,6 +5,9 @@ from bk7084.scene import Mesh, Component
 from bk7084.misc import PaletteDefault as Palette
 from bk7084.scene.mesh import SubMesh
 
+"""
+TODO Add your own components here, following the examples given below.
+"""
 
 class BasicWall(Component):
     """A basic wall component that is centered horizontally at (0, 0, 0)
@@ -164,7 +167,7 @@ class Ground(Component):
         grid (bool):
             Draws a grid of lines is set to True.
     """
-    def __init__(self, y=0, w=20, repeat_texture=8, texture='assets/textures/grass.jpg', grid=True):
+    def __init__(self, y=-0.01, w=20, repeat_texture=8, texture='assets/textures/grass.jpg', grid=True):
         super().__init__()
         self._y = y
         self._w = w
