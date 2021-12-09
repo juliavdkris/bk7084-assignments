@@ -27,3 +27,20 @@ class Wall(Component):
     @property
     def mesh(self) -> Mesh:
         return self._mesh
+
+class Ground(Component):
+    def __init__(self, y=-0.01, width=20, repeat_texture=5, texture='assets/textures/grass.jpg'):
+        super().__init__()
+        self._mesh = Mesh(
+            vertices=[[-width / 2, y, -width / 2], [width / 2, y, -width / 2],
+                      [width / 2, y, width / 2], [-width / 2, y, width / 2]],
+            colors=[Palette.GreenA.as_color()],
+            normals=[[0.0, 1.0, 0.0]],
+            uvs=[[0.0, 0.0], [repeat_texture, 0.0], [repeat_texture, repeat_texture], [0.0, repeat_texture]],
+            triangles=[[(0, 1, 2, 3), (0, 1, 2, 3), (0, 0, 0, 0)]],
+            texture=texture
+        )
+    
+    @property
+    def mesh(self) -> Mesh:
+        return self._mesh
