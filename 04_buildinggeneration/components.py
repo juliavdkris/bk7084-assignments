@@ -4,7 +4,7 @@ from bk7084.misc import PaletteDefault as Palette
 from bk7084.scene.mesh import SubMesh
 
 
-class SimpleWall(Component):
+class BasicWall(Component):
     def __init__(self, w=1, h=1, texture='assets/textures/brick.jpg'):
         super().__init__()
         self._mesh = Mesh(
@@ -45,12 +45,29 @@ class Wall(Component):
         return self._mesh
 
 
-class Ground(Component):
-    def __init__(self, y=-0.01, width=20, repeat_texture=8, texture='assets/textures/grass.jpg'):
+class BasicFloor(Component):
+    def __init__(self, w_x=1, w_z=1):
         super().__init__()
         self._mesh = Mesh(
-            vertices=[[-width / 2, y, -width / 2], [width / 2, y, -width / 2],
-                      [width / 2, y, width / 2], [-width / 2, y, width / 2]],
+            vertices=[[-w_x / 2, 0, -w_z / 2], [w_x / 2, 0, -w_z / 2],
+                      [w_x / 2, 0, w_z / 2], [-w_x / 2, 0, w_z / 2]],
+            colors=[Palette.RedA.as_color()],
+            normals=[[0, 1, 0]],
+            uvs=[[0, 0], [1, 0], [1, 1], [0, 1]],
+            triangles=[[(0, 1, 2, 3), (0, 1, 2, 3), (0, 0, 0, 0)]],
+        )
+    
+    @property
+    def mesh(self) -> Mesh:
+        return self._mesh
+
+
+class Ground(Component):
+    def __init__(self, y=-0.01, w=20, repeat_texture=8, texture='assets/textures/grass.jpg'):
+        super().__init__()
+        self._mesh = Mesh(
+            vertices=[[-w / 2, y, -w / 2], [w / 2, y, -w / 2],
+                      [w / 2, y, w / 2], [-w / 2, y, w / 2]],
             colors=[Palette.GreenA.as_color()],
             normals=[[0, 1, 0]],
             uvs=[[0, 0], [repeat_texture, 0], [repeat_texture, repeat_texture], [0, repeat_texture]],
