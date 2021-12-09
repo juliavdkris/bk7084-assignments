@@ -9,7 +9,6 @@ from bk7084.scene import Mesh
 
 window = Window("BK7084: 03-Shaders [ex01]", width=1024, height=1024)
 window.create_camera(Vec3(-2.0, 1.0, -2.0), Vec3(0, 0, 0), Vec3.unit_y(), 60.0)
-assignment_directory = osp.dirname(osp.abspath(__file__))
 
 """
 Exercise 1: Vertex Shader
@@ -45,8 +44,8 @@ For this exercise, we load these programs from two files: ex01.vert (vertex shad
 The 'VertexShader' and 'PixelShader' classes take care of compiling your code and making it ready for your GPU.
 """
 window.default_shader = ShaderProgram(
-    VertexShader.from_file(osp.join(assignment_directory, 'ex01.vert')),
-    PixelShader.from_file(osp.join(assignment_directory, 'ex01.frag'))
+    VertexShader.from_file(osp.join('ex01.vert')),
+    PixelShader.from_file(osp.join('ex01.frag'))
 )
 """
 We will use these shaders to draw the cow object seen in this exercise.
@@ -56,7 +55,7 @@ First run this program and then open up `ex01.vert` and continue from there.
 You can press `A` when the program is running to animate the model.
 """
 # Spot the cow model courtesy of Keenan Crane (CC0) https://www.cs.cmu.edu/~kmcrane/Projects/ModelRepository/#spot
-spot = Mesh(osp.join(assignment_directory, '../assets/spot.obj'), color=PaletteDefault.BlueB.as_color())
+spot = Mesh(osp.join('../assets/spot.obj'), color=PaletteDefault.BlueB.as_color())
 # spot.shading_enabled = False  # Disable or enable shading in shader.
 
 animate = False

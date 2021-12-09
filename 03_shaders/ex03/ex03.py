@@ -9,7 +9,6 @@ from bk7084.scene import Mesh
 # Setup window and add camera
 window = Window("BK7084: 03-Shaders [ex03]", width=1024, height=1024)
 window.create_camera(Vec3(2.0, 1.0, -2.0), Vec3(0, 0, 0), Vec3.unit_y(), 60.0)
-assignment_directory = os.path.dirname(os.path.abspath(__file__))
 
 """
 Exercise 3: Vertex to fragment shader
@@ -32,11 +31,11 @@ Open up `ex03.vert` to continue.
 """
 
 window.default_shader = ShaderProgram(
-    VertexShader.from_file(os.path.join(assignment_directory, 'ex03.vert')),
-    PixelShader.from_file(os.path.join(assignment_directory, 'ex03.frag'))
+    VertexShader.from_file(os.path.join('ex03.vert')),
+    PixelShader.from_file(os.path.join('ex03.frag'))
 )
 
-cow = Mesh(os.path.join(assignment_directory, '../assets/spot.obj'), color=PaletteDefault.RedB.as_color())
+cow = Mesh(os.path.join('../assets/spot.obj'), color=PaletteDefault.RedB.as_color())
 cow.shading_enabled = True
 
 animate = True
