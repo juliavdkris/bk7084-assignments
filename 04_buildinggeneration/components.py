@@ -147,6 +147,7 @@ class BasicFloor(Component):
             triangles=[[(0, 1, 2, 3), (0, 1, 2, 3), (0, 0, 0, 0)]],
             texture=texture
         )
+        self._mesh.material_enabled = False
     
     @property
     def mesh(self) -> Mesh:
@@ -173,7 +174,7 @@ class Ground(Component):
         self._y = y
         self._w = w
         self._grid_enabled = grid_enabled
-        self._grid = Grid(width=10.0, height=10.0)
+        self._grid = Grid(width=w, height=w)
         self._mesh = Mesh(
             vertices=[[-w / 2, y, -w / 2], [w / 2, y, -w / 2],
                       [w / 2, y, w / 2], [-w / 2, y, w / 2]],
