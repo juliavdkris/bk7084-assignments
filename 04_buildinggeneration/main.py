@@ -1,6 +1,4 @@
 from bk7084 import Window, app
-from bk7084.graphics import draw
-from bk7084.geometry import Line
 from bk7084.math import Vec3, Mat4
 from bk7084.misc import PaletteDefault as Palette
 
