@@ -1,9 +1,10 @@
 from bk7084.math import Vec3, Mat4
 from bk7084.graphics import draw
-from bk7084.geometry import Line
+from bk7084.geometry import Grid
 from bk7084.scene import Mesh, Component
 from bk7084.misc import PaletteDefault as Palette
 from bk7084.scene.mesh import SubMesh
+
 
 """
 TODO Add your own components here, following the examples given below.
@@ -164,14 +165,15 @@ class Ground(Component):
             Number of times to repeat the texture.
         texture (str):
             Path to the texture used for this component.
-        grid (bool):
+        grid_enabled (bool):
             Draws a grid of lines is set to True.
     """
-    def __init__(self, y=-0.01, w=20, repeat_texture=8, texture='assets/textures/grass.jpg', grid=True):
+    def __init__(self, y=-0.01, w=20, repeat_texture=8, texture='assets/textures/grass.jpg', grid_enabled=True):
         super().__init__()
         self._y = y
         self._w = w
-        self._grid = grid
+        self._grid_enabled = grid_enabled
+        self._grid = Grid(width=10.0, height=10.0)
         self._mesh = Mesh(
             vertices=[[-w / 2, y, -w / 2], [w / 2, y, -w / 2],
                       [w / 2, y, w / 2], [-w / 2, y, w / 2]],
@@ -195,17 +197,10 @@ class Ground(Component):
         return self._w
 
     @property
-    def grid(self) -> bool:
-        return self._grid
+    def grid_enabled(self) -> bool:
+        return self._grid_enabled
 
     def draw(self, matrices=None):
         super().draw(matrices)
-        if self.grid:
-            y_ground = self.y + 0.01
-            for i in range(self.w + 1):
-                if i == self.w // 2:
-                    draw(Line([Vec3(-self.w / 2, y_ground, -self.w / 2 + i), Vec3(self.w / 2, y_ground, -self.w / 2 + i)], (Palette.RedA.as_color(),)))
-                    draw(Line([Vec3(-self.w / 2 + i, y_ground, -self.w / 2), Vec3(-self.w / 2 + i, y_ground, self.w / 2)], (Palette.BlueA.as_color(),)))
-                else:
-                    draw(Line([Vec3(-self.w / 2, y_ground, -self.w / 2 + i), Vec3(self.w / 2, y_ground, -self.w / 2 + i)], (Palette.BlackA.as_color(),)))
-                    draw(Line([Vec3(-self.w / 2 + i, y_ground, -self.w / 2), Vec3(-self.w / 2 + i, y_ground, self.w / 2)], (Palette.BlackA.as_color(),)))
+        if self._grid_enabled:
+            draw(self._grid, transform=Mat4.from_translation(Vec3(0.0, self.y + 0.01, 0.0)))
