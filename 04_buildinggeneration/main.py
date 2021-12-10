@@ -9,6 +9,13 @@ from components import *
 window = Window("BK7084: Construction", width=1024, height=1024, clear_color=Palette.BlueA.as_color())
 window.create_camera(Vec3(8, 6, 8), Vec3(0, 0, 0), Vec3.unit_y(), 60, zoom_enabled=True, safe_rotations=True)
 
+"""
+Before you start, make sure that you have activated the conda environment
+and upgraded the bk7084 package to support buildings and components.
+
+$ conda activate compsim
+$ pip install --upgrade bk7084
+"""
 
 ground = Ground(w=10)
 
