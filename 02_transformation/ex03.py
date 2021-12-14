@@ -1,6 +1,6 @@
 import os.path as osp
 from bk7084 import Window, app
-from bk7084.app.window.input import KeyCode, KeyModifier
+from bk7084.app.input import KeyCode, KeyModifier
 from bk7084.geometry import Triangle, Ray, Line, Box
 from bk7084.math import Vec3, Mat3, Mat4
 from bk7084.misc import PaletteSvg, PaletteDefault
