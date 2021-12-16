@@ -1,6 +1,8 @@
 from bk7084.math import Vec3, Mat4
 from bk7084.scene import Building
 
+from numpy.random import randint, rand
+
 from components import *
 
 class Skyscraper(Building):
