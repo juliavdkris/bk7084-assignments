@@ -56,13 +56,16 @@ def scale(x: float, y: float, z: float) -> Mat4:
 """
 Here, we load the planets, no need to adjust anything here yet.
 """
-earth = Mesh(osp.join('assets/earth.obj'), color=PaletteDefault.GreenA.as_color())
+earth = Mesh(osp.join('assets/earth.obj'), colors=(PaletteDefault.GreenA.as_color(),))
+earth.material_enabled = False
 earth.initial_transformation = Mat4.from_scale(Vec3(0.1))
 
-moon = Mesh(osp.join('assets/moon.obj'), color=PaletteDefault.WhiteB.as_color())
+moon = Mesh(osp.join('assets/moon.obj'), colors=(PaletteDefault.WhiteB.as_color(),))
+moon.material_enabled = False
 moon.initial_transformation = Mat4.from_scale(Vec3(0.2))
 
-sun = Mesh(osp.join('assets/sun.obj'), color=PaletteDefault.YellowA.as_color())
+sun = Mesh(osp.join('assets/sun.obj'), colors=(PaletteDefault.YellowA.as_color(),))
+sun.material_enabled = False
 sun.initial_transformation = Mat4.from_scale(Vec3(0.15))
 
 """
