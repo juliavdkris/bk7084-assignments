@@ -1,13 +1,15 @@
 from bk7084 import Window, app
 from bk7084.math import Vec3, Mat4
 from bk7084.misc import PaletteDefault as Palette
+from bk7084.scene import Mesh, Scene
+from bk7084.app.input import KeyCode
 
 from buildings import *
 from components import *
 
 # Setup window and add camera
 window = Window("BK7084: Construction", width=1024, height=1024, clear_color=Palette.BlueA.as_color())
-window.create_camera(Vec3(8, 6, 8), Vec3(0, 0, 0), Vec3.unit_y(), 60, zoom_enabled=True, safe_rotations=True)
+# window.create_camera(Vec3(8, 6, 8), Vec3(0, 0, 0), Vec3.unit_y(), 60, zoom_enabled=True, safe_rotations=True)
 
 
 ground = Ground(w=10)
@@ -25,12 +27,25 @@ office.transform = Mat4.from_translation(Vec3(2, 0, 0))
 
 buildings = [skyscraper, highrise, office]
 
+scene = Scene(window, [ground, skyscraper, highrise, office], draw_light=False)
+scene.create_camera(Vec3(8, 6, 8), Vec3(0, 0, 0), Vec3.unit_y(), 60, zoom_enabled=True, safe_rotations=True)
+
 
 @window.event
 def on_draw(dt):
-    ground.draw()
-    for building in buildings:
-        building.draw()
+    # ground.draw()
+    # for building in buildings:
+    #     building.draw()
+    scene.draw(auto_shadow=True)
+
+
+@window.event
+def on_key_press(key, mods):
+    if key == KeyCode.C:
+        scene.depth_map_framebuffer.save_color_attachment()
+
+    if key == KeyCode.D:
+        scene.depth_map_framebuffer.save_depth_attachment(scene.main_camera.near, scene.main_camera.far, False)
 
 
 app.init(window)

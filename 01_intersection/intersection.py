@@ -51,7 +51,7 @@ def on_draw(dt):
         draw(Line([Vec3(-10, -10 + i, 0), Vec3(10, -10 + i, 0)]))
         draw(Line([Vec3(-10 + i, -10, 0), Vec3(-10 + i, 10, 0)]))
     draw(triangle)
-    draw(ray)
+    draw(ray, update=True)
 
 
 @window.event

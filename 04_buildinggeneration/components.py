@@ -1,7 +1,7 @@
 from bk7084.math import Vec3, Mat4
 from bk7084.graphics import draw
 from bk7084.geometry import Grid
-from bk7084.scene import Mesh, Component
+from bk7084.scene import Mesh, Component, Entity
 from bk7084.misc import PaletteDefault as Palette
 from bk7084.scene.mesh import SubMesh
 
@@ -201,7 +201,7 @@ class Ground(Component):
     def grid_enabled(self) -> bool:
         return self._grid_enabled
 
-    def draw(self, matrices=None):
-        super().draw(matrices)
+    def draw(self, matrices=None, **kwargs):
+        super().draw(matrices, **kwargs)
         if self._grid_enabled:
             draw(self._grid, transform=Mat4.from_translation(Vec3(0.0, self.y + 0.01, 0.0)))
