@@ -17,7 +17,7 @@ class Skyscraper(Building):
     """
     def __init__(self, num_floors, max_width):
         super().__init__(name='skyscraper')
-        num_floors = min(10, num_floors)
+        self.num_floors = min(10, num_floors)
         for i in range(num_floors):
             # To place each floor higher than the previous one,
             # we parent all components to one 'base' component (floor1, see below).
