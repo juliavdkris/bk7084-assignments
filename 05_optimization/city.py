@@ -99,8 +99,9 @@ class City(object):
                 type = self.get_plot_type(i, j)
                 if type != PlotType.EMPTY:
                     building = self.get_building(type)
-                    building.transform = Mat4.from_translation(self._grid.cell_position(i, j))
-                    buildings.append(building)
+                    if building is not None:
+                        building.transform = Mat4.from_translation(self._grid.cell_position(i, j))
+                        buildings.append(building)
         return buildings
 
 
