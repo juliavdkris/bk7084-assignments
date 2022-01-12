@@ -6,6 +6,7 @@ from bk7084.app.input import KeyCode
 from bk7084.app import ui
 
 from city import City
+from optimizer import Optimizer
 try:
     from buildings import *
     from components import *
@@ -22,6 +23,8 @@ building_names = [b.name for b in buildings]
 
 scene = Scene(window, buildings, draw_light=True)
 scene.create_camera(Vec3(8, 6, 8), Vec3(0, 0, 0), Vec3.unit_y(), 60, zoom_enabled=True, safe_rotations=True)
+
+optimizer = Optimizer(scene, city)
 
 comp = 0
 building = 0

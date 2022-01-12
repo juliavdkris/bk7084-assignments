@@ -19,13 +19,51 @@ class PlotType(Enum):
 
 
 class City(object):
-    def __init__(self, cell_size=(2.0, 2.0), row=8, col=8):
+    def __init__(self, cell_size=(2.0, 2.0), row=4, col=4):
         self._row = row
         self._col = col
         self._mincorner = Vec3()
-        self._plots = [[PlotType.OFFICE] * col] * row
 
         self._grid = Grid(row=self._row, col=self._col)
+        
+        self._plots = [[PlotType.EMPTY] * col] * row
+        
+        """
+        Initialize your city here
+        """
+        self.set_plot_type(0, 6, PlotType.SKYSCRAPER)
+        self.set_plot_type(0, 7, PlotType.SKYSCRAPER)
+        self.set_plot_type(1, 6, PlotType.SKYSCRAPER)
+        self.set_plot_type(1, 7, PlotType.SKYSCRAPER)
+        self.set_plot_type(2, 6, PlotType.SKYSCRAPER)
+        self.set_plot_type(2, 7, PlotType.SKYSCRAPER)
+
+        # 18 offices
+        for i in range(6):
+            self.set_plot_type(0, i, PlotType.OFFICE)
+            self.set_plot_type(1, i, PlotType.OFFICE)
+            self.set_plot_type(2, i, PlotType.OFFICE)
+
+        # 10 highrises
+        for i in range(5):
+            self.set_plot_type(6, i, PlotType.HIGHRISE)
+            self.set_plot_type(7, i, PlotType.HIGHRISE)
+        
+        self.set_plot_type(6, 5, PlotType.HOUSE)
+        self.set_plot_type(7, 5, PlotType.HOUSE)
+        
+        # 26 residencial blocks
+        for i in range(8):        
+            self.set_plot_type(3, i, PlotType.HOUSE)
+            self.set_plot_type(4, i, PlotType.HOUSE)
+            self.set_plot_type(5, i, PlotType.HOUSE)            
+        
+        # 4 parks
+        self.set_plot_type(6, 6, PlotType.PARK)
+        self.set_plot_type(6, 7, PlotType.PARK)
+        self.set_plot_type(7, 6, PlotType.PARK)
+        self.set_plot_type(7, 7, PlotType.PARK)
+
 
     def get_building(self, type):
         if type == PlotType.EMPTY:
@@ -48,6 +86,11 @@ class City(object):
 
     def set_plot_type(self, i, j, type):
         self._plots[i][j] = type
+
+    def swap(self, i, j, k, l):
+        temp = self.get_plot_type(i, j)
+        self.set_plot_type(i, j, self.get_plot_type(k, l))
+        self.set_plot_type(k, l, temp)
 
     @property
     def buildings(self):
