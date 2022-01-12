@@ -11,22 +11,23 @@ from components import *
 # Setup window and add camera
 window = Window("BK7084: Construction", width=1024, height=1024, clear_color=Palette.BlueA.as_color())
 
-ground = Ground(w=10)
+grid = Grid()
 
-skyscraper = Skyscraper(num_floors=5, max_width=1)
+skyscraper = Skyscraper(num_floors=5, max_width=1, name='skyscraper')
 skyscraper.transform = Mat4.identity()
 
 # Remove Skyscraper and uncomment Highrise to draw your Highrise building
-highrise = Skyscraper(num_floors=2, max_width=0.8) # Highrise(num_floors=3, max_width=1)
+highrise = Skyscraper(num_floors=2, max_width=0.8, name='highrise') # Highrise(num_floors=3, max_width=1)
 highrise.transform = Mat4.from_translation(Vec3(-2, 0, 0))
 
 # Remove Skyscraper and uncomment Office to draw your Office building
-office = Skyscraper(num_floors=1, max_width=1.2) # Office(num_floors=3, max_width=1)
+office = Skyscraper(num_floors=1, max_width=1.2, name='office') # Office(num_floors=3, max_width=1)
 office.transform = Mat4.from_translation(Vec3(2, 0, 0))
 
-buildings = [skyscraper, highrise, office]
+buildings = [grid, skyscraper, highrise, office]
+building_names = [b.name for b in buildings]
 
-scene = Scene(window, [ground, skyscraper, highrise, office], draw_light=True)
+scene = Scene(window, buildings, draw_light=True)
 scene.create_camera(Vec3(8, 6, 8), Vec3(0, 0, 0), Vec3.unit_y(), 60, zoom_enabled=True, safe_rotations=True)
 
 comp = 0
@@ -42,13 +43,9 @@ def on_draw(dt):
 def on_gui():
     global comp, building
     if ui.tree_node('Energy'):
-        ui.text('Building: ')
-        ui.same_line()
-        ui.text(buildings[building].name)
-        ui.text('Num floors: ')
-        ui.same_line()
-        ui.text(str(buildings[building].num_floors))
-        _, building = ui.input_int('Index', building)
+        clicked, building = ui.combo(
+            'Building', building, building_names
+        )
         building = building % 3
         _, comp = ui.input_int('Comp. Index', comp)
         ui.tree_pop()
@@ -56,8 +53,11 @@ def on_gui():
 
 @window.event
 def on_key_press(key, mods):
-    if key == KeyCode.T:
-        scene.energy_ratio_of(buildings[building], buildings[building].components[comp])
+    if key == KeyCode.C:
+        scene.energy_of_building_component(buildings[building], buildings[building].components[comp])
+
+    if key == KeyCode.B:
+        scene.energy_of_building(buildings[building])
 
 
 app.init(window)
