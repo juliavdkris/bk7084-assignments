@@ -34,6 +34,10 @@ comp = 0
 building = 0
 
 
+def optimize():
+    print('optimize')
+
+
 @window.event
 def on_draw(dt):
     scene.draw(auto_shadow=True)
@@ -50,14 +54,17 @@ def on_gui():
         _, comp = ui.input_int('Comp. Index', comp)
         ui.tree_pop()
 
+    if ui.button('Optimize'):
+        optimize()
+
 
 @window.event
 def on_key_press(key, mods):
     if key == KeyCode.C:
-        scene.energy_of_building_component(buildings[building], buildings[building].components[comp])
+        scene.energy_of_building_component(buildings[building], buildings[building].components[comp], save_energy_map=True)
 
     if key == KeyCode.B:
-        scene.energy_of_building(buildings[building])
+        scene.energy_of_building(buildings[building], save_energy_map=True)
 
 
 app.init(window)
