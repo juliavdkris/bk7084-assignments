@@ -26,7 +26,7 @@ class City(object):
 
         self._grid = Grid(row=self._row, col=self._col)
         
-        self._plots = [[PlotType.EMPTY] * col] * row
+        self._plots = [PlotType.EMPTY] * row * col
         
         """
         Initialize your city here
@@ -81,10 +81,10 @@ class City(object):
             return Skyscraper(1, 1)
 
     def get_plot_type(self, i, j):
-        return self._plots[i][j]
+        return self._plots[i * self._col + j]
 
     def set_plot_type(self, i, j, type):
-        self._plots[i][j] = type
+        self._plots[i * self._col + j] = type
 
     def swap(self, i, j, k, l):
         temp = self.get_plot_type(i, j)
