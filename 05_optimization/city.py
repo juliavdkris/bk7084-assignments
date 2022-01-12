@@ -64,22 +64,21 @@ class City(object):
         self.set_plot_type(7, 6, PlotType.PARK)
         self.set_plot_type(7, 7, PlotType.PARK)
 
-
     def get_building(self, type):
         if type == PlotType.EMPTY:
             return None
         elif type == PlotType.PARK:
-            return Skyscraper(4, 1)
+            return Skyscraper(1, 1)
         elif type == PlotType.HOUSE:
-            return Skyscraper(4, 1)
+            return Skyscraper(2, 1)
         elif type == PlotType.OFFICE:
-            return Skyscraper(4, 1)
+            return Skyscraper(3, 1)
         elif type == PlotType.HIGHRISE:
             return Skyscraper(4, 1)
         elif type == PlotType.SKYSCRAPER:
-            return Skyscraper(4, 1)
+            return Skyscraper(5, 1)
         else:
-            return Skyscraper(4, 1)
+            return Skyscraper(1, 1)
 
     def get_plot_type(self, i, j):
         return self._plots[i][j]
