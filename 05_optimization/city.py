@@ -19,7 +19,7 @@ class PlotType(Enum):
 
 
 class City(object):
-    def __init__(self, cell_size=(2.0, 2.0), row=4, col=4):
+    def __init__(self, cell_size=(2.0, 2.0), row=8, col=8):
         self._row = row
         self._col = col
         self._mincorner = Vec3()
