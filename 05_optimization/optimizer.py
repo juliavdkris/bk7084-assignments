@@ -59,21 +59,27 @@ class Optimizer(object):
         We've given you a start: here we compute the sunlight that hits plot for a full day.
         """
         total_score = 0
+        # If your program is too slow, comment out the next four lines
+        # while you're testing other rules.
+        # Don't forget to uncomment when you want to test all your rules.
         for i in range(self.city.row):
             for j in range(self.city.col):
-                total_score += self.compute_light_of_plot_day(i, j)
+                # You can also lower the number of hours to speed up computations
+                total_score += self.compute_light_of_plot_day(i, j, hours=12)
 
-        # TODO: Implement a score based on rules you define.
+        # TODO: Implement other rules to define your score
         return total_score
 
-    def compute_light_of_plot_day(self, i, j):
+    def compute_light_of_plot_day(self, i, j, hours=12):
         """ Computes the light of a plot for a full day.
+        This function can be very slow. You can reduce the time this function takes
+        by shortening the number of hours that are computed.
         Args:
             i (int): The row number of the plot in range [0, 8).
             j (int): The col number of the plot in range [0, 8).
         """
         total_energy = 0
-        for t in range(12):
+        for t in range(hours):
             self.scene._current_light = t
             total_energy += self.compute_light_of_plot(i, j, self.scene.current_light)
         self.scene._current_light = 0
