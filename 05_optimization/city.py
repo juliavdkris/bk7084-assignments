@@ -45,12 +45,10 @@ class City(Entity):
         Each plot is initialized here.
         Change this code to initialize your city in the required specification.
         """
-        self.set_plot_type(0, 0, PlotType.SKYSCRAPER)
-        self.set_plot_type(0, 1, PlotType.SKYSCRAPER)
-        self.set_plot_type(1, 0, PlotType.HOUSE)
-        self.set_plot_type(1, 1, PlotType.HOUSE)
-        self.set_plot_type(2, 0, PlotType.PARK)
-        self.set_plot_type(2, 1, PlotType.PARK)
+        self.set_plot_type(4, 4, PlotType.SKYSCRAPER)
+        self.set_plot_type(4, 5, PlotType.SKYSCRAPER)
+        self.set_plot_type(5, 4, PlotType.PARK)
+        self.set_plot_type(5, 5, PlotType.PARK)
 
     @property
     def row(self):
