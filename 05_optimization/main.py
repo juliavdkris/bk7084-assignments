@@ -63,7 +63,7 @@ def on_draw(dt):
 
 @window.event
 def on_gui():
-    global plot_row, plot_col, building_col, building_row
+    global run_optimizer, plot_row, plot_col, building_col, building_row
     if ui.tree_node('Optimization'):
         if ui.tree_node('Plot info'):
             _, (plot_row, plot_col) = ui.drag_int2('Location', plot_row, plot_col)
@@ -84,16 +84,6 @@ def on_gui():
         if ui.button('Optimize'):
             optimizer.optimize()
         ui.tree_pop()
-
-@window.event
-def on_key_press(key, mods):
-    # if key == KeyCode.C:
-    #     scene.energy_of_building_component(buildings[building], buildings[building].components[comp], save_energy_map=True)
-
-    # if key == KeyCode.B:
-    #     scene.energy_of_building(buildings[building], save_energy_map=True)
-    return
-    global run_optimizer
     if ui.button('Start'):
         run_optimizer = True
     if ui.button('Stop'):
