@@ -58,6 +58,12 @@ class City(Entity):
     def col(self):
         return self._col
 
+    def building_at(self, i, j):
+        plot_type = self.get_plot_type(i, j)
+        mesh = self.get_building(plot_type)
+        transform = Mat4.from_translation(self._grid.cell_position(i, j))
+        return mesh, transform
+
     def get_building(self, type):
         return self._buildings[type]      
 
@@ -100,8 +106,6 @@ class City(Entity):
         return self._grid
 
 
-
-
 class Grid(Building):
     """ A ground plane with a grass texture and optional grid tiling.
     
@@ -141,6 +145,9 @@ class Grid(Building):
                     self._y,
                     -self._h / 2 + self._cell_size[1] / 2.0 + self._cell_size[1] * i
                 )
+
+    def cell_at(self, i, j):
+        return self._components[i * self._col + j]
 
     def draw(self, **kwargs):
         super().draw(**kwargs)
