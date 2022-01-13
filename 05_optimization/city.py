@@ -25,7 +25,7 @@ class City(Entity):
         self._row = row
         self._col = col
         self._grid = Grid(cell_size=cell_size, row=self._row, col=self._col)
-        self._plots = [PlotType.EMPTY] * row * col
+        self._plots = [PlotType.HOUSE] * row * col
 
         """
         Change the building for each plottype to your own buildings, e.g.:
@@ -43,7 +43,7 @@ class City(Entity):
         
         """
         Each plot is initialized here.
-        You can change this code to initialize your city in a different layout.
+        Change this code to initialize your city in the required specification.
         """
         self.set_plot_type(0, 0, PlotType.SKYSCRAPER)
         self.set_plot_type(0, 1, PlotType.SKYSCRAPER)
