@@ -22,14 +22,16 @@ class City(Entity):
     def __init__(self, name='GridCity', cell_size=(2.0, 2.0), row=8, col=8):
         super().__init__(name)
         self._is_drawable = True
-
         self._row = row
         self._col = col
-
         self._grid = Grid(cell_size=cell_size, row=self._row, col=self._col)
-        
         self._plots = [PlotType.EMPTY] * row * col
 
+        """
+        Change the building for each plottype to your own buildings, e.g.:
+        >>> PlotType.OFFICE: Skyscraper(3, 1),
+        >>> PlotType.HIGHRISE: Skyscraper(4, 1),
+        """
         self._buildings = {
             PlotType.EMPTY: None,
             PlotType.PARK: Skyscraper(1, 1),
@@ -40,7 +42,8 @@ class City(Entity):
         }
         
         """
-        Initialize your city here
+        Each plot is initialized here.
+        You can change this code to initialize your city in a different layout.
         """
         self.set_plot_type(0, 6, PlotType.SKYSCRAPER)
         self.set_plot_type(0, 7, PlotType.SKYSCRAPER)

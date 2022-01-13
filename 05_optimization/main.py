@@ -26,11 +26,6 @@ optimizer = Optimizer(scene, city)
 comp = 0
 building = 0
 
-
-def optimize():
-    print('optimize')
-
-
 @window.event
 def on_draw(dt):
     scene.draw(auto_shadow=True)
@@ -41,7 +36,7 @@ def on_gui():
     global comp, building
 
     if ui.button('Optimize'):
-        optimize()
+        optimizer.optimize()
 
 
 @window.event
