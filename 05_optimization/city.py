@@ -29,16 +29,16 @@ class City(Entity):
 
         """
         Change the building for each plottype to your own buildings, e.g.:
-        >>> PlotType.OFFICE: Skyscraper(3, 1),
-        >>> PlotType.HIGHRISE: Skyscraper(4, 1),
+        >>> PlotType.OFFICE: Skyscraper(3, 1).convert_to_mesh(),
+        >>> PlotType.HIGHRISE: Skyscraper(4, 1).convert_to_mesh(),
         """
         self._buildings = {
             PlotType.EMPTY: None,
-            PlotType.PARK: Mesh('assets/meshes/default_skyscraper.obj'),
-            PlotType.HOUSE: Mesh('assets/meshes/default_skyscraper.obj'),
-            PlotType.OFFICE: Mesh('assets/meshes/default_office.obj'),
-            PlotType.HIGHRISE: Mesh('assets/meshes/default_skyscraper.obj'),
-            PlotType.SKYSCRAPER: Mesh('assets/meshes/default_skyscraper.obj')
+            PlotType.PARK: Skyscraper(1, 1).convert_to_mesh(),
+            PlotType.HOUSE: Skyscraper(2, 1).convert_to_mesh(),
+            PlotType.OFFICE: Skyscraper(3, 1).convert_to_mesh(),
+            PlotType.HIGHRISE: Skyscraper(4, 1).convert_to_mesh(),
+            PlotType.SKYSCRAPER: Skyscraper(5, 1).convert_to_mesh()
         }
         
         """
