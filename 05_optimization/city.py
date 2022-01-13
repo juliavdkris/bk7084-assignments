@@ -84,12 +84,6 @@ class City(Entity):
     def col(self):
         return self._col
 
-    def building_at(self, i, j):
-        plot_type = self.get_plot_type(i, j)
-        mesh = self.get_building(plot_type)
-        transform = Mat4.from_translation(self._grid.cell_position(i, j))
-        return mesh, transform
-
     @property
     def grid(self):
         return self._grid   
@@ -162,6 +156,14 @@ class City(Entity):
                     if mesh:
                         meshes.append((mesh, transform))
         return meshes
+
+    def building_at(self, i, j):
+        """ Returns the mesh of the building for a given grid cell.
+        """
+        plot_type = self.get_plot_type(i, j)
+        mesh = self.get_building(plot_type)
+        transform = Mat4.from_translation(self.grid.cell_position(i, j))
+        return mesh, transform
 
     def __repr__(self):
         repr_string = self.name + '\n'

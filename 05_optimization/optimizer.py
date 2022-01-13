@@ -39,40 +39,6 @@ class Optimizer(object):
             print(self.city)
         return new_score
 
-    def compute_light_of_plot(self, i, j, light):
-        """
-        Compute the light energy of a plot.
-        Args:
-            i (int):
-                The row number of the plot in range [0, 8).
-            j (int):
-                The col number of the plot in range [0, 8).
-            light (Light):
-                The light that you want to compute with.
-        Returns:
-            Energy ratio in range [0.0, 1.0]
-        """
-        cell = self._city.grid.cell_at(i, j)
-        energy = self._scene.energy_of_building_component(self._city.grid, cell, light)
-        return energy
-
-    def compute_light_of_building(self, i, j, light):
-        """
-        Compute the light energy of a whole building.
-            Args:
-                i (int):
-                    The row number of the plot where the building is located.
-                j (int):
-                    The col number of the plot where the building is located.
-                light (Light):
-                    The light that you want to compute with.
-            Returns:
-                Energy ratio in range [0.0, 1.0]
-            """
-        building, transform = self._city.building_at(i, j)
-        energy = self._scene.energy_of_building(building, light, mesh_transform=transform)
-        return energy
-
     def optimize(self, n_steps=100):
         """ Runs the optimizer for a fixed number of steps.
         Change this method to add a stopping criterion,
@@ -98,3 +64,37 @@ class Optimizer(object):
         total_score = 0
         # TODO: Implement a score based on rules you define.
         return total_score
+
+    def compute_light_of_plot(self, i, j, light):
+        """
+        Compute the light energy of a plot.
+        Args:
+            i (int):
+                The row number of the plot in range [0, 8).
+            j (int):
+                The col number of the plot in range [0, 8).
+            light (Light):
+                The light that you want to compute with.
+        Returns:
+            Energy ratio in range [0.0, 1.0]
+        """
+        cell = self.city.grid.cell_at(i, j)
+        energy = self.scene.energy_of_building_component(self._city.grid, cell, light)
+        return energy
+
+    def compute_light_of_building(self, i, j, light):
+        """
+        Compute the light energy of a whole building.
+            Args:
+                i (int):
+                    The row number of the plot where the building is located.
+                j (int):
+                    The col number of the plot where the building is located.
+                light (Light):
+                    The light that you want to compute with.
+            Returns:
+                Energy ratio in range [0.0, 1.0]
+            """
+        building, transform = self.city.building_at(i, j)
+        energy = self.scene.energy_of_building(building, light, mesh_transform=transform)
+        return energy

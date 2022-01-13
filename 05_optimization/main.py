@@ -64,25 +64,21 @@ def on_draw(dt):
 @window.event
 def on_gui():
     global run_optimizer, plot_row, plot_col, building_col, building_row
-    if ui.tree_node('Optimization'):
-        if ui.tree_node('Plot info'):
-            _, (plot_row, plot_col) = ui.drag_int2('Location', plot_row, plot_col)
-            plot_row %= 8
-            plot_col %= 8
-            if ui.button('Compute Energy'):
-                e = optimizer.compute_light_of_plot(plot_row, plot_col, scene.current_light)
-                print(f'energy of plot [{plot_row},{plot_col}] = {e}')
-            ui.tree_pop()
-        if ui.tree_node('Building info'):
-            _, (building_row, building_col) = ui.drag_int2('Location', building_row, building_col)
-            building_row %= 8
-            building_col %= 8
-            if ui.button('Compute Energy'):
-                e = optimizer.compute_light_of_building(building_row, building_col, scene.current_light)
-                print(f'energy of building [{building_row},{building_col}] = {e}')
-            ui.tree_pop()
-        if ui.button('Optimize'):
-            optimizer.optimize()
+    if ui.tree_node('Plot info'):
+        _, (plot_row, plot_col) = ui.drag_int2('Location', plot_row, plot_col)
+        plot_row %= 8
+        plot_col %= 8
+        if ui.button('Compute Energy'):
+            e = optimizer.compute_light_of_plot(plot_row, plot_col, scene.current_light)
+            print(f'Energy of plot [{plot_row},{plot_col}] = {e}')
+        ui.tree_pop()
+    if ui.tree_node('Building info'):
+        _, (building_row, building_col) = ui.drag_int2('Location', building_row, building_col)
+        building_row %= 8
+        building_col %= 8
+        if ui.button('Compute Energy'):
+            e = optimizer.compute_light_of_building(building_row, building_col, scene.current_light)
+            print(f'Energy of building [{building_row},{building_col}] = {e}')
         ui.tree_pop()
     if ui.button('Start'):
         run_optimizer = True
