@@ -84,6 +84,21 @@ class City(Entity):
                     building.transformation = Mat4.from_translation(self._grid.cell_position(i, j))
                     building.draw(shader=shader, **kwargs)
 
+    @property
+    def meshes(self):
+        meshes = []
+        meshes += self._grid.meshes
+        for i in range(self.row):
+            for j in range(self.col):
+                type = self.get_plot_type(i, j)
+                if type != PlotType.EMPTY:
+                    mesh = self.get_building(type)
+                    transform = Mat4.from_translation(self._grid.cell_position(i, j))
+                    meshes.append((mesh, transform))
+        return meshes
+
+
+
 
 class Grid(Building):
     """ A ground plane with a grass texture and optional grid tiling.
