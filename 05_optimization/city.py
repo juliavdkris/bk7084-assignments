@@ -97,6 +97,10 @@ class City(Entity):
                     meshes.append((mesh, transform))
         return meshes
 
+    @property
+    def grid(self):
+        return self._grid
+
 
 
 
@@ -142,6 +146,9 @@ class Grid(Building):
 
     def draw(self, **kwargs):
         super().draw(**kwargs)
+        self.draw_grid_line()
+
+    def draw_grid_line(self):
         if self._grid_enabled:
             draw(self._grid, transform=Mat4.from_translation(Vec3(0.0, self._y + 0.01, 0.0)))
 
