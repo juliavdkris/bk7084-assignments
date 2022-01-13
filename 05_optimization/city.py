@@ -59,8 +59,7 @@ class City(Entity):
             4 Parks
         """
         # TODO: Initialize the city grid in a smart way.
-        self._plots = [PlotType.EMPTY] * self.row * self.col
-
+        self.clear()
         self.set_plot_type(0, 0, PlotType.HOUSE)
         self.set_plot_type(0, 1, PlotType.HOUSE)
         self.set_plot_type(1, 0, PlotType.OFFICE)
@@ -72,6 +71,11 @@ class City(Entity):
         self.set_plot_type(4, 0, PlotType.PARK)
         self.set_plot_type(4, 1, PlotType.PARK)
 
+    def clear(self):
+        """ Fills the grid with empty plots.
+        """
+        self._plots = [PlotType.EMPTY] * self.row * self.col
+
     @property
     def row(self):
         return self._row
@@ -82,15 +86,7 @@ class City(Entity):
 
     @property
     def grid(self):
-        return self._grid
-
-    def get_building(self, type):
-        """ Returns the building instance for a given plot type.
-        
-        Args:
-            type (PlotType): Defines the type of this plot, e.g., PlotType.HOUSE.
-        """
-        return self._buildings[type]      
+        return self._grid   
 
     def get_plot_type(self, i, j):
         """ Returns the plot type of a given grid cell.
@@ -123,6 +119,14 @@ class City(Entity):
         temp = self.get_plot_type(i_a, j_a)
         self.set_plot_type(i_a, j_a, self.get_plot_type(i_b, j_b))
         self.set_plot_type(i_b, j_b, temp)
+
+    def get_building(self, type):
+        """ Returns the building instance for a given plot type.
+        
+        Args:
+            type (PlotType): Defines the type of this plot, e.g., PlotType.HOUSE.
+        """
+        return self._buildings[type]   
 
     def draw(self, shader=None, **kwargs):
         """
