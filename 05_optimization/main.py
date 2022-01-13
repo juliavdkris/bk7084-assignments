@@ -19,7 +19,7 @@ window = Window("BK7084: Construction", width=1024, height=1024, clear_color=Pal
 city = City()
 
 scene = Scene(window, [city], draw_light=True)
-scene.create_camera(Vec3(8, 6, 8), Vec3(0, 0, 0), Vec3.unit_y(), 60, zoom_enabled=True, safe_rotations=True)
+scene.create_camera(Vec3(16, 16, 0), Vec3(0, 0, 0), Vec3.unit_y(), 60, zoom_enabled=True, safe_rotations=True)
 
 optimizer = Optimizer(scene, city)
 
@@ -33,8 +33,6 @@ def on_draw(dt):
 
 @window.event
 def on_gui():
-    global comp, building
-
     if ui.button('Optimize'):
         optimizer.optimize()
 

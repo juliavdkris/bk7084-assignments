@@ -25,7 +25,7 @@ class City(Entity):
         self._row = row
         self._col = col
         self._grid = Grid(cell_size=cell_size, row=self._row, col=self._col)
-        self._plots = [PlotType.EMPTY] * row * col
+        self._plots = [PlotType.SKYSCRAPER] * row * col
 
         """
         Change the building for each plottype to your own buildings, e.g.:
@@ -34,11 +34,11 @@ class City(Entity):
         """
         self._buildings = {
             PlotType.EMPTY: None,
-            PlotType.PARK: Skyscraper(1, 1),
-            PlotType.HOUSE: Skyscraper(2, 1),
-            PlotType.OFFICE: Skyscraper(3, 1),
-            PlotType.HIGHRISE: Skyscraper(4, 1),
-            PlotType.SKYSCRAPER: Skyscraper(5, 1)
+            PlotType.PARK: Mesh('assets/meshes/default_skyscraper.obj'),
+            PlotType.HOUSE: Mesh('assets/meshes/default_skyscraper.obj'),
+            PlotType.OFFICE: Mesh('assets/meshes/default_office.obj'),
+            PlotType.HIGHRISE: Mesh('assets/meshes/default_skyscraper.obj'),
+            PlotType.SKYSCRAPER: Mesh('assets/meshes/default_skyscraper.obj')
         }
         
         """
@@ -47,36 +47,18 @@ class City(Entity):
         """
         self.set_plot_type(0, 6, PlotType.SKYSCRAPER)
         self.set_plot_type(0, 7, PlotType.SKYSCRAPER)
-        self.set_plot_type(1, 6, PlotType.SKYSCRAPER)
-        self.set_plot_type(1, 7, PlotType.SKYSCRAPER)
-        self.set_plot_type(2, 6, PlotType.SKYSCRAPER)
-        self.set_plot_type(2, 7, PlotType.SKYSCRAPER)
-
-        # 18 offices
-        for i in range(6):
-            self.set_plot_type(0, i, PlotType.OFFICE)
-            self.set_plot_type(1, i, PlotType.OFFICE)
-            self.set_plot_type(2, i, PlotType.OFFICE)
-
-        # 10 highrises
-        for i in range(5):
-            self.set_plot_type(6, i, PlotType.HIGHRISE)
-            self.set_plot_type(7, i, PlotType.HIGHRISE)
-        
-        self.set_plot_type(6, 5, PlotType.HOUSE)
-        self.set_plot_type(7, 5, PlotType.HOUSE)
-        
-        # 26 residencial blocks
-        for i in range(8):        
-            self.set_plot_type(3, i, PlotType.HOUSE)
-            self.set_plot_type(4, i, PlotType.HOUSE)
-            self.set_plot_type(5, i, PlotType.HOUSE)            
-        
-        # 4 parks
-        self.set_plot_type(6, 6, PlotType.PARK)
-        self.set_plot_type(6, 7, PlotType.PARK)
+        self.set_plot_type(6, 5, PlotType.OFFICE)
+        self.set_plot_type(7, 5, PlotType.OFFICE)
         self.set_plot_type(7, 6, PlotType.PARK)
         self.set_plot_type(7, 7, PlotType.PARK)
+
+    @property
+    def row(self):
+        return self._row
+
+    @property
+    def col(self):
+        return self._col
 
     def get_building(self, type):
         return self._buildings[type]      
@@ -94,11 +76,13 @@ class City(Entity):
 
     def draw(self, shader=None, **kwargs):
         self._grid.draw(**kwargs)
-        for i in range(self._row):
-            for j in range(self._col):
-                building = self.get_building(self.get_plot_type(i, j))
-                building.transform = Mat4.from_translation(self._grid.cell_position(i, j))
-                building.draw(shader, **kwargs)
+        for i in range(self.row):
+            for j in range(self.col):
+                type = self.get_plot_type(i, j)
+                if type != PlotType.EMPTY:
+                    building = self.get_building(type)
+                    building.transformation = Mat4.from_translation(self._grid.cell_position(i, j))
+                    building.draw(shader=shader, **kwargs)
 
 
 class Grid(Building):
