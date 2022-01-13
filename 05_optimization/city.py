@@ -25,7 +25,7 @@ class City(Entity):
         self._row = row
         self._col = col
         self._grid = Grid(cell_size=cell_size, row=self._row, col=self._col)
-        self._plots = [PlotType.SKYSCRAPER] * row * col
+        self._plots = [PlotType.EMPTY] * row * col
 
         """
         Change the building for each plottype to your own buildings, e.g.:
@@ -34,10 +34,10 @@ class City(Entity):
         """
         self._buildings = {
             PlotType.EMPTY: None,
-            PlotType.PARK: Skyscraper(1, 1).convert_to_mesh(),
-            PlotType.HOUSE: Skyscraper(2, 1).convert_to_mesh(),
-            PlotType.OFFICE: Skyscraper(3, 1).convert_to_mesh(),
-            PlotType.HIGHRISE: Skyscraper(4, 1).convert_to_mesh(),
+            PlotType.PARK: Mesh('assets/meshes/Park.obj', texture_enabled=False),
+            PlotType.HOUSE: Mesh('assets/meshes/House.obj', texture_enabled=False),
+            PlotType.OFFICE: Office(2, 1).convert_to_mesh(),
+            PlotType.HIGHRISE: Highrise(3, 1).convert_to_mesh(),
             PlotType.SKYSCRAPER: Skyscraper(5, 1).convert_to_mesh()
         }
         
@@ -45,12 +45,12 @@ class City(Entity):
         Each plot is initialized here.
         You can change this code to initialize your city in a different layout.
         """
-        self.set_plot_type(0, 6, PlotType.SKYSCRAPER)
-        self.set_plot_type(0, 7, PlotType.SKYSCRAPER)
-        self.set_plot_type(6, 5, PlotType.OFFICE)
-        self.set_plot_type(7, 5, PlotType.OFFICE)
-        self.set_plot_type(7, 6, PlotType.PARK)
-        self.set_plot_type(7, 7, PlotType.PARK)
+        self.set_plot_type(0, 0, PlotType.SKYSCRAPER)
+        self.set_plot_type(0, 1, PlotType.SKYSCRAPER)
+        self.set_plot_type(1, 0, PlotType.HOUSE)
+        self.set_plot_type(1, 1, PlotType.HOUSE)
+        self.set_plot_type(2, 0, PlotType.PARK)
+        self.set_plot_type(2, 1, PlotType.PARK)
 
     @property
     def row(self):

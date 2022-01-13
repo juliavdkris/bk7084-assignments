@@ -28,14 +28,12 @@ building = 0
 
 @window.event
 def on_draw(dt):
-    scene.draw(auto_shadow=True)
-
+    scene.draw_v2(auto_shadow=True)
 
 @window.event
 def on_gui():
     if ui.button('Optimize'):
         optimizer.optimize()
-
 
 @window.event
 def on_key_press(key, mods):
