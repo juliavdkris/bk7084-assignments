@@ -20,17 +20,22 @@ class PlotType(Enum):
 
 class City(Entity):
     def __init__(self, name='GridCity', cell_size=(2.0, 2.0), row=8, col=8):
+        """ A city class that places buildings in a grid.
+        
+        Args:
+            name (str): The name of the city. Used for printing the city.
+            cell_size (tuple): The size of each grid cell.
+            row (int): The number of rows in the grid.
+            col (int): The number of columns in the grid.
+        """
         super().__init__(name)
         self._is_drawable = True
         self._row = row
         self._col = col
         self._grid = Grid(cell_size=cell_size, row=self._row, col=self._col)
-        self._plots = [PlotType.HOUSE] * row * col
+        self._plots = []
 
-        """
-        Change the building for each plottype to your own buildings, e.g.:
-        >>> PlotType.OFFICE: Skyscraper(3, 1).convert_to_mesh(),
-        >>> PlotType.HIGHRISE: Skyscraper(4, 1).convert_to_mesh(),
+        """ You can change the building that is placed on each plot here.
         """
         self._buildings = {
             PlotType.EMPTY: None,
@@ -40,15 +45,32 @@ class City(Entity):
             PlotType.HIGHRISE: Highrise(3, 1).convert_to_mesh(),
             PlotType.SKYSCRAPER: Skyscraper(5, 1).convert_to_mesh()
         }
-        
+        self.reset()
+    
+        print(self)
+
+    def reset(self):
+        """ Resets the city to its initial state.
+        Complete this method to initialize your city to match the required specification:
+            6 Skyscrapers of roughly
+            10 High rises of roughly
+            18 Offices (or your choice of building)
+            26 Houses
+            4 Parks
         """
-        Each plot is initialized here.
-        Change this code to initialize your city in the required specification.
-        """
-        self.set_plot_type(4, 4, PlotType.SKYSCRAPER)
-        self.set_plot_type(4, 5, PlotType.SKYSCRAPER)
-        self.set_plot_type(5, 4, PlotType.PARK)
-        self.set_plot_type(5, 5, PlotType.PARK)
+        # TODO: Initialize the city grid in a smart way.
+        self._plots = [PlotType.EMPTY] * self.row * self.col
+
+        self.set_plot_type(0, 0, PlotType.HOUSE)
+        self.set_plot_type(0, 1, PlotType.HOUSE)
+        self.set_plot_type(1, 0, PlotType.OFFICE)
+        self.set_plot_type(1, 1, PlotType.OFFICE)
+        self.set_plot_type(2, 0, PlotType.HIGHRISE)
+        self.set_plot_type(2, 1, PlotType.HIGHRISE)
+        self.set_plot_type(3, 0, PlotType.SKYSCRAPER)
+        self.set_plot_type(3, 1, PlotType.SKYSCRAPER)
+        self.set_plot_type(4, 0, PlotType.PARK)
+        self.set_plot_type(4, 1, PlotType.PARK)
 
     @property
     def row(self):
@@ -58,21 +80,54 @@ class City(Entity):
     def col(self):
         return self._col
 
+    @property
+    def grid(self):
+        return self._grid
+
     def get_building(self, type):
+        """ Returns the building instance for a given plot type.
+        
+        Args:
+            type (PlotType): Defines the type of this plot, e.g., PlotType.HOUSE.
+        """
         return self._buildings[type]      
 
     def get_plot_type(self, i, j):
+        """ Returns the plot type of a given grid cell.
+        
+        Args:
+            i (int): The row-index of the grid cell.
+            j (int): The column-index of the grid cell.
+        """
         return self._plots[i * self._col + j]
 
     def set_plot_type(self, i, j, type):
+        """ Sets the plot type of a given grid cell.
+
+        Args:
+            i (int): The row-index of the grid cell.
+            j (int): The column-index of the grid cell.
+            type (PlotType): The type to set for this grid cell, e.g. PlotType.HOUSE.
+        """
         self._plots[i * self._col + j] = type
 
-    def swap(self, i, j, k, l):
-        temp = self.get_plot_type(i, j)
-        self.set_plot_type(i, j, self.get_plot_type(k, l))
-        self.set_plot_type(k, l, temp)
+    def swap(self, i_a, j_a, i_b, j_b):
+        """ Swaps the plot type of two grid cells, (i, j) and (k, l).
+
+        Args:
+            i_a (int): The row-index of the first grid cell.
+            j_a (int): The column-index of the first grid cell.
+            i_b (int): The row-index of the second grid cell.
+            j_b (int): The column-index of the second grid cell.
+        """
+        temp = self.get_plot_type(i_a, j_a)
+        self.set_plot_type(i_a, j_a, self.get_plot_type(i_b, j_b))
+        self.set_plot_type(i_b, j_b, temp)
 
     def draw(self, shader=None, **kwargs):
+        """
+        Draws the city to screen.
+        """
         self._grid.draw(**kwargs)
         for i in range(self.row):
             for j in range(self.col):
@@ -84,6 +139,8 @@ class City(Entity):
 
     @property
     def meshes(self):
+        """ Returns all the meshes in the city and their corresponding transforms.
+        """
         meshes = []
         meshes += self._grid.meshes
         for i in range(self.row):
@@ -92,14 +149,18 @@ class City(Entity):
                 if type != PlotType.EMPTY:
                     mesh = self.get_building(type)
                     transform = Mat4.from_translation(self._grid.cell_position(i, j))
-                    meshes.append((mesh, transform))
+                    if mesh:
+                        meshes.append((mesh, transform))
         return meshes
 
-    @property
-    def grid(self):
-        return self._grid
 
-
+    def __repr__(self):
+        repr_string = self.name + '\n'
+        for i in range(self.row):
+            for j in range(self.col):
+                repr_string += str(self.get_plot_type(i, j).name)[:4] + '\t'
+            repr_string += '\n'
+        return repr_string
 
 
 class Grid(Building):

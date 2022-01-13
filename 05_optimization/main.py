@@ -13,18 +13,45 @@ try:
 except ModuleNotFoundError as e:
     raise ModuleNotFoundError('Buildings or components not found, please copy-paste buildings.py and components.py from 04_buildinggeneration into this folder.') from e
 
-# Setup window and add camera
 window = Window("BK7084: Construction", width=1024, height=1024, clear_color=Palette.BlueA.as_color())
 
-city = City()
+"""
+Final Assignment Part 2
+-----------------------
+With your buildings done, you are now ready to build a city and optimize its layout.
+For this assignment, you have to complete two files: city.py and optimizer.py.
 
+The first step, as always is to update the framework:
+$ conda activate compsim
+$ pip install --upgrade bk7084
+
+Once that's done, copy buildings.py and components.py files from the previous assignment into this folder.
+With that step complete, you should be able to run this file and see your buildings in the city grid.
+
+Next, you have three main tasks:
+1. Complete the '__init__' function in city.py to fill the city.
+2. Complete the 'score' function in optimizer.py to compute a score for the city.
+3. Complete the 'step' function in optimizer.py to optimize the city and add a stopping criterion in 'optimizer'.
+
+You can test each of these functions by running this file and by using the buttons
+'Start', 'Stop', 'One step', 'Optimize offline'
+
+Good luck!
+"""
+# Construct the city
+city = City(name='Grid City', row=8, col=8)
+# Set the scene
 scene = Scene(window, [city], draw_light=True)
 scene.create_camera(Vec3(16, 16, 0), Vec3(0, 0, 0), Vec3.unit_y(), 60, zoom_enabled=True, safe_rotations=True)
+# And set up the optimizer
+optimizer = Optimizer(city, scene)
+run_optimizer = False
 
-optimizer = Optimizer(scene, city)
-
-comp = 0
-building = 0
+@window.event
+def on_update(dt):
+    global run_optimizer
+    if run_optimizer:
+        optimizer.step()
 
 @window.event
 def on_draw(dt):
@@ -33,17 +60,17 @@ def on_draw(dt):
 
 @window.event
 def on_gui():
-    if ui.button('Optimize'):
+    global run_optimizer
+    if ui.button('Start'):
+        run_optimizer = True
+    if ui.button('Stop'):
+        run_optimizer = False
+    if ui.button('One step'):
+        optimizer.step(verbose=True)
+    if ui.button('Optimize offline'):
         optimizer.optimize()
-
-@window.event
-def on_key_press(key, mods):
-    # if key == KeyCode.C:
-    #     scene.energy_of_building_component(buildings[building], buildings[building].components[comp], save_energy_map=True)
-
-    # if key == KeyCode.B:
-    #     scene.energy_of_building(buildings[building], save_energy_map=True)
-    return
+    if ui.button('Reset'):
+        city.reset()
 
 app.init(window)
 app.run()
