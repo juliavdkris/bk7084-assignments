@@ -57,6 +57,18 @@ class Optimizer(object):
         return energy
 
     def compute_light_of_building(self, i, j, light):
+        """
+        Compute the light energy of a whole building.
+            Args:
+                i (int):
+                    The row number of the plot where the building is located.
+                j (int):
+                    The col number of the plot where the building is located.
+                light (Light):
+                    The light that you want to compute with.
+            Returns:
+                Energy ratio in range [0.0, 1.0]
+            """
         building, transform = self._city.building_at(i, j)
         energy = self._scene.energy_of_building(building, light, mesh_transform=transform)
         return energy
