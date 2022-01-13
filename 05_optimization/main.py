@@ -80,16 +80,31 @@ def on_gui():
             e = optimizer.compute_light_of_building(building_row, building_col, scene.current_light)
             print(f'Energy of building [{building_row},{building_col}] = {e}')
         ui.tree_pop()
+
+    ui.push_style_color(ui.COLOR_BUTTON, 0, 0.5, 0)
+    ui.push_style_color(ui.COLOR_BUTTON_HOVERED, 0, 0.7, 0)
+    ui.push_style_color(ui.COLOR_BUTTON_ACTIVE, 0, 0.3, 0)
     if ui.button('Start'):
         run_optimizer = True
-    if ui.button('Stop'):
+    ui.same_line()
+    ui.push_style_color(ui.COLOR_BUTTON, 0, 0.2, 0.8)
+    ui.push_style_color(ui.COLOR_BUTTON_HOVERED, 0, 0.4, 0.9)
+    ui.push_style_color(ui.COLOR_BUTTON_ACTIVE, 0, 0.1, 0.6)
+    if ui.button('Pause'):
         run_optimizer = False
-    if ui.button('One step'):
-        optimizer.step(verbose=True)
-    if ui.button('Optimize offline'):
-        optimizer.optimize()
+    ui.same_line()
+    ui.push_style_color(ui.COLOR_BUTTON, 0.6, 0, 0)
+    ui.push_style_color(ui.COLOR_BUTTON_HOVERED, 0.8, 0, 0)
+    ui.push_style_color(ui.COLOR_BUTTON_ACTIVE, 0.4, 0, 0)
     if ui.button('Reset'):
         city.reset()
+    ui.pop_style_color(9)
+
+    if ui.button('One step'):
+        optimizer.step(verbose=True)
+    ui.same_line()    
+    if ui.button('Optimize offline'):
+        optimizer.optimize()
 
 app.init(window)
 app.run()
