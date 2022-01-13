@@ -7,7 +7,7 @@ sys.path.append(os.path.dirname(SCRIPT_DIR))
 import numpy as np
 
 from bk7084 import Window, app
-from bk7084.app.window.input import KeyCode
+from bk7084.app.input import KeyCode
 from bk7084.geometry import Triangle, Ray, Line
 from bk7084.math import Vec3, Mat3
 from bk7084.misc import PaletteSvg, PaletteDefault
@@ -51,7 +51,7 @@ def on_draw(dt):
         draw(Line([Vec3(-10, -10 + i, 0), Vec3(10, -10 + i, 0)]))
         draw(Line([Vec3(-10 + i, -10, 0), Vec3(-10 + i, 10, 0)]))
     draw(triangle)
-    draw(ray)
+    draw(ray, update=True)
 
 
 @window.event

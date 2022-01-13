@@ -1,7 +1,4 @@
-from bk7084.math import Vec3, Mat4
-from bk7084.graphics import draw
-from bk7084.geometry import Grid
-from bk7084.scene import Mesh, Component, Entity
+from bk7084.scene import Mesh, Component, Entity, Building
 from bk7084.misc import PaletteDefault as Palette
 from bk7084.scene.mesh import SubMesh
 
@@ -152,56 +149,3 @@ class BasicFloor(Component):
     @property
     def mesh(self) -> Mesh:
         return self._mesh
-
-
-class Ground(Component):
-    """ A ground plane with a grass texture and optional grid tiling.
-    
-    Args:
-        y (float):
-            Location of the ground plane on the y-axis.
-        w (float):
-            Width of the ground plane.
-        repeat_texture (int):
-            Number of times to repeat the texture.
-        texture (str):
-            Path to the texture used for this component.
-        grid_enabled (bool):
-            Draws a grid of lines is set to True.
-    """
-    def __init__(self, y=-0.01, w=20, repeat_texture=8, texture='assets/textures/grass.jpg', grid_enabled=True):
-        super().__init__()
-        self._y = y
-        self._w = w
-        self._grid_enabled = grid_enabled
-        self._grid = Grid(width=w, height=w)
-        self._mesh = Mesh(
-            vertices=[[-w / 2, y, -w / 2], [w / 2, y, -w / 2],
-                      [w / 2, y, w / 2], [-w / 2, y, w / 2]],
-            colors=[Palette.GreenA.as_color()],
-            normals=[[0, 1, 0]],
-            uvs=[[0, 0], [repeat_texture, 0], [repeat_texture, repeat_texture], [0, repeat_texture]],
-            triangles=[[(0, 1, 2, 3), (0, 1, 2, 3), (0, 0, 0, 0)]],
-            texture=texture
-        )
-    
-    @property
-    def mesh(self) -> Mesh:
-        return self._mesh
-
-    @property
-    def y(self) -> float:
-        return self._y
-
-    @property
-    def w(self) -> float:
-        return self._w
-
-    @property
-    def grid_enabled(self) -> bool:
-        return self._grid_enabled
-
-    def draw(self, matrices=None, **kwargs):
-        super().draw(matrices, **kwargs)
-        if self._grid_enabled:
-            draw(self._grid, transform=Mat4.from_translation(Vec3(0.0, self.y + 0.01, 0.0)))

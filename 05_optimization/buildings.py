@@ -15,8 +15,8 @@ class Skyscraper(Building):
         max_width (float):
             The maximum width for each component.
     """
-    def __init__(self, num_floors, max_width):
-        super().__init__(name='skyscraper')
+    def __init__(self, num_floors, max_width, name='skyscraper'):
+        super().__init__(name)
         self.num_floors = min(10, num_floors)
         for i in range(num_floors):
             # To place each floor higher than the previous one,
@@ -24,10 +24,15 @@ class Skyscraper(Building):
             # Then we only have to move the base component up higher
             # and the framework takes care of the rest.
             floor1 = BasicFloor(max_width, max_width)
-                                                    # Place the base component higher each time (i)
+            # Place the base component higher each time (i)
             floor1.transform = Mat4.from_translation(Vec3(0, max_width * i, 0))
+            floor1.drawable = False
+
             floor2 = BasicFloor(max_width, max_width)
             floor2.transform = Mat4.from_translation(Vec3(0, max_width, 0))
+            if i != num_floors - 1:
+                floor2.drawable = False
+
             wall1 = WindowWall(max_width, max_width)
             wall1.transform = Mat4.from_translation(Vec3(0, 0, max_width / 2))
             wall2 = BasicWall(max_width, max_width)

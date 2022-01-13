@@ -1,6 +1,6 @@
 import os.path as osp
 from bk7084 import Window, app
-from bk7084.app.window.input import KeyCode
+from bk7084.app.input import KeyCode
 from bk7084.math import Vec3, Mat4
 from bk7084.misc import PaletteDefault
 from bk7084.graphics import draw, ShaderProgram, VertexShader, PixelShader

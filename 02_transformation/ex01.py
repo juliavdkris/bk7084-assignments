@@ -1,6 +1,6 @@
 import os.path as osp
 from bk7084 import Window, app
-from bk7084.app.window.input import KeyCode, KeyModifier
+from bk7084.app.input import KeyCode, KeyModifier
 from bk7084.geometry import Triangle, Ray, Line, Box
 from bk7084.math import Vec3, Mat3, Mat4
 from bk7084.misc import PaletteSvg, PaletteDefault
@@ -163,11 +163,14 @@ def scale(x: float, y: float, z: float) -> Mat4:
 """
 You don't need to change the code below to finish the assignment.
 """
-cube_x = Mesh(osp.join('./assets/cube.obj'), color=PaletteDefault.RedB.as_color())
+cube_x = Mesh(osp.join('./assets/cube.obj'), colors=(PaletteDefault.RedB.as_color(),))
+cube_x.material_enabled = False
 cube_x.initial_transformation = Mat4.from_translation(Vec3(8.0, 0.0, 0.0)) * Mat4.from_scale(Vec3(0.2))
-cube_z = Mesh(osp.join('./assets/cube.obj'), color=PaletteDefault.BlueA.as_color())
+cube_z = Mesh(osp.join('./assets/cube.obj'), colors=(PaletteDefault.BlueA.as_color(),))
+cube_z.material_enabled = False
 cube_z.initial_transformation = Mat4.from_translation(Vec3(0.0, 0.0, 8.0)) * Mat4.from_scale(Vec3(0.2))
-car = Mesh(osp.join('./assets/car.obj'), color=PaletteDefault.RedA.as_color())
+car = Mesh(osp.join('./assets/car.obj'), colors=(PaletteDefault.RedA.as_color(),))
+car.material_enabled = False
 
 
 @window.event
