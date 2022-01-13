@@ -28,8 +28,8 @@ building = 0
 
 @window.event
 def on_draw(dt):
-    scene.draw(auto_shadow=True)
-
+    scene.draw_v2(auto_shadow=True)
+    city.grid.draw_grid_line()
 
 @window.event
 def on_gui():
