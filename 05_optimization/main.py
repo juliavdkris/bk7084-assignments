@@ -18,10 +18,7 @@ window = Window("BK7084: Construction", width=1024, height=1024, clear_color=Pal
 
 city = City()
 
-buildings = city.buildings
-building_names = [b.name for b in buildings]
-
-scene = Scene(window, buildings, draw_light=True)
+scene = Scene(window, [city], draw_light=True)
 scene.create_camera(Vec3(8, 6, 8), Vec3(0, 0, 0), Vec3.unit_y(), 60, zoom_enabled=True, safe_rotations=True)
 
 optimizer = Optimizer(scene, city)
@@ -42,13 +39,6 @@ def on_draw(dt):
 @window.event
 def on_gui():
     global comp, building
-    if ui.tree_node('Energy'):
-        clicked, building = ui.combo(
-            'Building', building, building_names
-        )
-        building = building % 3
-        _, comp = ui.input_int('Comp. Index', comp)
-        ui.tree_pop()
 
     if ui.button('Optimize'):
         optimize()
@@ -56,12 +46,12 @@ def on_gui():
 
 @window.event
 def on_key_press(key, mods):
-    if key == KeyCode.C:
-        scene.energy_of_building_component(buildings[building], buildings[building].components[comp], save_energy_map=True)
+    # if key == KeyCode.C:
+    #     scene.energy_of_building_component(buildings[building], buildings[building].components[comp], save_energy_map=True)
 
-    if key == KeyCode.B:
-        scene.energy_of_building(buildings[building], save_energy_map=True)
-
+    # if key == KeyCode.B:
+    #     scene.energy_of_building(buildings[building], save_energy_map=True)
+    return
 
 app.init(window)
 app.run()

@@ -18,15 +18,26 @@ class PlotType(Enum):
     SKYSCRAPER = 5
 
 
-class City(object):
-    def __init__(self, cell_size=(2.0, 2.0), row=8, col=8):
+class City(Entity):
+    def __init__(self, name='GridCity', cell_size=(2.0, 2.0), row=8, col=8):
+        super().__init__(name)
+        self._is_drawable = True
+
         self._row = row
         self._col = col
-        self._mincorner = Vec3()
 
-        self._grid = Grid(row=self._row, col=self._col)
+        self._grid = Grid(cell_size=cell_size, row=self._row, col=self._col)
         
         self._plots = [PlotType.EMPTY] * row * col
+
+        self._buildings = {
+            PlotType.EMPTY: None,
+            PlotType.PARK: Skyscraper(1, 1),
+            PlotType.HOUSE: Skyscraper(2, 1),
+            PlotType.OFFICE: Skyscraper(3, 1),
+            PlotType.HIGHRISE: Skyscraper(4, 1),
+            PlotType.SKYSCRAPER: Skyscraper(5, 1)
+        }
         
         """
         Initialize your city here
@@ -65,20 +76,7 @@ class City(object):
         self.set_plot_type(7, 7, PlotType.PARK)
 
     def get_building(self, type):
-        if type == PlotType.EMPTY:
-            return None
-        elif type == PlotType.PARK:
-            return Skyscraper(1, 1)
-        elif type == PlotType.HOUSE:
-            return Skyscraper(2, 1)
-        elif type == PlotType.OFFICE:
-            return Skyscraper(3, 1)
-        elif type == PlotType.HIGHRISE:
-            return Skyscraper(4, 1)
-        elif type == PlotType.SKYSCRAPER:
-            return Skyscraper(5, 1)
-        else:
-            return Skyscraper(1, 1)
+        return self._buildings[type]      
 
     def get_plot_type(self, i, j):
         return self._plots[i * self._col + j]
@@ -91,18 +89,13 @@ class City(object):
         self.set_plot_type(i, j, self.get_plot_type(k, l))
         self.set_plot_type(k, l, temp)
 
-    @property
-    def buildings(self):
-        buildings = [self._grid]
+    def draw(self, shader=None, **kwargs):
+        self._grid.draw(**kwargs)
         for i in range(self._row):
             for j in range(self._col):
-                type = self.get_plot_type(i, j)
-                if type != PlotType.EMPTY:
-                    building = self.get_building(type)
-                    if building is not None:
-                        building.transform = Mat4.from_translation(self._grid.cell_position(i, j))
-                        buildings.append(building)
-        return buildings
+                building = self.get_building(self.get_plot_type(i, j))
+                building.transform = Mat4.from_translation(self._grid.cell_position(i, j))
+                building.draw(shader, **kwargs)
 
 
 class Grid(Building):
