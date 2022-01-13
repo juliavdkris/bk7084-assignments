@@ -1,5 +1,6 @@
+import numpy as np
 from bk7084 import Window, app
-from bk7084.math import Vec3, Mat4
+from bk7084.math import Vec3, Mat4, Mat3
 from bk7084.misc import PaletteDefault as Palette
 from bk7084.scene import Mesh, Scene
 from bk7084.app.input import KeyCode
@@ -46,8 +47,11 @@ scene.create_camera(Vec3(16, 16, 0), Vec3(0, 0, 0), Vec3.unit_y(), 60, zoom_enab
 # And set up the optimizer
 optimizer = Optimizer(city, scene)
 run_optimizer = False
+
+# Variables used for the light computation UI
 plot_row, plot_col = 0, 0
 building_row, building_col = 0, 0
+time = 12
 
 
 @window.event
@@ -63,7 +67,7 @@ def on_draw(dt):
 
 @window.event
 def on_gui():
-    global run_optimizer, plot_row, plot_col, building_col, building_row
+    global run_optimizer, plot_row, plot_col, building_col, building_row, time
     if ui.tree_node('Plot info'):
         _, (plot_row, plot_col) = ui.drag_int2('Location', plot_row, plot_col)
         plot_row %= 8

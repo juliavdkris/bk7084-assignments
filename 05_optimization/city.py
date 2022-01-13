@@ -95,7 +95,7 @@ class City(Entity):
             i (int): The row-index of the grid cell.
             j (int): The column-index of the grid cell.
         """
-        return self._plots[i * self._col + j]
+        return self._plots[i * self.col + j]
 
     def set_plot_type(self, i, j, type):
         """ Sets the plot type of a given grid cell.
@@ -105,7 +105,7 @@ class City(Entity):
             j (int): The column-index of the grid cell.
             type (PlotType): The type to set for this grid cell, e.g. PlotType.HOUSE.
         """
-        self._plots[i * self._col + j] = type
+        self._plots[i * self.col + j] = type
 
     def swap(self, i_a, j_a, i_b, j_b):
         """ Swaps the plot type of two grid cells, (i, j) and (k, l).

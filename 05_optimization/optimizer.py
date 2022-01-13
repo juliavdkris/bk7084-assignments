@@ -29,14 +29,11 @@ class Optimizer(object):
             verbose (bool): If set to True, prints the city grid to the console each step. 
         """
         # TODO: Implement a step that smartly improves the city grid.
-        current_score = self.score()
         self.city.swap(0, 0, 1, 1)
         new_score = self.score()
-        # if new_score < current_score:
-        #     self.city.swap(0, 0, 1, 1)
-        #     return current_score
-        if verbose: 
+        if verbose:
             print(self.city)
+            print('Score: {}'.format(new_score))
         return new_score
 
     def optimize(self, n_steps=100):
@@ -59,22 +56,36 @@ class Optimizer(object):
     def score(self):
         """ Computes the score for your city.
         Complete this function by adding extra rules that enforce a good city planning.
-        We've given you a start: here we compute the sunlight that hits each building.
+        We've given you a start: here we compute the sunlight that hits plot for a full day.
         """
         total_score = 0
+        for i in range(self.city.row):
+            for j in range(self.city.col):
+                total_score += self.compute_light_of_plot_day(i, j)
+
         # TODO: Implement a score based on rules you define.
         return total_score
+
+    def compute_light_of_plot_day(self, i, j):
+        """ Computes the light of a plot for a full day.
+        Args:
+            i (int): The row number of the plot in range [0, 8).
+            j (int): The col number of the plot in range [0, 8).
+        """
+        total_energy = 0
+        for t in range(12):
+            self.scene._current_light = t
+            total_energy += self.compute_light_of_plot(i, j, self.scene.current_light)
+        self.scene._current_light = 0
+        return total_energy  
 
     def compute_light_of_plot(self, i, j, light):
         """
         Compute the light energy of a plot.
         Args:
-            i (int):
-                The row number of the plot in range [0, 8).
-            j (int):
-                The col number of the plot in range [0, 8).
-            light (Light):
-                The light that you want to compute with.
+            i (int): The row number of the plot in range [0, 8).
+            j (int): The col number of the plot in range [0, 8).
+            light (Light): The light that you want to compute with.
         Returns:
             Energy ratio in range [0.0, 1.0]
         """
@@ -86,12 +97,9 @@ class Optimizer(object):
         """
         Compute the light energy of a whole building.
             Args:
-                i (int):
-                    The row number of the plot where the building is located.
-                j (int):
-                    The col number of the plot where the building is located.
-                light (Light):
-                    The light that you want to compute with.
+                i (int): The row number of the plot where the building is located.
+                j (int): The col number of the plot where the building is located.
+                light (Light): The light that you want to compute with.
             Returns:
                 Energy ratio in range [0.0, 1.0]
             """
