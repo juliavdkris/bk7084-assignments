@@ -84,6 +84,12 @@ class City(Entity):
     def col(self):
         return self._col
 
+    def building_at(self, i, j):
+        plot_type = self.get_plot_type(i, j)
+        mesh = self.get_building(plot_type)
+        transform = Mat4.from_translation(self._grid.cell_position(i, j))
+        return mesh, transform
+
     @property
     def grid(self):
         return self._grid   
@@ -157,7 +163,6 @@ class City(Entity):
                         meshes.append((mesh, transform))
         return meshes
 
-
     def __repr__(self):
         repr_string = self.name + '\n'
         for i in range(self.row):
@@ -206,6 +211,9 @@ class Grid(Building):
                     self._y,
                     -self._h / 2 + self._cell_size[1] / 2.0 + self._cell_size[1] * i
                 )
+
+    def cell_at(self, i, j):
+        return self._components[i * self._col + j]
 
     def draw(self, **kwargs):
         super().draw(**kwargs)

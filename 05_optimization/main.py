@@ -46,6 +46,9 @@ scene.create_camera(Vec3(16, 16, 0), Vec3(0, 0, 0), Vec3.unit_y(), 60, zoom_enab
 # And set up the optimizer
 optimizer = Optimizer(city, scene)
 run_optimizer = False
+plot_row, plot_col = 0, 0
+building_row, building_col = 0, 0
+
 
 @window.event
 def on_update(dt):
@@ -60,6 +63,36 @@ def on_draw(dt):
 
 @window.event
 def on_gui():
+    global plot_row, plot_col, building_col, building_row
+    if ui.tree_node('Optimization'):
+        if ui.tree_node('Plot info'):
+            _, (plot_row, plot_col) = ui.drag_int2('Location', plot_row, plot_col)
+            plot_row %= 8
+            plot_col %= 8
+            if ui.button('Compute Energy'):
+                e = optimizer.compute_light_of_plot(plot_row, plot_col, scene.current_light)
+                print(f'energy of plot [{plot_row},{plot_col}] = {e}')
+            ui.tree_pop()
+        if ui.tree_node('Building info'):
+            _, (building_row, building_col) = ui.drag_int2('Location', building_row, building_col)
+            building_row %= 8
+            building_col %= 8
+            if ui.button('Compute Energy'):
+                e = optimizer.compute_light_of_building(building_row, building_col, scene.current_light)
+                print(f'energy of building [{building_row},{building_col}] = {e}')
+            ui.tree_pop()
+        if ui.button('Optimize'):
+            optimizer.optimize()
+        ui.tree_pop()
+
+@window.event
+def on_key_press(key, mods):
+    # if key == KeyCode.C:
+    #     scene.energy_of_building_component(buildings[building], buildings[building].components[comp], save_energy_map=True)
+
+    # if key == KeyCode.B:
+    #     scene.energy_of_building(buildings[building], save_energy_map=True)
+    return
     global run_optimizer
     if ui.button('Start'):
         run_optimizer = True
