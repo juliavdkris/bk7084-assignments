@@ -1,6 +1,8 @@
 from bk7084.graphics import PointLight
 from bk7084.math import Mat4, Vec4, Vec3
 
+import numpy as np
+from city import PlotType
 
 class Optimizer(object):
     def __init__(self, city, scene):
