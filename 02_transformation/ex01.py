@@ -1,7 +1,8 @@
 import os.path as osp
 from bk7084 import Window, app
 from bk7084.app.input import KeyCode, KeyModifier
-from bk7084.geometry import Triangle, Ray, Line, Box
+from bk7084.geometry import Triangle, Ray, Line, Box, Grid
+from bk7084.geometry.grid import AxisAlignment
 from bk7084.math import Vec3, Mat3, Mat4
 from bk7084.misc import PaletteSvg, PaletteDefault
 from bk7084.graphics import draw
@@ -64,7 +65,8 @@ def translate(x: float, y: float, z: float) -> Mat4:
             [0, 0, 0, 1]
         ]
     )
-    return mat
+    return Mat4.from_translation(Vec3(x, y, z))
+    # return mat
 
 
 def rotate_x(angle: float) -> Mat4:
@@ -87,7 +89,8 @@ def rotate_x(angle: float) -> Mat4:
             [0, 0, 0, 1]
         ]
     )
-    return mat
+    # return mat
+    return Mat4.from_rotation_x(np.radians(angle))
 
 
 def rotate_y(angle: float) -> Mat4:
@@ -163,27 +166,24 @@ def scale(x: float, y: float, z: float) -> Mat4:
 """
 You don't need to change the code below to finish the assignment.
 """
-cube_x = Mesh(osp.join('./assets/cube.obj'), colors=(PaletteDefault.RedB.as_color(),))
-cube_x.material_enabled = False
-cube_x.initial_transformation = Mat4.from_translation(Vec3(8.0, 0.0, 0.0)) * Mat4.from_scale(Vec3(0.2))
-cube_z = Mesh(osp.join('./assets/cube.obj'), colors=(PaletteDefault.BlueA.as_color(),))
-cube_z.material_enabled = False
-cube_z.initial_transformation = Mat4.from_translation(Vec3(0.0, 0.0, 8.0)) * Mat4.from_scale(Vec3(0.2))
-car = Mesh(osp.join('./assets/car.obj'), colors=(PaletteDefault.RedA.as_color(),))
-car.material_enabled = False
+car = Mesh('./assets/car.obj', colors=(PaletteDefault.RedA.as_color(),))
+grid = Grid(axis_alignment=AxisAlignment.XZ, axis_marker=True)
+arrows = [
+    Mesh('./models/arrow.obj', colors=(PaletteDefault.RedB.as_color())),
+    Mesh('./models/arrow.obj', colors=(PaletteDefault.GreenB.as_color())),
+    Mesh('./models/arrow.obj', colors=(PaletteDefault.BlueB.as_color())),
+]
+arrows[0].material_enabled = False
+arrows[0].initial_transformation = Mat4.from_translation(Vec3(7.0, 0.0, 0.0)) * Mat4.from_scale(Vec3(0.2)) * Mat4.from_rotation_z(-90.0, degrees=True)
+arrows[1].initial_transformation = Mat4.from_translation(Vec3(0.0, 7.0, 0.0)) * Mat4.from_scale(Vec3(0.2))
+arrows[1].material_enabled = False
+arrows[2].initial_transformation = Mat4.from_translation(Vec3(0.0, 0.0, 7.0)) * Mat4.from_scale(Vec3(0.2)) * Mat4.from_rotation_x(90.0, degrees=True)
+arrows[2].material_enabled = False
 
 
 @window.event
 def on_draw(dt):
-    # Draw a grid of lines
-    for i in range(21):
-        if i == 10:
-            draw(Line([Vec3(-10, -1.1, -10 + i), Vec3(10, -1.1, -10 + i)], (PaletteDefault.RedA.as_color(),)))
-            draw(Line([Vec3(-10 + i, -1.1, -10), Vec3(-10 + i, -1.1, 10)], (PaletteDefault.BlueA.as_color(),)))
-        else:
-            draw(Line([Vec3(-10, -1.1, -10 + i), Vec3(10, -1.1, -10 + i)]))
-            draw(Line([Vec3(-10 + i, -1.1, -10), Vec3(-10 + i, -1.1, 10)]))
-    draw(car, cube_x, cube_z)
+    draw(grid, car, *arrows)
 
 
 @window.event
@@ -193,6 +193,12 @@ def on_key_press(key, mods):
 
     if key == KeyCode.Down:
         car.apply_transformation(translate(-0.5, 0.0, 0.0))
+
+    if key == KeyCode.N:
+        car.apply_transformation(translate(0.0, 0.5, 0.0))
+
+    if key == KeyCode.M:
+        car.apply_transformation(translate(0.0, -0.5, 0.0))
 
     if key == KeyCode.Left:
         car.apply_transformation(translate(0.0, 0.0, -0.5))
