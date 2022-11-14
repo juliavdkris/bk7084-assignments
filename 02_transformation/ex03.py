@@ -39,40 +39,45 @@ You won't see the moon, because it is still at the center of space, covered by t
 # TODO copy the completed functions from ex01
 
 def translate(x: float, y: float, z: float) -> Mat4:
-    return Mat4.identity()
+    return Mat4.from_translation(Vec3(x, y, z))
+    # return Mat4.identity()
 
 def rotate_x(angle: float) -> Mat4:
-    return Mat4.identity()
+    return Mat4.from_rotation_x(angle)
+    # return Mat4.identity()
 
 def rotate_y(angle: float) -> Mat4:
-    return Mat4.identity()
+    return Mat4.from_rotation_y(angle)
+    # return Mat4.identity()
 
 def rotate_z(angle: float) -> Mat4:
-    return Mat4.identity()
+    return Mat4.from_rotation_z(angle)
+    # return Mat4.identity()
 
 def scale(x: float, y: float, z: float) -> Mat4:
-    return Mat4.identity()
+    return Mat4.from_scale(Vec3(x, y, z))
+    # return Mat4.identity()
 
 """
 Here, we load the planets, no need to adjust anything here yet.
 """
 earth = Mesh(osp.join('assets/earth.obj'), colors=(PaletteDefault.GreenA.as_color(),))
-earth.material_enabled = False
-earth.initial_transformation = Mat4.from_scale(Vec3(0.1))
+earth.init_transform = Mat4.from_scale(Vec3(0.1))
 
 moon = Mesh(osp.join('assets/moon.obj'), colors=(PaletteDefault.WhiteB.as_color(),))
 moon.material_enabled = False
-moon.initial_transformation = Mat4.from_scale(Vec3(0.2))
+moon.init_transform = Mat4.from_scale(Vec3(0.2))
 
 sun = Mesh(osp.join('assets/sun.obj'), colors=(PaletteDefault.YellowA.as_color(),))
 sun.material_enabled = False
-sun.initial_transformation = Mat4.from_scale(Vec3(0.15))
+sun.init_transform = Mat4.from_scale(Vec3(0.15))
 
 """
 This is where you can start building up your transformation matrices.
 For example, create a translation matrix for the earth to be placed away from the sun:
 """
-earth_translation = translate(30, 0, 0)
+earth_translation = translate(40, 0, 0)
+moon_to_earth = Mat4.from_translation(Vec3(10, 0, 0))
 # TODO: other transformations you might need
 
 """
@@ -92,12 +97,14 @@ def on_draw(dt):
     Also, you can get the current transformation for an object with
     >>> earth_transformation = earth.transformation
     """
-    earth.reset_transformation()
-    earth.apply_transformation(earth_translation)
+    earth.reset_transform()
+    #earth.apply_transformation(earth_translation)
+    earth.transform = Mat4.from_rotation_y(time * 0.9) * earth_translation * Mat4.from_rotation_y(time * 1.2)
     # TODO: Compute and apply transformations
     draw(earth)
 
-    moon.reset_transformation()
+    moon.reset_transform()
+    moon.apply_transform(Mat4.from_rotation_y(time)).then(moon_to_earth).then(Mat4.from_rotation_y(time)).then(earth.transform)
     # TODO: Compute and apply transformations
     draw(moon)
 

@@ -1,14 +1,8 @@
-import os.path
-import sys
-
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.dirname(SCRIPT_DIR))
 
 import numpy as np
-
 from bk7084 import Window, app
 from bk7084.app.input import KeyCode
-from bk7084.geometry import Triangle, Ray, Line
+from bk7084.geometry import Triangle, Ray, Grid, AxisAlignment
 from bk7084.math import Vec3, Mat3
 from bk7084.misc import PaletteSvg, PaletteDefault
 from bk7084.graphics import draw
@@ -16,6 +10,9 @@ from bk7084.graphics import draw
 # Setup window and add camera
 window = Window("BK7084: 01-Intersection")
 window.create_camera(Vec3(0, 0.0, 10.0), Vec3(0, 0, 0), Vec3.unit_y(), 60.0)
+
+# Create a grid
+grid = Grid(20, 20, 1.0, 1.0, axis_alignment=AxisAlignment.XY)
 
 # Create a triangle and ray and set the animation flag
 triangle = Triangle([-2, -2, 1], [2, -2, 1], [0, 2, 1])
@@ -46,12 +43,7 @@ you should see the triangle turn red when it's intersected by the ray.
 
 @window.event
 def on_draw(dt):
-    # Draw a grid of lines
-    for i in range(21):
-        draw(Line([Vec3(-10, -10 + i, 0), Vec3(10, -10 + i, 0)]))
-        draw(Line([Vec3(-10 + i, -10, 0), Vec3(-10 + i, 10, 0)]))
-    draw(triangle)
-    draw(ray, update=True)
+    draw(triangle, grid, ray)
 
 
 @window.event

@@ -1,7 +1,8 @@
 import os.path as osp
+
 from bk7084 import Window, app
 from bk7084.app.input import KeyCode, KeyModifier
-from bk7084.geometry import Triangle, Ray, Line, Box
+from bk7084.geometry import Triangle, Ray, Line, Box, Grid
 from bk7084.math import Vec3, Mat3, Mat4
 from bk7084.misc import PaletteSvg, PaletteDefault
 from bk7084.graphics import draw
@@ -63,15 +64,15 @@ Note that the order you multiply transformation matrices is the reverse of chain
 # Different parts of the lamp
 # Lamp model by https://sketchfab.com/Bharad CC BY 4.0
 lamp = Mesh(osp.join('assets/lamp.obj'), colors=(PaletteSvg.DeepSkyBlue.as_color(),))
-lamp.apply_transformation(translate(50, -52, -50))
+lamp.apply_transform(translate(50, -52, -50))
 
 # Lamp's base
 lamp_base = Mesh(osp.join('assets/base.obj'), colors=(PaletteDefault.RedB.as_color(),))
-lamp_base.apply_transformation(translate(-53, -47, 48))
+lamp_base.apply_transform(translate(-53, -47, 48))
 
 # Lamp's 1st segment
 lamp_seg0 = Mesh(osp.join('assets/seg01.obj'), colors=(PaletteDefault.WhiteB.as_color(),))
-lamp_seg0.apply_transformation(translate(-53, -36, 48))
+lamp_seg0.apply_transform(translate(-53, -36, 48))
 
 # Lamp's 1st connector
 lamp_con0 = Mesh(osp.join('assets/con01.obj'), colors=(PaletteDefault.BlackB.as_color(),))
@@ -131,31 +132,31 @@ def on_draw(dt):
 @window.event
 def on_key_press(key, mods):
     if key == KeyCode.Up:
-        lamp.apply_transformation(translate(0.5, 0.0, 0.0))
+        lamp.apply_transform(translate(0.5, 0.0, 0.0))
 
     if key == KeyCode.Down:
-        lamp.apply_transformation(translate(-0.5, 0.0, 0.0))
+        lamp.apply_transform(translate(-0.5, 0.0, 0.0))
 
     if key == KeyCode.Left:
-        lamp.apply_transformation(translate(0.0, 0.0, -0.5))
+        lamp.apply_transform(translate(0.0, 0.0, -0.5))
 
     if key == KeyCode.Right:
-        lamp.apply_transformation(translate(0.0, 0.0, 0.5))
+        lamp.apply_transform(translate(0.0, 0.0, 0.5))
 
     if key == KeyCode.X:
-        lamp.apply_transformation(rotate_x(90.0))
+        lamp.apply_transform(rotate_x(90.0))
 
     if key == KeyCode.Y:
-        lamp.apply_transformation(rotate_y(90.0))   
+        lamp.apply_transform(rotate_y(90.0))
 
     if key == KeyCode.Z:
-        lamp.apply_transformation(rotate_z(90.0))   
+        lamp.apply_transform(rotate_z(90.0))
 
     if key == KeyCode.S:
-        lamp.apply_transformation(scale(0.9, 0.9, 0.9))
+        lamp.apply_transform(scale(0.9, 0.9, 0.9))
 
     if key == KeyCode.R:
-        lamp.reset_transformation()
+        lamp.reset_transform()
 
 
 app.init(window)

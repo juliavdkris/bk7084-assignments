@@ -65,8 +65,7 @@ def translate(x: float, y: float, z: float) -> Mat4:
             [0, 0, 0, 1]
         ]
     )
-    return Mat4.from_translation(Vec3(x, y, z))
-    # return mat
+    return mat
 
 
 def rotate_x(angle: float) -> Mat4:
@@ -89,8 +88,7 @@ def rotate_x(angle: float) -> Mat4:
             [0, 0, 0, 1]
         ]
     )
-    # return mat
-    return Mat4.from_rotation_x(np.radians(angle))
+    return mat
 
 
 def rotate_y(angle: float) -> Mat4:
@@ -167,18 +165,15 @@ def scale(x: float, y: float, z: float) -> Mat4:
 You don't need to change the code below to finish the assignment.
 """
 car = Mesh('./assets/car.obj', colors=(PaletteDefault.RedA.as_color(),))
-grid = Grid(axis_alignment=AxisAlignment.XZ, axis_marker=True)
+grid = Grid(origin=Vec3(0.0, -1.17, 0.0), axis_alignment=AxisAlignment.XZ, axis_marker=True)
 arrows = [
-    Mesh('./models/arrow.obj', colors=(PaletteDefault.RedB.as_color())),
-    Mesh('./models/arrow.obj', colors=(PaletteDefault.GreenB.as_color())),
-    Mesh('./models/arrow.obj', colors=(PaletteDefault.BlueB.as_color())),
+    Mesh('./models/arrow.obj', colors=(PaletteDefault.RedB.as_color()), material_enabled=False),
+    Mesh('./models/arrow.obj', colors=(PaletteDefault.GreenB.as_color()), material_enabled=False),
+    Mesh('./models/arrow.obj', colors=(PaletteDefault.BlueB.as_color()), material_enabled=False),
 ]
-arrows[0].material_enabled = False
 arrows[0].initial_transformation = Mat4.from_translation(Vec3(7.0, 0.0, 0.0)) * Mat4.from_scale(Vec3(0.2)) * Mat4.from_rotation_z(-90.0, degrees=True)
 arrows[1].initial_transformation = Mat4.from_translation(Vec3(0.0, 7.0, 0.0)) * Mat4.from_scale(Vec3(0.2))
-arrows[1].material_enabled = False
 arrows[2].initial_transformation = Mat4.from_translation(Vec3(0.0, 0.0, 7.0)) * Mat4.from_scale(Vec3(0.2)) * Mat4.from_rotation_x(90.0, degrees=True)
-arrows[2].material_enabled = False
 
 
 @window.event
@@ -189,37 +184,37 @@ def on_draw(dt):
 @window.event
 def on_key_press(key, mods):
     if key == KeyCode.Up:
-        car.apply_transformation(translate(0.5, 0.0, 0.0))
+        car.apply_transform(translate(0.5, 0.0, 0.0))
 
     if key == KeyCode.Down:
-        car.apply_transformation(translate(-0.5, 0.0, 0.0))
+        car.apply_transform(translate(-0.5, 0.0, 0.0))
 
     if key == KeyCode.N:
-        car.apply_transformation(translate(0.0, 0.5, 0.0))
+        car.apply_transform(translate(0.0, 0.5, 0.0))
 
     if key == KeyCode.M:
-        car.apply_transformation(translate(0.0, -0.5, 0.0))
+        car.apply_transform(translate(0.0, -0.5, 0.0))
 
     if key == KeyCode.Left:
-        car.apply_transformation(translate(0.0, 0.0, -0.5))
+        car.apply_transform(translate(0.0, 0.0, -0.5))
 
     if key == KeyCode.Right:
-        car.apply_transformation(translate(0.0, 0.0, 0.5))
+        car.apply_transform(translate(0.0, 0.0, 0.5))
 
     if key == KeyCode.X:
-        car.apply_transformation(rotate_x(45))
+        car.apply_transform(rotate_x(45))
 
     if key == KeyCode.Y:
-        car.apply_transformation(rotate_y(45))   
+        car.apply_transform(rotate_y(45))
 
     if key == KeyCode.Z:
-        car.apply_transformation(rotate_z(45))   
+        car.apply_transform(rotate_z(45))
 
     if key == KeyCode.S:
-        car.apply_transformation(scale(0.9, 0.9, 0.9))
+        car.apply_transform(scale(0.9, 0.9, 0.9))
 
     if key == KeyCode.R:
-        car.reset_transformation()
+        car.reset_transform()
 
 
 app.init(window)
