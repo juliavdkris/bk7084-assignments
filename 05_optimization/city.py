@@ -39,8 +39,8 @@ class City(Entity):
         """
         self._buildings = {
             PlotType.EMPTY: None,
-            PlotType.PARK: Mesh('assets/meshes/Park.obj', texture_enabled=False),
-            PlotType.HOUSE: Mesh('assets/meshes/House.obj', texture_enabled=False),
+            PlotType.PARK: Mesh('park', 'assets/meshes/Park.obj', texture_enabled=False),
+            PlotType.HOUSE: Mesh('house', 'assets/meshes/House.obj', texture_enabled=False),
             PlotType.OFFICE: Office(2, 1).convert_to_mesh(),
             PlotType.HIGHRISE: Highrise(3, 1).convert_to_mesh(),
             PlotType.SKYSCRAPER: Skyscraper(5, 1).convert_to_mesh()
@@ -70,6 +70,10 @@ class City(Entity):
         self.set_plot_type(3, 1, PlotType.SKYSCRAPER)
         self.set_plot_type(4, 0, PlotType.PARK)
         self.set_plot_type(4, 1, PlotType.PARK)
+
+        for i in range(self._row):
+            for j in range(self._col):
+                self.set_plot_type(i, j, PlotType.SKYSCRAPER)
 
     def clear(self):
         """ Fills the grid with empty plots.
@@ -246,14 +250,16 @@ class GridCell(Component):
         super(GridCell, self).__init__()
         self._type = type
         self._mesh = Mesh(
+            name="grid_cell",
             vertices=[[-w / 2, 0, -h / 2], [w / 2, 0, -h / 2],
                       [w / 2, 0, h / 2], [-w / 2, 0, h / 2]],
             colors=[Palette.RedA.as_color()],
             normals=[[0, 1, 0]],
             uvs=[[0, 0], [1, 0], [1, 1], [0, 1]],
-            triangles=[[(0, 1, 2, 3), (0, 1, 2, 3), (0, 0, 0, 0)]],
-            texture=texture
+            faces=[[(0, 1, 2, 3), (0, 1, 2, 3), (0, 0, 0, 0)]],
+            texture_enabled=True,
         )
+        self._mesh.update_sub_mesh(0, SubMesh(name="grid_cell", faces=[0]), texture=texture)
 
     @property
     def mesh(self) -> Mesh:

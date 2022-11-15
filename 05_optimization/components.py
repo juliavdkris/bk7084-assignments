@@ -1,11 +1,11 @@
-from bk7084.scene import Mesh, Component, Entity, Building
 from bk7084.misc import PaletteDefault as Palette
+from bk7084.scene import Mesh, Component
 from bk7084.scene.mesh import SubMesh
-
 
 """
 TODO Add your own components here, following the examples given below.
 """
+
 
 class BasicWall(Component):
     """A basic wall component that is centered horizontally at (0, 0, 0)
@@ -27,6 +27,7 @@ class BasicWall(Component):
         texture (str):
             Path to the texture used for this component.
     """
+
     def __init__(self, w=1, h=1, texture='assets/textures/brick.jpg'):
         """You can create a mesh in the __init__ class and store it in self._mesh.
         Other classes can access this attribute with the mesh property below.
@@ -36,6 +37,7 @@ class BasicWall(Component):
         # You can create a mesh 'from scratch' by defining the vertices
         # and triangles (faces) yourself.
         self._mesh = Mesh(
+            name="basic_wall",
             # These are the four corners of the wall
             vertices=[[-w / 2, 0, 0], [w / 2, 0, 0], [w / 2, h, 0], [-w / 2, h, 0]],
             # You can give a list of colors for each vertex.
@@ -52,10 +54,10 @@ class BasicWall(Component):
             # Finally, we can start defining the triangles (or faces)
             # and set the uv-coordinates and normals belonging to each vertex.
             #           Vertex indices  UV indices     Normal indices
-            triangles=[[(0, 1, 2, 3),   (0, 1, 2, 3),  (0, 0, 0, 0)]],
-            # And we set the texture of this mesh to the file path that we give to the __init__ function.
-            texture=texture
+            faces=[[(0, 1, 2, 3), (0, 1, 2, 3), (0, 0, 0, 0)]],
+            texture_enabled=True,
         )
+        self._mesh.update_sub_mesh(0, SubMesh(name='basic_wall', faces=[0]), texture=texture)
 
     @property
     def mesh(self) -> Mesh:
@@ -96,26 +98,28 @@ class WindowWall(Component):
         window_texture (str):
             Path to the texture used for the window.
     """
+
     def __init__(self, w=1, h=1, wall_texture='assets/textures/brick.jpg', window_texture='assets/textures/window.jpg'):
         super().__init__()
         self._mesh = Mesh(
+            name='window_wall',
             vertices=[[-w / 4, h / 4, 0], [w / 4, h / 4, 0], [w / 4, 3 * h / 4, 0], [-w / 4, 3 * h / 4, 0],
                       [-w / 2, 0, 0], [w / 2, 0, 0], [w / 2, h, 0], [-w / 2, h, 0]],
             colors=[Palette.BlueA.as_color()],
             normals=[[0, 0, 1]],
             uvs=[[0, 0], [1, 0], [1, 1], [0, 1], [0.25, 0.25], [0.75, 0.25], [0.75, 0.75], [0.25, 0.75]],
-            triangles=[[(0, 1, 5, 4), (4, 5, 1, 0), (0, 0, 0, 0)],
-                       [(1, 2, 6, 5), (5, 6, 2, 1), (0, 0, 0, 0)],
-                       [(2, 3, 7, 6), (6, 7, 3, 2), (0, 0, 0, 0)],
-                       [(3, 0, 4, 7), (7, 4, 0, 3), (0, 0, 0, 0)],
-                       [(0, 1, 2, 3), (0, 1, 2, 3), (0, 0, 0, 0)]]
+            faces=[[(0, 1, 5, 4), (4, 5, 1, 0), (0, 0, 0, 0)],
+                   [(1, 2, 6, 5), (5, 6, 2, 1), (0, 0, 0, 0)],
+                   [(2, 3, 7, 6), (6, 7, 3, 2), (0, 0, 0, 0)],
+                   [(3, 0, 4, 7), (7, 4, 0, 3), (0, 0, 0, 0)],
+                   [(0, 1, 2, 3), (0, 1, 2, 3), (0, 0, 0, 0)]]
         )
 
         # These submeshes can be used to apply different materials to parts of the mesh
         # Provide the SubMesh with a name the indices of the triangles part of the submesh
         # and the path of the texture for this SubMesh.
-        self._mesh.update_sub_mesh(0, SubMesh(name='wall', triangles=[0, 1, 2, 3]), texture=wall_texture)
-        self._mesh.append_sub_mesh(SubMesh(name='window', triangles=[4]), texture=window_texture)
+        self._mesh.update_sub_mesh(0, SubMesh(name='wall', faces=[0, 1, 2, 3]), texture=wall_texture)
+        self._mesh.append_sub_mesh(SubMesh(name='window', faces=[4]), texture=window_texture)
 
     @property
     def mesh(self) -> Mesh:
@@ -133,19 +137,21 @@ class BasicFloor(Component):
         texture (str):
             Path to the texture used for this component.
     """
+
     def __init__(self, w_x=1, w_z=1, texture=None):
         super().__init__()
         self._mesh = Mesh(
+            name='basic_floor',
             vertices=[[-w_x / 2, 0, -w_z / 2], [w_x / 2, 0, -w_z / 2],
                       [w_x / 2, 0, w_z / 2], [-w_x / 2, 0, w_z / 2]],
             colors=[Palette.RedA.as_color()],
             normals=[[0, 1, 0]],
             uvs=[[0, 0], [1, 0], [1, 1], [0, 1]],
-            triangles=[[(0, 1, 2, 3), (0, 1, 2, 3), (0, 0, 0, 0)]],
-            texture=texture
+            faces=[[(0, 1, 2, 3), (0, 1, 2, 3), (0, 0, 0, 0)]],
+            texture_enabled=False,
         )
-        self._mesh.material_enabled = False
-    
+        self._mesh.update_sub_mesh(0, SubMesh(name='basic_floor', faces=[0]), texture=texture)
+
     @property
     def mesh(self) -> Mesh:
         return self._mesh

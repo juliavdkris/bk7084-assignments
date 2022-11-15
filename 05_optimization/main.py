@@ -1,13 +1,12 @@
-import numpy as np
+#! /usr/bin/env python3
+
 from bk7084 import Window, app
-from bk7084.math import Vec3, Mat4, Mat3
-from bk7084.misc import PaletteDefault as Palette
-from bk7084.scene import Mesh, Scene
-from bk7084.app.input import KeyCode
 from bk7084.app import ui
+from bk7084.scene import Scene
 
 from city import City
 from optimizer import Optimizer
+
 try:
     from buildings import *
     from components import *

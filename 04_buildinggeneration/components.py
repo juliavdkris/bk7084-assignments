@@ -12,7 +12,7 @@ TODO Add your own components here, following the examples given below.
 
 class BasicWall(Component):
     """A basic wall component that is centered horizontally at (0, 0, 0)
-    and aligned to the x-axis with it's bottom edge:
+    and aligned to the x-axis with its bottom edge:
     
     (-w/2, h, 0)  ___  (w/2, h, 0)
                  |   |
@@ -40,6 +40,7 @@ class BasicWall(Component):
         # You can create a mesh 'from scratch' by defining the vertices
         # and triangles (faces) yourself.
         self._mesh = Mesh(
+            name="basic_wall",
             # These are the four corners of the wall
             vertices=[[-w / 2, 0, 0], [w / 2, 0, 0], [w / 2, h, 0], [-w / 2, h, 0]],
             # You can give a list of colors for each vertex.
@@ -72,7 +73,7 @@ class BasicWall(Component):
 
 class WindowWall(Component):
     """An advanced wall component that is centered horizontally at (0, 0, 0)
-    and aligned to the x-axis with it's bottom edge.
+    and aligned to the x-axis with its bottom edge.
     This wall has a separate Window texture in the center.
 
     The wall is constructed with 5 faces:
@@ -104,6 +105,7 @@ class WindowWall(Component):
     def __init__(self, w=1, h=1, wall_texture='assets/textures/brick.jpg', window_texture='assets/textures/window.jpg'):
         super().__init__()
         self._mesh = Mesh(
+            name='window_wall',
             vertices=[[-w / 4, h / 4, 0], [w / 4, h / 4, 0], [w / 4, 3 * h / 4, 0], [-w / 4, 3 * h / 4, 0],
                       [-w / 2, 0, 0], [w / 2, 0, 0], [w / 2, h, 0], [-w / 2, h, 0]],
             colors=[Palette.BlueA.as_color()],
@@ -140,6 +142,7 @@ class BasicFloor(Component):
     def __init__(self, w_x=1, w_z=1):
         super().__init__()
         self._mesh = Mesh(
+            name='basic_floor',
             vertices=[[-w_x / 2, 0, -w_z / 2], [w_x / 2, 0, -w_z / 2],
                       [w_x / 2, 0, w_z / 2], [-w_x / 2, 0, w_z / 2]],
             colors=[Palette.RedA.as_color()],
@@ -177,6 +180,7 @@ class Ground(Component):
         self._grid_enabled = grid_enabled
         self._grid = Grid(width=w, height=w)
         self._mesh = Mesh(
+            name='ground',
             vertices=[[-w / 2, y, -w / 2], [w / 2, y, -w / 2],
                       [w / 2, y, w / 2], [-w / 2, y, w / 2]],
             colors=[Palette.GreenA.as_color()],

@@ -1,5 +1,6 @@
 from bk7084.math import Vec3, Mat4
 from bk7084.scene import Building
+from bk7084.scene.mesh import SubMesh
 
 from numpy.random import randint, rand
 
