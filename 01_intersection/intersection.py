@@ -60,7 +60,7 @@ def on_update(dt):
     if intersect_ray_triangle(ray, triangle):
         triangle.color = PaletteDefault.RedA.as_color()
     else:
-        triangle.color = PaletteSvg.LightBlue.as_color()
+        triangle.color = PaletteSvg.SkyBlue.as_color()
 
 
 app.init(window)

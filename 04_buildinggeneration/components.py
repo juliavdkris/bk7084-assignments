@@ -139,7 +139,7 @@ class BasicFloor(Component):
             Width of the floor component in the z-direction.
     """
 
-    def __init__(self, w_x=1, w_z=1):
+    def __init__(self, w_x=1, w_z=1, texture='assets/textures/floor.jpg'):
         super().__init__()
         self._mesh = Mesh(
             name='basic_floor',
@@ -149,8 +149,9 @@ class BasicFloor(Component):
             normals=[[0, 1, 0]],
             uvs=[[0, 0], [1, 0], [1, 1], [0, 1]],
             faces=[[(0, 1, 2, 3), (0, 1, 2, 3), (0, 0, 0, 0)]],
-            material_enabled=False,
+            texture_enabled=True,
         )
+        self._mesh.update_sub_mesh(0, SubMesh(name='basic_floor', faces=[0]), texture=texture)
 
     @property
     def mesh(self) -> Mesh:

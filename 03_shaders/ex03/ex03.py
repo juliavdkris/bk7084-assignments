@@ -35,7 +35,8 @@ window.default_shader = ShaderProgram(
     PixelShader.from_file(os.path.join('ex03.frag'))
 )
 
-cow = Mesh(os.path.join('../assets/spot.obj'), color=PaletteDefault.RedB.as_color())
+cow = Mesh('spot-cow', os.path.join('../assets/spot.obj'), color=PaletteDefault.RedB.as_color())
+cow.texture_enabled = True
 cow.shading_enabled = True
 
 animate = True

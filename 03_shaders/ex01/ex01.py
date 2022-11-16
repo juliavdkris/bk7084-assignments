@@ -55,8 +55,9 @@ First run this program and then open up `ex01.vert` and continue from there.
 You can press `A` when the program is running to animate the model.
 """
 # Spot the cow model courtesy of Keenan Crane (CC0) https://www.cs.cmu.edu/~kmcrane/Projects/ModelRepository/#spot
-spot = Mesh(osp.join('../assets/spot.obj'), color=PaletteDefault.BlueB.as_color())
+spot = Mesh('spot-cow', osp.join('../assets/spot.obj'), color=PaletteDefault.BlueB.as_color())
 # spot.shading_enabled = False  # Disable or enable shading in shader.
+# spot.texture_enabled = True  # Enable or disable texture in shader.
 
 animate = False
 

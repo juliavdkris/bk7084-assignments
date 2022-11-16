@@ -164,16 +164,16 @@ def scale(x: float, y: float, z: float) -> Mat4:
 """
 You don't need to change the code below to finish the assignment.
 """
-car = Mesh('./assets/car.obj', colors=(PaletteDefault.RedA.as_color(),))
+car = Mesh('car', './assets/car.obj')
 grid = Grid(origin=Vec3(0.0, -1.17, 0.0), axis_alignment=AxisAlignment.XZ, axis_marker=True)
 arrows = [
-    Mesh('./models/arrow.obj', colors=(PaletteDefault.RedB.as_color()), material_enabled=False),
-    Mesh('./models/arrow.obj', colors=(PaletteDefault.GreenB.as_color()), material_enabled=False),
-    Mesh('./models/arrow.obj', colors=(PaletteDefault.BlueB.as_color()), material_enabled=False),
+    Mesh('x-axis', './models/arrow.obj', colors=(PaletteDefault.RedB.as_color()), material_enabled=False),
+    Mesh('y-axis', './models/arrow.obj', colors=(PaletteDefault.GreenB.as_color()), material_enabled=False),
+    Mesh('z-axis', './models/arrow.obj', colors=(PaletteDefault.BlueB.as_color()), material_enabled=False),
 ]
-arrows[0].initial_transformation = Mat4.from_translation(Vec3(7.0, 0.0, 0.0)) * Mat4.from_scale(Vec3(0.2)) * Mat4.from_rotation_z(-90.0, degrees=True)
-arrows[1].initial_transformation = Mat4.from_translation(Vec3(0.0, 7.0, 0.0)) * Mat4.from_scale(Vec3(0.2))
-arrows[2].initial_transformation = Mat4.from_translation(Vec3(0.0, 0.0, 7.0)) * Mat4.from_scale(Vec3(0.2)) * Mat4.from_rotation_x(90.0, degrees=True)
+arrows[0].init_transform = Mat4.from_translation(Vec3(7.0, 0.0, 0.0)) * Mat4.from_scale(Vec3(0.2)) * Mat4.from_rotation_z(-90.0, degrees=True)
+arrows[1].init_transform = Mat4.from_translation(Vec3(0.0, 7.0, 0.0)) * Mat4.from_scale(Vec3(0.2))
+arrows[2].init_transform = Mat4.from_translation(Vec3(0.0, 0.0, 7.0)) * Mat4.from_scale(Vec3(0.2)) * Mat4.from_rotation_x(90.0, degrees=True)
 
 
 @window.event

@@ -71,10 +71,6 @@ class City(Entity):
         self.set_plot_type(4, 0, PlotType.PARK)
         self.set_plot_type(4, 1, PlotType.PARK)
 
-        for i in range(self._row):
-            for j in range(self._col):
-                self.set_plot_type(i, j, PlotType.SKYSCRAPER)
-
     def clear(self):
         """ Fills the grid with empty plots.
         """
