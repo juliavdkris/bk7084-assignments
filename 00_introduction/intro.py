@@ -163,7 +163,7 @@ v2 = None # Complete this...
 [b] Construct a Triangle with these vertices.
 [c] Give your triangle a different color. You can change the color by setting the `color` parameter in Triangle.
 The color is given as a Color object and many colours are predefined in PaletteDefault.
->>> triangle = Triangle(.., .., .., color=PaletteDefault.RedA.as_color())
+>>> triangle = Triangle(.., .., .., colors=[PaletteDefault.RedA.as_color(), PaletteDefault.GreenA.as_color(), PaletteDefault.BlueA.as_color()])
 """
 triangle1 = None # Complete this...
 
