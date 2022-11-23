@@ -30,20 +30,21 @@ In this exercise, we'll experiment with this and use a time variable to animate 
 Open up `ex03.vert` to continue.
 """
 
-window.default_shader = ShaderProgram(
+shader = ShaderProgram(
     VertexShader.from_file(os.path.join('ex03.vert')),
     PixelShader.from_file(os.path.join('ex03.frag'))
 )
 
-cow = Mesh('spot-cow', os.path.join('../assets/spot.obj'), color=PaletteDefault.RedB.as_color())
-cow.texture_enabled = True
-cow.shading_enabled = True
+cow = Mesh('spot-cow', os.path.join('../assets/spot.obj'), colors=[PaletteDefault.RedB.as_color()])
+shader_params = {
+    'texture_enabled': True
+}
 
 animate = True
 
 @window.event
 def on_draw(dt):
-    draw(cow)
+    draw(cow, shader=shader, shader_params=shader_params)
 
 @window.event
 def on_key_press(key, mods):

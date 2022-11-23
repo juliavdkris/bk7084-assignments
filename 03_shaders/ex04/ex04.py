@@ -29,21 +29,23 @@ This online book with lots of interactive material can help you grasp shaders ev
 For now, open up `ex04.frag` to continue.
 """
 
-window.default_shader = ShaderProgram(
+shader = ShaderProgram(
     VertexShader.from_file(os.path.join('ex04.vert')),
     PixelShader.from_file(os.path.join('ex04.frag'))
 )
 
-cow = Mesh('spot-cow', os.path.join('../assets/spot.obj'), color=PaletteDefault.RedB.as_color())
-cow.shading_enabled = True
-cow.texture_enabled = True
+cow = Mesh('spot-cow', os.path.join('../assets/spot.obj'), colors=[PaletteDefault.RedB.as_color()])
+shader_params = {
+    'shading_enabled': True,
+    'texture_enabled': True
+}
 
 animate = True
 
 
 @window.event
 def on_draw(dt):
-    draw(cow)
+    draw(cow, shader=shader, shader_params=shader_params)
 
 
 @window.event

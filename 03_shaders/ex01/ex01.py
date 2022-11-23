@@ -43,10 +43,11 @@ Compilation is the process of translating code from human-readable language to m
 For this exercise, we load these programs from two files: ex01.vert (vertex shader) and ex01.frag (fragment shader).
 The 'VertexShader' and 'PixelShader' classes take care of compiling your code and making it ready for your GPU.
 """
-window.default_shader = ShaderProgram(
+shader = ShaderProgram(
     VertexShader.from_file(osp.join('ex01.vert')),
     PixelShader.from_file(osp.join('ex01.frag'))
 )
+
 """
 We will use these shaders to draw the cow object seen in this exercise.
 Actually, you don't need to do anything in this file, all tasks should be completed in ex01.vert.
@@ -55,15 +56,17 @@ First run this program and then open up `ex01.vert` and continue from there.
 You can press `A` when the program is running to animate the model.
 """
 # Spot the cow model courtesy of Keenan Crane (CC0) https://www.cs.cmu.edu/~kmcrane/Projects/ModelRepository/#spot
-spot = Mesh('spot-cow', osp.join('../assets/spot.obj'), color=PaletteDefault.BlueB.as_color())
-# spot.shading_enabled = False  # Disable or enable shading in shader.
-# spot.texture_enabled = True  # Enable or disable texture in shader.
+spot = Mesh('spot-cow', osp.join('../assets/spot.obj'), colors=[PaletteDefault.BlueB.as_color()])
+spot.shading_enabled = True  # Disable or enable shading in shader.
+shader_params = {
+    'shading_enabled': False
+}
 
 animate = False
 
 @window.event
 def on_draw(dt):
-    draw(spot)
+    draw(spot, shader=shader, shader_params=shader_params)
 
 @window.event
 def on_key_press(key, mods):

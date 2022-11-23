@@ -41,18 +41,18 @@ vec4 shading(vec3 diffuse_color) {
     vec3 view_dir = normalize(-frag_pos);
     vec3 n = normalize(v_normal);
 
-    vec3 ambient_color = vec3(0.1, 0.1, 0.1);
     vec3 light_color = vec3(0.5, 0.5, 0.5);
     vec3 specular_color = vec3(1.0, 1.0, 1.0);
     float shininess = 0.0;
 
-    vec3 luminance = ambient_color.rgb + diffuse_color * 0.3;
+    vec3 luminance = diffuse_color * 0.5;
 
-    float illuminance = dot(light_dir, n);
-    if (illuminance > 0.0) {
+    float l_dot_n = dot(light_dir, n);
+
+    if (l_dot_n > 0.0) {
         vec3 brdf = blinnPhongBRDF(light_dir, view_dir, n, diffuse_color.rgb, specular_color.rgb, shininess);
 
-        luminance += brdf * illuminance * light_color.rgb * 0.6;
+        luminance += brdf * l_dot_n * light_color.rgb * 0.5;
     }
 
     return vec4(luminance, 1.0);
