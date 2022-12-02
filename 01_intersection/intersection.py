@@ -31,6 +31,19 @@ Your tasks:
 3. Implement the intersection conditions based on the solution.
 """
 def intersect_ray_triangle(ray, tri):
+    """
+    You can get the three vertices of the triangle as follows:
+    >>> a = tri.p0
+    >>> b = tri.p1
+    >>> c = tri.p2
+    You can get the direction and origin of the ray as follows:
+    >>> direction = ray.direction
+    >>> origin = ray.origin
+    You can get the x, y, z coordinate of a vector as follows:
+    >>> x_coord = a.x
+    >>> y_coord = a.y
+    >>> z_coord = a.z
+    """
     mat_A = Mat3()      # 1. Set up matrix A
     vec_b = Vec3()      # 1. Set up vector b
     vec_x = None        # 2. Solve the linear system
