@@ -22,8 +22,10 @@ You are going to construct a virtual lamp by composing transformation matrices.
 When you first run this program, you will see a blue lamp in the far-left corner.
 There's also a lamp base at the opposite corner in red and components of the lamp at the center.
 It's up to you to place the components of the red lamp in the right position on the base of the lamp.
-The correct transformations are listed in the file ex02_configurations.txt,
-you have to translate these to correct code.
+
+The correct transformations are listed in the file `ex02_configurations.txt',
+you have to translate these transformations to correct code.
+Note: the transformations are not nested, so you can directly use them without using a hierarchy.
 
 Note: Be sure to read week 2 in the assignment website before you start this exercise.
 """

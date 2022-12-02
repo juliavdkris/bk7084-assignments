@@ -40,7 +40,10 @@ def rotate_x(angle: float) -> Mat4:
         Mat4
     """
     # TODO: complete this matrix
-    # hint: you can compute cos and sin with np.cos(angle) and np.sin(angle)
+    # hint 1: you can compute cos and sin with np.cos(angle) and np.sin(angle)
+    # hint 2: cos and sin expect angles in radians, not degrees
+    #        to convert from an angle in degrees to an angle in radians, you can use
+    #        np.deg2rad(angle)
     mat = Mat4(
         [
             [1, 0, 0, 0],
@@ -63,7 +66,10 @@ def rotate_y(angle: float) -> Mat4:
         Mat4
     """
     # TODO: complete this matrix
-    # hint: you can compute cos and sin with np.cos(angle) and np.sin(angle)
+    # hint 1: you can compute cos and sin with np.cos(angle) and np.sin(angle)
+    # hint 2: cos and sin expect angles in radians, not degrees
+    #        to convert from an angle in degrees to an angle in radians, you can use
+    #        np.deg2rad(angle)
     mat = Mat4(
         [
             [1, 0, 0, 0],
@@ -86,7 +92,10 @@ def rotate_z(angle: float) -> Mat4:
         Mat4
     """
     # TODO: complete this matrix
-    # hint: you can compute cos and sin with np.cos(angle) and np.sin(angle)
+    # hint 1: you can compute cos and sin with np.cos(angle) and np.sin(angle)
+    # hint 2: cos and sin expect angles in radians, not degrees
+    #        to convert from an angle in degrees to an angle in radians, you can use
+    #        np.deg2rad(angle)
     mat = Mat4(
         [
             [1, 0, 0, 0],
