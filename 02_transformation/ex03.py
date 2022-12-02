@@ -7,6 +7,7 @@ from bk7084.misc import PaletteSvg, PaletteDefault
 from bk7084.graphics import draw
 from bk7084.scene import Mesh
 
+from transformations import translate, rotate_x, rotate_y, rotate_z, scale
 
 window = Window("BK7084: 02-Transformation [ex03]", width=1024, height=1024)
 window.create_camera(Vec3(-100.0, 50.0, 0.0), Vec3(0, 0, 0), Vec3.unit_y(), 60.0)
@@ -32,26 +33,8 @@ Don't start without a plan, you will end up with a tangle of code that is very h
 Instead, first design your solar system on paper and write out how to apply the transformations.
 If you do it well, you can finish this exercise by only adding about 5 lines of code!
 
-First, copy your finished transformation functions.
-If you have copied these, you should see the sun and earth.
 You won't see the moon, because it is still at the center of space, covered by the sun.
 """
-# TODO copy the completed functions from ex01
-
-def translate(x: float, y: float, z: float) -> Mat4:
-    return Mat4.identity()
-
-def rotate_x(angle: float) -> Mat4:
-    return Mat4.identity()
-
-def rotate_y(angle: float) -> Mat4:
-    return Mat4.identity()
-
-def rotate_z(angle: float) -> Mat4:
-    return Mat4.identity()
-
-def scale(x: float, y: float, z: float) -> Mat4:
-    return Mat4.identity()
 
 """
 Here, we load the planets, no need to adjust anything here yet.

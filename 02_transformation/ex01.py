@@ -36,130 +36,17 @@ If you succeed, you can control a virtual car with your keyboard when you run th
 Please read the accompanying PDF for an introduction and reference to complete this assignment.
 
 Your tasks:
-1. Build transformation matrices (do NOT use built-in functions):
+1. Build transformation matrices in transformations.py (do NOT use built-in functions):
   a. translation matrix,
   b. rotation matrices,
   c. scaling matrix.
 2. Move the car to reach the red cube and blue cube.
 """
 
+# Go to transformations.py to implement the transformation matrices.
 
-def translate(x: float, y: float, z: float) -> Mat4:
-    """
-    Creates a translation matrix.
-
-    Args:
-        x (float): Translation along the x-axis.
-        y (float): Translation along the y-axis
-        z (float): Translation along the z-axis
-
-    Returns:
-        Mat4
-    """
-    # TODO: complete this matrix
-    mat = Mat4(
-        [
-            [1, 0, 0, 0],
-            [0, 1, 0, 0],
-            [0, 0, 1, 0],
-            [0, 0, 0, 1]
-        ]
-    )
-    return mat
-
-
-def rotate_x(angle: float) -> Mat4:
-    """
-    Creates a rotation matrix around the x-axis.
-
-    Args:
-        angle (float): Rotation angle in degrees.
-
-    Returns:
-        Mat4
-    """
-    # TODO: complete this matrix
-    # hint: you can compute cos and sin with np.cos(angle) and np.sin(angle)
-    mat = Mat4(
-        [
-            [1, 0, 0, 0],
-            [0, 1, 0, 0],
-            [0, 0, 1, 0],
-            [0, 0, 0, 1]
-        ]
-    )
-    return mat
-
-
-def rotate_y(angle: float) -> Mat4:
-    """
-    Creates a rotation matrix around the y-axis.
-
-    Args:
-        angle (float): Rotation angle in degrees.
-
-    Returns:
-        Mat4
-    """
-    # TODO: complete this matrix
-    # hint: you can compute cos and sin with np.cos(angle) and np.sin(angle)
-    mat = Mat4(
-        [
-            [1, 0, 0, 0],
-            [0, 1, 0, 0],
-            [0, 0, 1, 0],
-            [0, 0, 0, 1]
-        ]
-    )
-    return mat
-
-
-def rotate_z(angle: float) -> Mat4:
-    """
-    Creates a rotation matrix around the z-axis.
-
-    Args:
-        angle (float): Rotation angle in degrees.
-
-    Returns:
-        Mat4
-    """
-    # TODO: complete this matrix
-    # hint: you can compute cos and sin with np.cos(angle) and np.sin(angle)
-    mat = Mat4(
-        [
-            [1, 0, 0, 0],
-            [0, 1, 0, 0],
-            [0, 0, 1, 0],
-            [0, 0, 0, 1]
-        ]
-    )
-    return mat
-
-
-def scale(x: float, y: float, z: float) -> Mat4:
-    """
-    Creates a scaling matrix.
-
-    Args:
-        x (float): Scaling factor along x-axis.
-        y (float): Scaling factor along y-axis.
-        z (float): Scaling factor along z-axis.
-
-    Returns:
-        Mat4
-    """
-    # TODO: complete this matrix
-    mat = Mat4(
-        [
-            [1, 0, 0, 0],
-            [0, 1, 0, 0],
-            [0, 0, 1, 0],
-            [0, 0, 0, 1]
-        ]
-    )
-    return mat
-
+# This line imports the functions you implement in transformations.py
+from transformations import translate, rotate_x, rotate_y, rotate_z, scale
 
 """
 You don't need to change the code below to finish the assignment.
@@ -216,6 +103,6 @@ def on_key_press(key, mods):
     if key == KeyCode.R:
         car.reset_transform()
 
-
-app.init(window)
-app.run()
+if __name__ == '__main__':
+    app.init(window)
+    app.run()

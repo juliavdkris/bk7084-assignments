@@ -9,6 +9,8 @@ from bk7084.graphics import draw
 from bk7084.scene import Mesh
 import numpy as np
 
+from transformations import translate, rotate_x, rotate_y, rotate_z, scale
+
 window = Window("BK7084: 02-Transformation [ex02]", width=1024, height=1024)
 window.create_camera(Vec3(-200.0, 80.0, 0.0), Vec3(0, 0, 0), Vec3.unit_y(), 60.0,)
 
@@ -24,25 +26,7 @@ The correct transformations are listed in the file ex02_configurations.txt,
 you have to translate these to correct code.
 
 Note: Be sure to read week 2 in the assignment website before you start this exercise.
-
-First, copy the transformation matrix construction functions from ex01 here:
 """
-# TODO copy the completed functions from ex01
-
-def translate(x: float, y: float, z: float) -> Mat4:
-    return Mat4.identity()
-
-def rotate_x(angle: float) -> Mat4:
-    return Mat4.identity()
-
-def rotate_y(angle: float) -> Mat4:
-    return Mat4.identity()
-
-def rotate_z(angle: float) -> Mat4:
-    return Mat4.identity()
-
-def scale(x: float, y: float, z: float) -> Mat4:
-    return Mat4.identity()
 
 """
 Next, transform the lamp components to put them in the right position.
