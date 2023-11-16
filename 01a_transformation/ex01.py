@@ -17,11 +17,7 @@ window.create_camera(Vec3(-15.0, 8.0, 0.0), Vec3(0, 0, 0), Vec3.unit_y(), 60.0)
 Exercise 1: Basic transformation
 --------------------------------
 
-First update your bk7084 package with pip. Type this in the terminal window:
-$ conda activate compsim
-$ pip install --upgrade bk7084
-
-Make sure that you have also activated the compsim environment in Visual Studio Code (bottom left, Python 3...)
+Make sure that you have activated the compsim environment in Visual Studio Code (bottom left, Python 3...)
 
 In this first exercise, you will create transformation matrices from scratch.
 If you succeed, you can control a virtual car with your keyboard when you run this file:
