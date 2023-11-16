@@ -1,22 +1,26 @@
 
+import os.path as osp
+import bk7084 as bk
+from bk7084.math import *
 import numpy as np
-from bk7084 import Window, app
-from bk7084.app.input import KeyCode
-from bk7084.geometry import Triangle, Ray, Grid, AxisAlignment
-from bk7084.math import Vec3, Mat3
-from bk7084.misc import PaletteSvg, PaletteDefault
-from bk7084.graphics import draw
 
 # Setup window and add camera
-window = Window("BK7084: 01-Intersection")
-window.create_camera(Vec3(0, 0.0, 10.0), Vec3(0, 0, 0), Vec3.unit_y(), 60.0)
+window = bk.Window()
+window.set_title('BK7084 - Lab 1 - Transformation [bonus]')
+window.set_size(1024, 1024)
+window.set_resizable(True)
+
+app = bk.App()
+
+camera = app.create_camera(Vec3(0, 0.0, 10.0), Vec3(0, 0, 0), 60.0)
 
 # Create a grid
-grid = Grid(20, 20, 1.0, 1.0, axis_alignment=AxisAlignment.XY)
+# grid = Grid(20, 20, 1.0, 1.0, axis_alignment=AxisAlignment.XY)
 
 # Create a triangle and ray and set the animation flag
-triangle = Triangle([-2, -2, 1], [2, -2, 1], [0, 2, 1])
-ray = Ray([0, -3, 2], [4, 4, 1])
+triangle = app.add_mesh(bk.Mesh.create_triangle(Vec(-2, -2, 1), Vec(2, -2, 1), Vec(0, 2, 1)))
+
+# ray = Ray([0, -3, 2], [4, 4, 1])
 animate = True
 
 """
@@ -31,19 +35,6 @@ Your tasks:
 3. Implement the intersection conditions based on the solution.
 """
 def intersect_ray_triangle(ray, tri):
-    """
-    You can get the three vertices of the triangle as follows:
-    >>> a = tri.p0
-    >>> b = tri.p1
-    >>> c = tri.p2
-    You can get the direction and origin of the ray as follows:
-    >>> direction = ray.direction
-    >>> origin = ray.origin
-    You can get the x, y, z coordinate of a vector as follows:
-    >>> x_coord = a.x
-    >>> y_coord = a.y
-    >>> z_coord = a.z
-    """
     mat_A = Mat3()      # 1. Set up matrix A
     vec_b = Vec3()      # 1. Set up vector b
     vec_x = None        # 2. Solve the linear system
@@ -76,5 +67,4 @@ def on_update(dt):
         triangle.color = PaletteSvg.SkyBlue.as_color()
 
 
-app.init(window)
-app.run()
+app.run(window)

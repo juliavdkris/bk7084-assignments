@@ -63,14 +63,11 @@ Here, we import functionality from the framework you just installed.
 If you're curious what this framework looks like, click on one of the names below (e.g., app, Window) while pressing ctrl (or command on a Mac)
 Visual Studio Code will then open the linked file in another tab. Close the tab to get back to this file.
 """
-from bk7084 import app, Window
-from bk7084.geometry import Triangle, Line
+import bk7084 as bk
 from bk7084.math import Vec3, Mat3
-from bk7084.misc import PaletteDefault
-from bk7084.graphics import draw
 
 """
-1. Creating a Window
+1. Creating a Window and BK7084 Application
 --------------------
 
 We will create a Window *object* here. If you haven't heard of an *object* in the context of programming yet:
@@ -116,21 +113,27 @@ If you want to learn more about this subject, look up 'Object Oriented Programmi
 Let's start by creating a window object using the Window class.
 """
 
-window = Window("BK7084: 00-Introduction")
+# This creates a window object, which we can use to draw graphics to the screen.
+window = bk.Window()
+# This sets the title of the window and the size. You can change these values.
+window.set_title('BK7084 - Lab 0 - Introduction')
+# The size is given in pixels. You can change this by setting the width and height.
+window.set_size(800, 600)
+# The window is resizable by default. You can change this by setting resizable to False.
+window.set_resizable(True)
+
+
+# The window is now created, but it's not yet visible. To show the window, we need to create an application to
+# run the window in. This is done by creating an App object.
+app = bk.App()
 
 """
-The Window class has a method called `create_camera()`, which puts a camera in the 3D world.
+The App class has a method called `create_camera()`, which puts a camera in the 3D world.
 This camera is used by the window to draw elements that you add to the 3D world.
-This camera is positioned at [0, 0, 10], looks at the point [0, 0, 0], the up direction of the camera is pointed to the positive y-axis
-and the field-of-view (fov) is 60 degrees.
-
-[a] Run this Python file and see what happens.
-$ python intro.py
-[b] Close the window, and change the parameters for the create_camera method.
-[c] Predict what will happen, save your code and run the Python file again.
+This camera is positioned at [0, 0, 10], looks at the point [0, 0, 0] and the field-of-view (fov) is 60 degrees.
 """
-                         # Change this...        # And this...     # Change This...    # And also this...
-window.create_camera(pos=Vec3(0, 0, 10), look_at=Vec3(0, 0, 0), up=Vec3(0, 1, 0), fov_v=60.0)
+                           # Change this...   # And this...          # And also this...
+camera = app.create_camera(pos=Vec3(5, 5, 5), look_at=Vec3(0, 0, 0), fov_v=60.0)
 
 """
 2. Creating a triangle
@@ -139,7 +142,10 @@ window.create_camera(pos=Vec3(0, 0, 10), look_at=Vec3(0, 0, 0), up=Vec3(0, 1, 0)
 Congratulations! You just drew your first triangle to the screen without even writing any code for it.
 Here's the triangle that was drawn:
 """
-triangle0 = Triangle([-2, -2, 1], [2, -2, 1], [0, 2, 1])
+# This creates a mesh, which represents a triangle by it's three vertices.
+triangle0_mesh = bk.Mesh.create_triangle(Vec3(-2, -2, 1), Vec3(2, -2, 1), Vec3(0, 2, 1))
+# This creates a object, which is used to draw the triangle to the screen.
+triangle0 = app.add_mesh(triangle0_mesh)
 
 """
 Now it's up to you to create another triangle and draw it to the screen.
@@ -157,13 +163,13 @@ v0 = None # Complete this...
 v1 = None # Complete this...
 v2 = None # Complete this...
 
-# [Bookmark for part 4] Ignore me for now...
+# [Bookmark for part 4] Skip this until you reach part 4.
 
 """
 [b] Construct a Triangle with these vertices.
 [c] Give your triangle a different color. You can change the color by setting the `color` parameter in Triangle.
 The color is given as a Color object and many colours are predefined in PaletteDefault.
->>> triangle = Triangle(.., .., .., colors=[PaletteDefault.RedA.as_color(), PaletteDefault.GreenA.as_color(), PaletteDefault.BlueA.as_color()])
+>>> triangle = Triangle(.., .., .., color=PaletteDefault.RedA.as_color())
 """
 triangle1 = None # Complete this...
 
@@ -171,17 +177,12 @@ triangle1 = None # Complete this...
 3. Drawing the triangle to the screen
 -------------------------------------
 
-Now draw the triangle to the screen by following the example for triangle0.
+Now draw the triangle to the screen by simply calling the draw() function or setting
+the visible property of the triangle to True.
 """
-@window.event
-def on_draw(dt):
-    # Draw a grid of lines
-    for i in range(21):
-        draw(Line([Vec3(-10, -10 + i, 0), Vec3(10, -10 + i, 0)]))
-        draw(Line([Vec3(-10 + i, -10, 0), Vec3(-10 + i, 10, 0)]))
+triangle0.set_visible(True)
 
-    draw(triangle0)
-    # draw triangle1 here...
+# enable triangle1 drawing here...
 
 """
 4. Scaling and transforming the triangle using a matrix
@@ -261,5 +262,4 @@ You can find out what other methods are available by ctrl + clicking (command + 
 """
 These two lines tell the application the window that you want to use, and then runs the app.
 """
-app.init(window)
-app.run()
+app.run(window)
