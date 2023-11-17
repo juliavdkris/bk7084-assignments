@@ -167,11 +167,10 @@ v2 = None # Complete this...
 
 """
 [b] Construct a Triangle with these vertices.
-[c] Give your triangle a different color. You can change the color by setting the `color` parameter in Triangle.
-The color is given as a Color object and many colours are predefined in PaletteDefault.
->>> triangle = Triangle(.., .., .., color=PaletteDefault.RedA.as_color())
+>>> triangle1_mesh = bk.Mesh.create_triangle(Vec3(.., .., ..), Vec3(.., .., ..), Vec3(.., .., ..))
+>>> triangle1 = app.add_mesh(triangle1_mesh)
 """
-triangle1 = None # Complete this...
+triangle1_mesh = None # Complete this...
 
 """
 3. Drawing the triangle to the screen
