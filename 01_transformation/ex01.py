@@ -240,7 +240,7 @@ def on_update(input, dt, t):
         car_transform = car_transform * rotate_z(45)
 
     if input.is_key_pressed(bk.KeyCode.S):
-        car.set_transform(scale(0.9, 0.9, 0.9))
+        car_transform = car_transform * scale(0.9, 0.9, 0.9)
 
     if input.is_key_pressed(bk.KeyCode.R):
         car_transform = Mat4.identity()
