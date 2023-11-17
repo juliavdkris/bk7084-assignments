@@ -41,6 +41,9 @@ Your tasks:
   b. rotation matrices,
   c. scaling matrix.
 2. Move the car to reach the red cube and blue cube.
+
+Scroll down to complete the tasks.
+Each task is denoted with "TODO: ...".
 """
 
 
