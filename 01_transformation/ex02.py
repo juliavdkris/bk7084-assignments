@@ -13,7 +13,7 @@ app = bk.App()
 camera = app.create_camera(Vec3(-100.0, 50.0, 0.0), Vec3(0, 0, 0), 60.0)
 
 """
-Exercise 3: Hierarchical transformation
+Exercise 2: Hierarchical transformation
 -----------------------------------------
 
 For your final assignment, you will apply the transformations you created
