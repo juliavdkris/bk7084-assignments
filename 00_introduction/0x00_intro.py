@@ -133,7 +133,7 @@ This camera is used by the window to draw elements that you add to the 3D world.
 This camera is positioned at [0, 0, 10], looks at the point [0, 0, 0] and the field-of-view (fov) is 60 degrees.
 """
                            # Change this...   # And this...          # And also this...
-camera = app.create_camera(pos=Vec3(5, 5, 5), look_at=Vec3(0, 0, 0), fov_v=60.0)
+camera = app.create_camera(pos=Vec3(0, 0, 10), look_at=Vec3(0, 0, 0), fov_v=60.0)
 
 """
 2. Creating a triangle
