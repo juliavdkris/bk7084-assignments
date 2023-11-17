@@ -17,11 +17,7 @@ camera = app.create_camera(Vec3(-15.0, 8.0, 0.0), Vec3(0, 0, 0), 60.0)
 Exercise 1: Basic transformation
 --------------------------------
 
-First update your bk7084 package with pip. Type this in the terminal window:
-$ conda activate compsim
-$ pip install --upgrade bk7084
-
-Make sure that you have also activated the compsim environment in Visual Studio Code (bottom left, Python 3...)
+Make sure that you have activated the compsim environment in Visual Studio Code (bottom left, Python 3...)
 
 In this first exercise, you will create transformation matrices from scratch.
 If you succeed, you can control a virtual car with your keyboard when you run this file:
@@ -33,20 +29,27 @@ If you succeed, you can control a virtual car with your keyboard when you run th
 [R] reset the car to its original position;
 [esc] close the window (faster than clicking the close button).
 
-Please read the accompanying PDF for an introduction and reference to complete this assignment.
+Please read the instructions for week 1 on bk7084.github.io
+for an introduction and reference to complete this assignment.
 
 Your tasks:
-1. Build transformation matrices (do NOT use built-in functions):
+Task 1. Build transformation matrices (do NOT use built-in functions):
   a. translation matrix,
   b. rotation matrices,
   c. scaling matrix.
-2. Move the car to reach the red cube and blue cube.
+Task 2. Once the transformation matrices are complete, you can control the car with your keyboard.
 
-Scroll down to complete the tasks.
-Each task is denoted with "TODO: ...".
+Scroll down to complete the tasks. Each task is denoted with "TODO: ...".
 """
 
+"""
+This line of code *def*ines a function called translate.
+The translate function gets three parameters: x, y, and z.
+It is typical in code to explain what a function is in a comment below
+the function definition. This is called a docstring.
 
+Scroll to the first TODO to complete the translate function.
+"""
 def translate(x: float, y: float, z: float) -> Mat4:
     """
     Creates a translation matrix.
@@ -59,7 +62,7 @@ def translate(x: float, y: float, z: float) -> Mat4:
     Returns:
         Mat4
     """
-    # TODO: complete this matrix
+    # TODO Task 1a: complete this matrix
     mat = Mat4(
         [
             [1, 0, 0, 0],
@@ -81,7 +84,7 @@ def rotate_x(angle: float) -> Mat4:
     Returns:
         Mat4
     """
-    # TODO: complete this matrix
+    # TODO Task 1b: complete this matrix
     # hint: you can compute cos and sin with np.cos(angle) and np.sin(angle)
     mat = Mat4(
         [
@@ -104,7 +107,7 @@ def rotate_y(angle: float) -> Mat4:
     Returns:
         Mat4
     """
-    # TODO: complete this matrix
+    # TODO Task 1b: complete this matrix
     # hint: you can compute cos and sin with np.cos(angle) and np.sin(angle)
     mat = Mat4(
         [
@@ -127,7 +130,7 @@ def rotate_z(angle: float) -> Mat4:
     Returns:
         Mat4
     """
-    # TODO: complete this matrix
+    # TODO Task 1b: complete this matrix
     # hint: you can compute cos and sin with np.cos(angle) and np.sin(angle)
     mat = Mat4(
         [
@@ -152,7 +155,7 @@ def scale(x: float, y: float, z: float) -> Mat4:
     Returns:
         Mat4
     """
-    # TODO: complete this matrix
+    # TODO Task 1c: complete this matrix
     mat = Mat4(
         [
             [1, 0, 0, 0],
