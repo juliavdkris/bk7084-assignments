@@ -18,6 +18,12 @@ In this assignment, we will introduce you to the basics of graphics in Python:
 3. Drawing the triangle to the screen.
 4. Scaling and transforming the triangle using a matrix.
 
+Each of the assignments will ask you to complete certain tasks.
+Often, the tasks are marked with a TODO: comment.
+If you're not sure what to do, look for these comments.
+For now, scroll down to section 0.
+
+
 0. Creating an environment and installing the bk7084 framework
 --------------------------------------------------------------
 
@@ -72,8 +78,8 @@ from bk7084.math import Vec3, Mat3
 
 We will create a Window *object* here. If you haven't heard of an *object* in the context of programming yet:
 An *object* is a packet of
-(1) information describing an object: attributes
-(2) tools to use and change this information: methods
+(1) information describing an object, called attributes; and
+(2) tools to use and change this information, called methods.
 Objects are a way to organize your code so that you always have information and the corresponding tools in the same place.
 To create an object, we first need a recipe of what an object will look like and how it behaves: this recipe is called a *class*.
 
@@ -95,20 +101,21 @@ We can look at the attributes of `rectangle1` by the . notation:
 If we want to call a method on rectangle, we use the . notation and end with ():
 >>> rectangle1.compute_area()
 ... 20
-The compute_area() method knows the width and height of rectangle1, because it's part of the rectangle1 object.
+The compute_area() method knows the width and height of rectangle1,
+because it can see the attributes of the rectangle1 object.
 
-Sometimes, a method needs more information from the user. You can give this to the method using *parameters*.
+Sometimes, a method needs more information from the user.
+You can give this to the method using *parameters*.
 An example could be a method that resizes your rectangle. You could give it a scale parameter:
 >>> rectangle1.resize(scale=2)
 >>> rectangle1.width
 ... 8
 >>> rectangle1.height
 ... 10
-Not all paramters need to be given with their name. Most of the times, you can simply give the value:
+Not all parameters need to be given with their name. Most of the times, you can simply give the value:
 >>> rectangle1.resize(2)
 
 We'll stop here, as it's all you need to know for now.
-If you want to learn more about this subject, look up 'Object Oriented Programming.'
 
 Let's start by creating a window object using the Window class.
 """
@@ -131,6 +138,9 @@ app = bk.App()
 The App class has a method called `create_camera()`, which puts a camera in the 3D world.
 This camera is used by the window to draw elements that you add to the 3D world.
 This camera is positioned at [0, 0, 10], looks at the point [0, 0, 0] and the field-of-view (fov) is 60 degrees.
+
+Try changing some of these values and see what happens to the image.
+You will need to restart the application to see the changes.
 """
                            # Change this...   # And this...          # And also this...
 camera = app.create_camera(pos=Vec3(0, 0, 10), look_at=Vec3(0, 0, 0), fov_v=60.0)
@@ -167,7 +177,7 @@ v2 = None # Complete this...
 
 """
 [b] Construct a Triangle with these vertices.
->>> triangle1_mesh = bk.Mesh.create_triangle(Vec3(.., .., ..), Vec3(.., .., ..), Vec3(.., .., ..))
+>>> triangle1_mesh = bk.Mesh.create_triangle(.., .., ..)
 >>> triangle1 = app.add_mesh(triangle1_mesh)
 """
 triangle1_mesh = None # Complete this...
