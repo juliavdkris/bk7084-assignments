@@ -132,6 +132,11 @@ distance_covered_in_segment = 0.0
 turned_angle = 0.0
 
 """
+We only start the animation when the user presses the space bar.
+"""
+start = False # Set to True if you want the car to start when you open the program.
+
+"""
 The on_update function is called every time the screen is updated (every frame).
 This happens every few milliseconds - as fast as your computer can handle.
 
@@ -152,6 +157,7 @@ def on_update(input, dt, t):
     global current_segment
     global distance_covered_in_segment
     global turned_angle
+    global start
 
     """
     Task 2: Animating the car
@@ -169,9 +175,15 @@ def on_update(input, dt, t):
     We've given you code that keeps track of the segment that you are in.
     Try to read through the code, to understand what it does.
     
+    IMPORTANT: The car only starts the animation once you press the space bar.
+    If you want it to start right away, change start to True in the code above.
+    
     Then scroll down to the next TODO.
     """
-    if current_segment < len(segment_length):
+    if input.is_key_pressed(bk.KeyCode.Space):
+        start = True
+        
+    if start and current_segment < len(segment_length):
         if segment_type[current_segment] == 'straight':
             distance_covered_in_segment += car_speed * dt
             if distance_covered_in_segment > segment_length[current_segment]:
