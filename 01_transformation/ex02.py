@@ -74,7 +74,7 @@ This happens every few milliseconds - as fast as your computer can handle.
 That means you can use this function to update the solar system and animate it.
 
 The on_update function gets three parameters:
-- input: this tells the update event what happend. You can ignore it.
+- input: this tells the update event what happened, for example if a button has been pressed.
 - dt: the change in time since the last update.
 - t: the current time.
 

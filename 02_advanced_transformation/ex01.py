@@ -8,16 +8,19 @@ from bk7084.math import *
 Exercise 1: Combining transformations and animation
 ---------------------------------------------------
 
-Start by opening the exercise. You'll see a car and a village.
-When this exercise is completed, the car will drive through the village
-following a path that you program.
+Start by opening the exercise. You'll see a car on a road.
+When this exercise is completed, the car will drive along the path.
 
 The learning goal of the exercise is to get more understanding
 of transformations and how you can combine them.
 
+The following code loads all the elements in the scene:
+- The car
+- The road
+- Arrows pointing into the x, y, z directions.
+
 Scroll down to the next comment...
 """
-
 def load_meshes(app, filepath):
     if not os.path.exists(filepath):
         print("File not found: %s" % filepath)
@@ -98,11 +101,10 @@ So, if the car is translated by [1, 0, 0], it will move 1 meter in the x directi
 car_speed = 20.0 # m/s
 car_turn_speed = 90.0 # degrees/s
 
-
 """
 The path of the car is split up in segments.
 Each segment is either a straight line or a turn.
-Then we define the segment types and the length of each segment.
+Below, we define the segment types and the length of each segment.
 
 Task 1: Familiarize yourself with the path
 ------------------------------------------
@@ -141,7 +143,7 @@ The on_update function is called every time the screen is updated (every frame).
 This happens every few milliseconds - as fast as your computer can handle.
 
 The on_update function gets three parameters:
-- input: this tells the update event what happend. You can ignore it.
+- input: this tells the update event what happened. For example, if a button has been pressed.
 - dt: the change in time since the last update.
 - t: the current time.
 
@@ -149,7 +151,7 @@ The dt parameter will tell you how much time passed since the last frame was ren
 Using the speed defined above and dt, 
 you can calculate how far the car moved since the last frame.
 
-Scroll down for the task.
+Scroll down for the task...
 """
 @app.event
 def on_update(input, dt, t):
@@ -163,20 +165,16 @@ def on_update(input, dt, t):
     Task 2: Animating the car
     -------------------------
     Animate the car, by adjusting car_transform.
-    If you scroll down, you'll see that car_transform is applied to the car every frame.
-    
-    What's important to know is that the car is positioned at [0, 0, 0] at the start of each update.
+    If you scroll down, you'll see that car_transform is applied to the car every frame.     
+    It's important to know that the car is positioned at [0, 0, 0] at the start of each update.
     Fortunately, you know where the car was in a previous frame,
     because it is stored in car_transform.
     
-    It is up to you to multiply car_transform with the correct transformation matrix
+    It your task to multiply car_transform with the correct transformation matrix
     to get it to the right location for the current frame.
     
     We've given you code that keeps track of the segment that you are in.
     Try to read through the code, to understand what it does.
-    
-    IMPORTANT: The car only starts the animation once you press the space bar.
-    If you want it to start right away, change start to True in the code above.
     
     Then scroll down to the next TODO.
     """
@@ -200,7 +198,12 @@ def on_update(input, dt, t):
         
         """
         TODO: Write the code that updates car_transform.
+
         HINT: Use your drawing from before to figure out what transformations you need.
+        
+        IMPORTANT: The car only starts the animation once you press the space bar.
+        If you want it to start right away, change start to True in the code above.
+    
         """
         car_transform = Mat4.identity() * car_transform
 
