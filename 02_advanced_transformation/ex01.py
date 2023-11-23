@@ -1,6 +1,6 @@
 import os.path
 import sys
-
+import numpy as np
 import bk7084 as bk
 from bk7084.math import *
 
@@ -94,11 +94,16 @@ By default, the function expects the angle to be in radians (from 0 to 2pi).
 car_transform = Mat4.from_rotation_y(180.0, degrees=True)
 
 """
+We also set an initial transformation matrix for the camera for Task 3.
+"""
+camera_transform = np.linalg.inv(Mat4.look_at_gl(eye=Vec3(0, 64, -24), center=Vec3(0, 0, -25), up=Vec3(0, 1, 0)))
+
+"""
 The car gets an initial speed and a turn speed.
 Assume 1 unit in the virtual world is 1 meter in the real world.
 So, if the car is translated by [1, 0, 0], it will move 1 meter in the x direction.
 """
-car_speed = 20.0 # m/s
+car_speed = 10.0 # m/s
 car_turn_speed = 90.0 # degrees/s
 
 """
@@ -135,6 +140,7 @@ turned_angle = 0.0
 
 """
 We only start the animation when the user presses the space bar.
+You can pause the animation by pressing the space bar again.
 """
 start = False # Set to True if you want the car to start when you open the program.
 
@@ -156,6 +162,7 @@ Scroll down for the task...
 @app.event
 def on_update(input, dt, t):
     global car_transform
+    global camera_transform
     global current_segment
     global distance_covered_in_segment
     global turned_angle
@@ -179,7 +186,7 @@ def on_update(input, dt, t):
     Then scroll down to the next TODO.
     """
     if input.is_key_pressed(bk.KeyCode.Space):
-        start = True
+        start = not start
         
     if start and current_segment < len(segment_length):
         if segment_type[current_segment] == 'straight':
@@ -198,15 +205,46 @@ def on_update(input, dt, t):
         
         """
         TODO: Write the code that updates car_transform.
+        When you're done, scroll down to Task 3.
 
         HINT: Use your drawing from before to figure out what transformations you need.
-        
+
+        HINT: You can use Mat4 to create transformation matrices:
+        >>> Mat4.from_translation(Vec3(1, 2, 3))
+        >>> Mat4.from_scale(Vec3(1, 2, 3))
+        >>> Mat4.from_rotation_x(90.0, degrees=True)
+        >>> Mat4.from_rotation_y(90.0, degrees=True)
+        >>> Mat4.from_rotation_z(90.0, degrees=True)
+
         IMPORTANT: The car only starts the animation once you press the space bar.
         If you want it to start right away, change start to True in the code above.
     
         """
-        car_transform = Mat4.identity() * car_transform
+        car_transform_update = Mat4.identity()
+        car_transform = car_transform_update * car_transform
 
+        """
+        Task 3: Follow the car with the camera
+        --------------------------------------
+        Use the transformation matrices that you had for the car to update the camera
+        so that the camera follows the car.
+
+        TODO: Update this transformation matrix, so that the camera follows the car.
+              Scroll to the next TODO to make sure this update is applied to the camera.
+
+        HINT: If you want the camera to get closer to the car,
+              You can change the original camera_transform matrix above (Mat4.lookat_gl)
+              to set the original position and viewing direction of the camera.
+              
+        HINT: If you get a strange stroboscope effect, you might have included the
+              initial rotation of the car in the camera_transform when you update the camera.
+        """
+        camera_transform = Mat4.identity() * camera_transform
+
+    """
+    TODO: uncomment this line for Task 3.
+    """
+    # camera.set_transform(camera_transform)
     car.set_transform(car_transform)
 
 
