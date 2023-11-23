@@ -28,7 +28,8 @@ The goal of this assignment is to use transformation matrices to
 2. Animate the earth and moon.
 
 First, copy your finished transformation functions.
-If you have copied these, you should see the sun, earth and moon.
+If you have copied these and restart the program,
+you should see the sun, earth and moon, since they are scaled down and translated.
 
 After you've copied the transformation functions, scroll down to Task 1.
 """
@@ -77,7 +78,9 @@ The on_update function gets three parameters:
 - dt: the change in time since the last update.
 - t: the current time.
 
-You will use the t parameter to animate your solar system. Scroll down for the task.
+You will use the t parameter to animate your solar system.
+
+Scroll down for the task.
 """
 @app.event
 def on_update(input, dt, t):
@@ -88,6 +91,8 @@ def on_update(input, dt, t):
     the planets are scaled to have a realistic size and the earth and moon are translated.
 
     If this is not happening, you might have forgotten to copy your transformation functions above.
+    
+    Read on until you see the TODO comment.
     """
     earth_scale = scale(0.1, 0.1, 0.1)
     moon_scale = scale(0.2, 0.2, 0.2)
@@ -102,6 +107,8 @@ def on_update(input, dt, t):
     TODO: Complete the transformations, so that:
     - The earth is distance 40 away from the sun.
     - The moon is distance 10 away from the earth - hint: you can use the earth's transformation matrix.
+    
+    After you're done, continue with Task 2.
     """
     sun_transform = Mat4.identity()
     earth_transform = earth_translation
@@ -121,7 +128,8 @@ def on_update(input, dt, t):
     TODO: Update your transformations above to animate the planets.
     HINT: Start with a plan. Draw out the relationships on paper.
           You'll need to combine the transformations in the right way to get the desired result.
-    HINT: You can use the t parameter to animate the planets. 
+    HINT: Parameter t increases every frame.
+          That means you can use it to animate the planets. 
     """
 
     """
