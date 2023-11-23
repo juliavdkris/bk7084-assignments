@@ -1,5 +1,4 @@
 import os.path
-import sys
 import numpy as np
 import bk7084 as bk
 from bk7084.math import *
@@ -248,40 +247,8 @@ def on_update(input, dt, t):
         If you want it to start right away, change start to True in the code above.
     
         """
-        # car_transform_update = Mat4.identity()
-        # car_transform = car_transform_update * car_transform
-
-        # move the car
-        if current_segment == 0:
-            car_transform = Mat4.from_translation(Vec3(-car_speed * dt, 0.0, 0.0)) * car_transform
-
-        # turn point 0
-        if current_segment == 1:
-            car_transform = car_transform * Mat4.from_rotation_y(-car_turn_speed * dt, True)
-
-        if current_segment == 2:
-            car_transform = Mat4.from_translation(Vec3(0.0, 0.0, -car_speed * dt)) * car_transform
-
-        # turn point 1
-        if current_segment == 3:
-            car_transform = car_transform * Mat4.from_rotation_y(-car_turn_speed * dt, True)
-
-        if current_segment == 4:
-            car_transform = Mat4.from_translation(Vec3(car_speed * dt, 0.0, 0.0)) * car_transform
-
-        # turn point 2
-        if current_segment == 5:
-            car_transform = car_transform * Mat4.from_rotation_y(car_turn_speed * dt, True)
-
-        if current_segment == 6:
-            car_transform = Mat4.from_translation(Vec3(0.0, 0.0, -car_speed * dt)) * car_transform
-
-        # turn point 3
-        if current_segment == 7:
-            car_transform = car_transform * Mat4.from_rotation_y(-car_turn_speed * dt, True)
-
-        if current_segment == 8:
-            car_transform = Mat4.from_translation(Vec3(car_speed * dt, 0.0, 0.0)) * car_transform
+        car_transform_update = Mat4.identity()
+        car_transform = car_transform_update * car_transform
 
     """
     Task 3: Follow the car with the camera
@@ -299,9 +266,7 @@ def on_update(input, dt, t):
     HINT: If you get a strange stroboscope effect, you might have included the
           initial rotation of the car in the camera_transform when you update the camera.
     """
-    # camera_transform = Mat4.identity() * camera_view_transform
-
-    camera_transform = car_transform * Mat4.from_translation(Vec3(-2.0, 1.0, 0.0)) * camera_view_transform
+    camera_transform = Mat4.identity() * camera_view_transform
 
     camera2.set_transform(camera_transform)
     car.set_transform(car_transform)
