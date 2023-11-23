@@ -31,9 +31,11 @@ def load_meshes(app, filepath):
                 if filename.endswith(".obj"):
                     model = app.add_mesh(bk.Mesh.load_from(os.path.join(root, filename)))
                     model.set_visible(True)
+                    model.set_transform(Mat4.from_translation(Vec3(0, -1, 0)))
     else:
         model = app.add_mesh(bk.Mesh.load_from(filepath))
         model.set_visible(True)
+        model.set_tramsform(Mat4.from_translation(Vec3(0, -1, 0)))
 
 
 win = bk.Window()
@@ -42,25 +44,31 @@ win.set_size(1024, 1024)
 win.set_resizable(True)
 
 app = bk.App()
-camera = app.create_camera(pos=Vec3(0, 64, -24), look_at=Vec3(0, 0, -25), fov_v=60.0, near=0.1, far=500.0)
+camera = app.create_camera(pos=Vec3(0, 64, -24), look_at=Vec3(0, 0, -25), fov_v=60.0, near=0.1, far=1000.0)
 camera.set_as_main_camera()
+
+"""
+We also create a second camera for Task 3.
+You can active the second camera by pressing the 'C' key.
+"""
+camera2 = app.create_camera(pos=Vec3(-1, 0, 0), look_at=Vec3(0, 0, 0), fov_v=60.0, near=0.1, far=500.0)
 
 load_meshes(app, bk.res_path("./assets/village/"))
 car = app.add_mesh(bk.Mesh.load_from(bk.res_path("./assets/car.obj")))
 car.set_visible(True)
 
 cwd = os.path.dirname(os.path.abspath(__file__))
-arrow_x_mesh = bk.Mesh.load_from(os.path.join(cwd, '../01_transformation/assets/arrow.obj'))
+arrow_x_mesh = bk.Mesh.load_from(bk.res_path('../01_transformation/assets/arrow.obj'))
 mtl_red = bk.Material()
 mtl_red.kd = Vec3(1.0, 0.0, 0.0)
 arrow_x_mesh.apply_material(mtl_red)
 
-arrow_y_mesh = bk.Mesh.load_from(os.path.join(cwd, '../01_transformation/assets/arrow.obj'))
+arrow_y_mesh = bk.Mesh.load_from(bk.res_path('../01_transformation/assets/arrow.obj'))
 mtl_green = bk.Material()
 mtl_green.kd = Vec3(0.0, 1.0, 0.0)
 arrow_y_mesh.apply_material(mtl_green)
 
-arrow_z_mesh = bk.Mesh.load_from(os.path.join(cwd, '../01_transformation/assets/arrow.obj'))
+arrow_z_mesh = bk.Mesh.load_from(bk.res_path('../01_transformation/assets/arrow.obj'))
 mtl_blue = bk.Material()
 mtl_blue.kd = Vec3(0.0, 0.0, 1.0)
 arrow_z_mesh.apply_material(mtl_blue)
@@ -94,9 +102,10 @@ By default, the function expects the angle to be in radians (from 0 to 2pi).
 car_transform = Mat4.from_rotation_y(180.0, degrees=True)
 
 """
-We also set an initial transformation matrix for the camera for Task 3.
+We also set an initial transformation matrix for the second camera for Task 3.
 """
-camera_transform = np.linalg.inv(Mat4.look_at_gl(eye=Vec3(0, 64, -24), center=Vec3(0, 0, -25), up=Vec3(0, 1, 0)))
+camera_view_transform = app.get_transform(camera2)
+camera_transform = Mat4.identity()
 
 """
 The car gets an initial speed and a turn speed.
@@ -124,7 +133,7 @@ Task 1: Familiarize yourself with the path
 Once you're done, continue reading the comments util you see Task 2.
 """
 segment_type = ['straight', 'right_turn', 'straight', 'right_turn', 'straight', 'left_turn', 'straight', 'right_turn', 'straight']
-segment_length = [7.0, 90.0, 20.5, 90.0, 8.0, 90.0, 36.0, 90.0, 10.0]
+segment_length = [7.0, 90.0, 20.5, 90.0, 8.5, 90.0, 36.0, 90.0, 10.0]
 
 """
 We start with segment 0, which is the first segment if you count from 0.
@@ -145,6 +154,12 @@ You can pause the animation by pressing the space bar again.
 start = False # Set to True if you want the car to start when you open the program.
 
 """
+We also keep track of the current camera.
+"""
+current_camera = 0
+is_key_c_pressed = False # This is used to make sure the camera doesn't switch too fast.
+
+"""
 The on_update function is called every time the screen is updated (every frame).
 This happens every few milliseconds - as fast as your computer can handle.
 
@@ -161,6 +176,8 @@ Scroll down for the task...
 """
 @app.event
 def on_update(input, dt, t):
+    global is_key_c_pressed
+    global current_camera
     global car_transform
     global camera_transform
     global current_segment
@@ -187,6 +204,17 @@ def on_update(input, dt, t):
     """
     if input.is_key_pressed(bk.KeyCode.Space):
         start = not start
+
+    if input.is_key_pressed(bk.KeyCode.C):
+        if not is_key_c_pressed:
+            current_camera = (current_camera + 1) % 2
+            if current_camera == 0:
+                camera.set_as_main_camera()
+            else:
+                camera2.set_as_main_camera()
+            is_key_c_pressed = True
+    else:
+        is_key_c_pressed = False
         
     if start and current_segment < len(segment_length):
         if segment_type[current_segment] == 'straight':
@@ -220,31 +248,62 @@ def on_update(input, dt, t):
         If you want it to start right away, change start to True in the code above.
     
         """
-        car_transform_update = Mat4.identity()
-        car_transform = car_transform_update * car_transform
+        # car_transform_update = Mat4.identity()
+        # car_transform = car_transform_update * car_transform
 
-        """
-        Task 3: Follow the car with the camera
-        --------------------------------------
-        Use the transformation matrices that you had for the car to update the camera
-        so that the camera follows the car.
+        # move the car
+        if current_segment == 0:
+            car_transform = Mat4.from_translation(Vec3(-car_speed * dt, 0.0, 0.0)) * car_transform
 
-        TODO: Update this transformation matrix, so that the camera follows the car.
-              Scroll to the next TODO to make sure this update is applied to the camera.
+        # turn point 0
+        if current_segment == 1:
+            car_transform = car_transform * Mat4.from_rotation_y(-car_turn_speed * dt, True)
 
-        HINT: If you want the camera to get closer to the car,
-              You can change the original camera_transform matrix above (Mat4.lookat_gl)
-              to set the original position and viewing direction of the camera.
+        if current_segment == 2:
+            car_transform = Mat4.from_translation(Vec3(0.0, 0.0, -car_speed * dt)) * car_transform
+
+        # turn point 1
+        if current_segment == 3:
+            car_transform = car_transform * Mat4.from_rotation_y(-car_turn_speed * dt, True)
+
+        if current_segment == 4:
+            car_transform = Mat4.from_translation(Vec3(car_speed * dt, 0.0, 0.0)) * car_transform
+
+        # turn point 2
+        if current_segment == 5:
+            car_transform = car_transform * Mat4.from_rotation_y(car_turn_speed * dt, True)
+
+        if current_segment == 6:
+            car_transform = Mat4.from_translation(Vec3(0.0, 0.0, -car_speed * dt)) * car_transform
+
+        # turn point 3
+        if current_segment == 7:
+            car_transform = car_transform * Mat4.from_rotation_y(-car_turn_speed * dt, True)
+
+        if current_segment == 8:
+            car_transform = Mat4.from_translation(Vec3(car_speed * dt, 0.0, 0.0)) * car_transform
+
+    """
+    Task 3: Follow the car with the camera
+    --------------------------------------
+    Use the transformation matrices that you had for the car to update the camera
+    so that the camera follows the car.
+
+    TODO: Update this transformation matrix, so that the camera follows the car.
+          Scroll to the next TODO to make sure this update is applied to the camera.
+
+    HINT: If you want the camera to get closer to the car,
+          You can change the original camera_transform matrix above (Mat4.lookat_gl)
+          to set the original position and viewing direction of the camera.
               
-        HINT: If you get a strange stroboscope effect, you might have included the
-              initial rotation of the car in the camera_transform when you update the camera.
-        """
-        camera_transform = Mat4.identity() * camera_transform
+    HINT: If you get a strange stroboscope effect, you might have included the
+          initial rotation of the car in the camera_transform when you update the camera.
+    """
+    # camera_transform = Mat4.identity() * camera_view_transform
 
-    """
-    TODO: uncomment this line for Task 3.
-    """
-    # camera.set_transform(camera_transform)
+    camera_transform = car_transform * Mat4.from_translation(Vec3(-2.0, 1.0, 0.0)) * camera_view_transform
+
+    camera2.set_transform(camera_transform)
     car.set_transform(car_transform)
 
 
