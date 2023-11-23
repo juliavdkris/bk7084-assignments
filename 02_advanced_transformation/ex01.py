@@ -35,7 +35,7 @@ car.set_visible(True)
 
 car_transform = Mat4.from_rotation_y(180.0, True)
 
-car_speed = 20.0
+car_speed = 10.0
 car_turn_speed = 90.0
 
 current_segment = 0
@@ -46,6 +46,8 @@ road = [7.0, 90.0, 20.5, 90.0, 8.0, 90.0, 36.0, 90.0, 10.0]
 marched_distance = 0.0
 turned_angle = 0.0
 
+start = False
+
 
 @app.event
 def on_update(input, dt, t):
@@ -53,8 +55,12 @@ def on_update(input, dt, t):
     global current_segment
     global marched_distance
     global turned_angle
+    global start
 
-    if current_segment < len(road):
+    if input.is_key_pressed(bk.KeyCode.Space):
+        start = True
+
+    if start and current_segment < len(road):
         if current_segment % 2 == 0:
             marched_distance += car_speed * dt
             if marched_distance > road[current_segment]:
