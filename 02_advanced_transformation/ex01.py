@@ -35,13 +35,13 @@ car.set_visible(True)
 
 car_transform = Mat4.from_rotation_y(180.0, True)
 
-car_speed = 4.0
+car_speed = 20.0
 car_turn_speed = 90.0
 
 current_segment = 0
 
 #            straight turn_point0, straight, turn_point1, straight, turn_point2, straight, turn_point3, straight
-road = [6.0, 90.0, 21.0, 90.0, 7.0, 90.0, 36.0, 90.0, 10.0]
+road = [7.0, 90.0, 20.5, 90.0, 8.0, 90.0, 36.0, 90.0, 10.0]
 
 marched_distance = 0.0
 turned_angle = 0.0
@@ -75,28 +75,28 @@ def on_update(input, dt, t):
             car_transform = car_transform * Mat4.from_rotation_y(-car_turn_speed * dt, True)
 
         if current_segment == 2:
-            car_transform = car_transform * Mat4.from_translation(Vec3(0.0, 0.0, car_speed * dt))
+            car_transform = Mat4.from_translation(Vec3(0.0, 0.0, -car_speed * dt)) * car_transform
 
-        # # turn point 1
-        # if current_segment == 3:
-        #     car_transform = car_transform * Mat4.from_rotation_y(car_turn_speed * dt, True)
-        #
-        # if current_segment == 4:
-        #     car_transform = car_transform * Mat4.from_translation(Vec3(-car_speed * dt, 0.0, 0.0))
-        #
-        # # turn point 2
-        # if current_segment == 5:
-        #     car_transform = car_transform * Mat4.from_rotation_y(car_turn_speed * dt, True)
-        #
-        # if current_segment == 6:
-        #     car_transform = car_transform * Mat4.from_translation(Vec3(0.0, 0.0, car_speed * dt))
-        #
-        # # turn point 3
-        # if current_segment == 7:
-        #     car_transform = car_transform * Mat4.from_rotation_y(car_turn_speed * dt, True)
-        #
-        # if current_segment == 8:
-        #     car_transform = car_transform * Mat4.from_translation(Vec3(-car_speed * dt, 0.0, 0.0))
+        # turn point 1
+        if current_segment == 3:
+            car_transform = car_transform * Mat4.from_rotation_y(-car_turn_speed * dt, True)
+
+        if current_segment == 4:
+            car_transform = Mat4.from_translation(Vec3(car_speed * dt, 0.0, 0.0)) * car_transform
+
+        # turn point 2
+        if current_segment == 5:
+            car_transform = car_transform * Mat4.from_rotation_y(car_turn_speed * dt, True)
+
+        if current_segment == 6:
+            car_transform = Mat4.from_translation(Vec3(0.0, 0.0, -car_speed * dt)) * car_transform
+
+        # turn point 3
+        if current_segment == 7:
+            car_transform = car_transform * Mat4.from_rotation_y(-car_turn_speed * dt, True)
+
+        if current_segment == 8:
+            car_transform = Mat4.from_translation(Vec3(car_speed * dt, 0.0, 0.0)) * car_transform
 
     car.set_transform(car_transform)
 
