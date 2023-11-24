@@ -52,7 +52,13 @@ You can active the second camera by pressing the 'C' key.
 """
 camera2 = app.create_camera(pos=Vec3(-1, 0, 0), look_at=Vec3(0, 0, 0), fov_v=60.0, near=0.1, far=500.0)
 
-load_meshes(app, bk.res_path("./assets/village/"))
+"""
+This is where the entire scene is loaded.
+If you want a more detailed look,
+uncomment the second line and comment the first line.
+"""
+load_meshes(app, bk.res_path("./assets/simple_village/"))
+# load_meshes(app, bk.res_path("./assets/village/"))
 car = app.add_mesh(bk.Mesh.load_from(bk.res_path("./assets/car.obj")))
 car.set_visible(True)
 
