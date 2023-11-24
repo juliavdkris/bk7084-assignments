@@ -132,8 +132,8 @@ Task 1: Familiarize yourself with the path
    What are the steps you take to turn the instructions into a drawing?
    E.g., for each element in the list, I look at the type of segment ...
 2. Start the program and see if you can match the path you drew.
-   We've positioned the camera in a top-view setting, so that positive x-axis points to the right
-   and the negative z-axis points to the top of the screen.
+   We've positioned the camera in a top-view setting, so that positive x-axis points to the left
+   and the negative z-axis points to the bottom of the screen.
 
 Once you're done, continue reading the comments util you see Task 2.
 """
