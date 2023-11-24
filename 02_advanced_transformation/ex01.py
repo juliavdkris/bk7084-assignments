@@ -154,7 +154,6 @@ turned_angle = 0.0
 
 """
 We only start the animation when the user presses the space bar.
-You can pause the animation by pressing the space bar again.
 """
 start = False # Set to True if you want the car to start when you open the program.
 
@@ -208,7 +207,7 @@ def on_update(input, dt, t):
     Then scroll down to the next TODO.
     """
     if input.is_key_pressed(bk.KeyCode.Space):
-        start = not start
+        start = True
 
     if input.is_key_pressed(bk.KeyCode.C):
         if not is_key_c_pressed:
