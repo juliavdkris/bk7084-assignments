@@ -191,6 +191,9 @@ the visible property of the triangle to True.
 """
 triangle0.set_visible(True)
 
+# A light is needed to see the triangle's color. You can add a point light to the scene like this:
+app.add_directional_light(dir=Vec3(0.0, 0.0, -1.0), color=bk.Color.WHITE)
+
 # enable triangle1 drawing here...
 
 """

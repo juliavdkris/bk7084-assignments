@@ -10,7 +10,7 @@ window.set_resizable(True)
 
 app = bk.App()
 
-camera = app.create_camera(Vec3(-100.0, 50.0, 0.0), Vec3(0, 0, 0), 60.0)
+camera = app.create_camera(Vec3(-100.0, 50.0, 0.0), Vec3(0, 0, 0), 60.0, far=500.0)
 
 """
 Exercise 2: Hierarchical transformation
@@ -66,6 +66,9 @@ moon.set_visible(True)
 
 sun = app.add_mesh(bk.Mesh.load_from(osp.join(cwd, 'assets/sun.obj')))
 sun.set_visible(True)
+
+app.add_directional_light(dir=Vec3(-1.0, -1.0, -1.0), color=bk.Color.WHITE)
+app.add_directional_light(dir=Vec3(1.0, 1.0, 1.0), color=bk.Color.WHITE)
 
 
 """
