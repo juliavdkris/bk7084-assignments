@@ -20,9 +20,9 @@ mat.specular = bk.Color(0.0, 0.9, 0.0)
 mat.ambient = bk.Color(0.1, 0.1, 0.1)
 mat.textures = {
     "diffuse_texture": bk.res_path("./assets/stone_bricks_col.jpg"),
-    # "normal_texture": bk.res_path("./assets/stone_bricks_nrm.png"),
+    "normal_texture": bk.res_path("./assets/stone_bricks_nrm.png"),
     # "normal_texture": bk.res_path("./assets/mosaic_tiles_nrm.png"),
-    "normal_texture": bk.res_path("./assets/brickwall_normal.jpg"),
+    # "normal_texture": bk.res_path("./assets/brickwall_normal.jpg"),
     "specular_texture": bk.res_path("./assets/stone_bricks_gloss.jpg"),
 }
 
