@@ -11,7 +11,7 @@ app = bk.App()
 camera = app.create_camera(pos=Vec3(2, 0, 8), look_at=Vec3(0, 0, 0), fov_v=60.0, background=bk.Color.ICE_BLUE)
 camera.set_as_main_camera()
 
-pl = app.add_point_light(Vec3(0, 0, 5.2), bk.Color(0.8, 0.8, 0.8), show_light=True)
+pl = app.add_point_light(Vec3(0, 0, 2.5), bk.Color(0.8, 0.8, 0.8), show_light=True)
 
 mat = bk.Material()
 mat.diffuse = bk.Color(0.9, 0.8, 0.8)
@@ -21,12 +21,19 @@ mat.ambient = bk.Color(0.1, 0.1, 0.1)
 mat.textures = {
     "diffuse_texture": bk.res_path("./assets/stone_bricks_col.jpg"),
     "normal_texture": bk.res_path("./assets/stone_bricks_nrm.png"),
+    "specular_texture": bk.res_path("./assets/stone_bricks_refl.jpg"),
+    "shininess_texture": bk.res_path("./assets/stone_bricks_gloss.jpg"),
+
+    # "diffuse_texture": bk.res_path("./assets/mosaic_tiles_nrm.png"),
     # "normal_texture": bk.res_path("./assets/mosaic_tiles_nrm.png"),
+    # "specular_texture": bk.res_path("./assets/mosaic_tiles_refl.png"),
+    # "shininess_texture": bk.res_path("./assets/mosaic_tiles_gloss.png"),
+
+    # "diffuse_texture": bk.res_path("./assets/brickwall.jpg"),
     # "normal_texture": bk.res_path("./assets/brickwall_normal.jpg"),
-    "specular_texture": bk.res_path("./assets/stone_bricks_gloss.jpg"),
 }
 
-plane = bk.Mesh.create_quad(3.0, bk.Alignment.XY)
+plane = bk.Mesh.create_quad(4.0, bk.Alignment.XY)
 plane.set_material(mat)
 wall = app.add_mesh(plane)
 wall.set_visible(True)
