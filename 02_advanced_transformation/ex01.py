@@ -65,17 +65,17 @@ car.set_visible(True)
 cwd = os.path.dirname(os.path.abspath(__file__))
 arrow_x_mesh = bk.Mesh.load_from(bk.res_path('../01_transformation/assets/arrow.obj'))
 mtl_red = bk.Material()
-mtl_red.diffuse = Vec3(1.0, 0.0, 0.0)
+mtl_red.diffuse = bk.Color(1.0, 0.0, 0.0)
 arrow_x_mesh.set_material(mtl_red)
 
 arrow_y_mesh = bk.Mesh.load_from(bk.res_path('../01_transformation/assets/arrow.obj'))
 mtl_green = bk.Material()
-mtl_green.diffuse = Vec3(0.0, 1.0, 0.0)
+mtl_green.diffuse = bk.Color(0.0, 1.0, 0.0)
 arrow_y_mesh.set_material(mtl_green)
 
 arrow_z_mesh = bk.Mesh.load_from(bk.res_path('../01_transformation/assets/arrow.obj'))
 mtl_blue = bk.Material()
-mtl_blue.diffuse = Vec3(0.0, 0.0, 1.0)
+mtl_blue.diffuse = bk.Color(0.0, 0.0, 1.0)
 arrow_z_mesh.set_material(mtl_blue)
 
 arrows = [
