@@ -6,6 +6,8 @@ Exercise 1: Textures & Shading
 ------------------------------
 
 In the first exercise of this week, you will learn how to shade objects in a scene.
+Shading is the task of simulating how much light reflects from the surface
+into the camera.
 
 Start by running this file. You should see a white sphere and a grayish plane. The
 sphere represents the light source, and the plane is the object that will be shaded.
@@ -13,7 +15,8 @@ sphere represents the light source, and the plane is the object that will be sha
 The goal of this assignment is to understand and observe the effect of different
 shading parameters on the plane.
 
-Explore the scene by moving the plane around with the following keys:
+Explore the scene by moving the plane around with the following keys
+then scroll down to the first task.
 
 - [P, L] toggle between moving the plane or the light; P = plane, L = light;
 - [Q, E] rotate the chosen object around the y-axis;
