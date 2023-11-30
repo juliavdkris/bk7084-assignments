@@ -57,17 +57,25 @@ In the framework, we use the bk.Material class to represent the material of an
 object. In this exercise, we will use the following parameters:
 
 - ambient:
-  the color of the environment; this is the color that is always visible, even in the dark;
-  
+   The ambient color simulates what the object looks like in ambient lighting,
+   such as indirect sunlight. You'll notice that it does not change
+   as you move the light source.
+
 - diffuse: 
-  the color of the object, without any light; sometimes called albedo or base color;
-  
+   This is the color of the object when it is lit by light sources in the scene.
+   It changes as you move the light source, but does not change
+   when you move the camera around. That is because it models the light
+   that is reflected in a diffuse way: the light scatters in all directions.
+
 - specular:
-  the color of the reflected light;
-  
+   This is the color of the light that is reflected into a specific direction.
+   Unlike diffuse color, the specular lighting takes the camera position into account.
+
 - shininess:
-  the shininess of the object; this determines how much light is reflected; sometimes
-  called glossiness;
+   This determines how sharp the specular reflections are.
+   High shininess simulates the effect that all light-rays reflect into the same direction,
+   which give sharper highlights. Lower shininess simulates light rays
+   that shoot in many different directions, which means you have softer highlights.
   
 The parameters above are the most important parameters for shading. More specifically,
 we are using Phong illumination model where the color is computed per pixel. There are 
@@ -87,22 +95,6 @@ Tip: to change the color, use the bk.Color class. For example, to create a red c
      you use the bk.Color class, you can also use the predefined colors, for example:
      bk.Color.RED, bk.Color.GREEN, bk.Color.BLUE, bk.Color.WHITE, bk.Color.BLACK, etc.
      The predefined colors are just shortcuts for the bk.Color class.
-     (0.02122, 0.02122, 0.02732), // DARK_GREY
-     (0.14413, 0.09306, 0.16203), // PURPLISH GREY
-     (0.67954, 0.58408, 0.52100), // VERY LIGHT PINK
-     (0.86316, 0.25415, 0.23455), // PEACHY PINK
-     (0.43415, 0.39157, 0.76052), // LIGHT PERIWINKEL
-     (0.43415, 0.59062, 0.76815), // CLOUDY BLUE
-     (0.48515, 0.75294, 0.70110), // Ice blue
-     (0.92158, 0.41789, 0.76815), // Light lavender
-     (0.25818, 0.38643, 0.25415), // Greenish grey
-     (0.47932, 0.82279, 0.30947), // Washed out green
-     (0.82279, 0.92158, 0.35640), // Light khaki
-     (0.97345, 0.80695, 0.57758), // Pale
-     (0.68669, 0.38643, 0.26636), // Pinkish tan
-     (0.94731, 0.57112, 0.24620), // Very light brown
-     (0.99110, 0.94731, 0.37124), // Buff
-     (0.99110, 0.93869, 0.78354), // Off white
 """
 # Uncomment the following line to change the color.
 # mat.ambient = bk.Color(1, 0, 0)
