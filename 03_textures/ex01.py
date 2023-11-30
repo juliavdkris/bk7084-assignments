@@ -66,8 +66,9 @@ object. In this exercise, we will use the following parameters:
   the shininess of the object; this determines how much light is reflected; sometimes
   called glossiness;
   
-The parameters above are the most important parameters for shading. There are more
-parameters that can be used to create more realistic materials, but we will not
+The parameters above are the most important parameters for shading. More specifically,
+we are using Phong illumination model where the color is computed per pixel. There are 
+more parameters that can be used to create more realistic materials, but we will not
 discuss them in this course.
 """
 mat = bk.Material()
