@@ -78,15 +78,16 @@ object. In this exercise, we will use the following parameters:
    that shoot in many different directions, which means you have softer highlights.
   
 The parameters above are the most important parameters for shading. More specifically,
-we are using Phong illumination model where the color is computed per pixel. There are 
-more parameters that can be used to create more realistic materials, but we will not
-discuss them in this course.
+we are using Phong illumination model where the color is computed per pixel.
+There are different models that are more realistic (physically based rendering models), 
+but we will not discuss them in this course.
 """
 mat = bk.Material()
 
 """
 Task 1.2: Change the color of ambient to a different color and observe the effect.
-          Try to move the light source around and observe the effect.
+          Try to move the light source behind the plane (press L and then X)
+          and observe the effect.
           
 Tip: to change the color, use the bk.Color class. For example, to create a red color:
      bk.Color(1, 0, 0), where the first parameter is the red component, the second
