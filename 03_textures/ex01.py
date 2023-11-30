@@ -39,7 +39,8 @@ camera.set_as_main_camera()
 
 """
 This is where we create the light source and the plane. The light source is a point 
-light represented by a sphere with a radius of 0.1. The plane is a quad with a size of 4.0 x 4.0.
+light represented by a sphere with a radius of 0.1.
+The plane is a quad (quadrilateral, four sides) with a size of 4.0 x 4.0.
 
 Task 1.1: Change the color of the light source to a different color and observe the effect.
 """
@@ -102,6 +103,7 @@ Tip: to change the color, use the bk.Color class. For example, to create a red c
 
 """
 Task 1.3: Change the color of diffuse to a different color and observe the effect.
+          Try to move the camera around. Does the shading change?
 """
 # Uncomment the following line to change the color.
 mat.diffuse = bk.Color(0.8, 0.8, 0.8)
@@ -109,11 +111,12 @@ mat.diffuse = bk.Color(0.8, 0.8, 0.8)
 """
 Task 1.4: Change the color of specular to a different color and observe the effect.
 
-As you already know that the specular color is the color of the reflected light.
-Q1. Where should you expect to see this color? 
+Remember that specular reflection is the light that reflects on the surface
+in a mirror-like way.
+Q1. Where would you expect to see this color on the object? 
 Q2. When the specular color is black, what happens when you move the light source around? 
-Q3. Is the appearance of the plane staying everywhere the same when the specular is off?
-    Why or why not?
+Q3. Is the appearance the same everywhere on the square when you
+    remove the specular component? Why or why not?
 """
 # Uncomment the following line to change the color.
 # mat.specular = bk.Color(1.0, 0.0, 0.0)
