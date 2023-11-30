@@ -66,7 +66,7 @@ material_textures["diffuse_texture"] = bk.res_path("./assets/stone_bricks_col.jp
 """
 We learned in the lecture that specular highlights are the bright spots on the surface
 of an object. As we can specify the color of the specular highlights for the whole object, 
-we can also use a texture to control the color of the specular hightlights for each point
+we can also use a texture to control the color of the specular highlights for each point
 on the surface of the object.
 
 Task 2.3: Load the specular texture "stone_bricks.refl.jpg", and see what happens.          
@@ -113,12 +113,15 @@ For example, you can try to load the diffuse texture "brickwall_col.jpg", the no
 """
 
 """
-Task 2.7: Take any texture from the assets folder and try to draw a window on the plane by
-          modifying the textures using an image editor.
+Task 2.7: Take the diffuse texture of the brick wall from the assets folder and try to draw a window on the image by
+          modifying the it using an image editor. Don't forget to modify textures for the specular, shininess, and
+          the normal texture. For this task, you can manually modify the texture, for example using Photoshop,
+          GIMP or Photopea (https://www.photopea.com/).
 """
 
 """
-Extra task: See the link on the course website for generating normal maps from existing textures.
+Extra task: Generate the normal map from your diffuse texture using external tool. See the link on the course website
+            for more details.
 """
 
 """

@@ -65,17 +65,17 @@ car.set_visible(True)
 cwd = os.path.dirname(os.path.abspath(__file__))
 arrow_x_mesh = bk.Mesh.load_from(bk.res_path('../01_transformation/assets/arrow.obj'))
 mtl_red = bk.Material()
-mtl_red.diffuse = bk.Color(1.0, 0.0, 0.0)
+mtl_red.kd = Vec3(1.0, 0.0, 0.0)
 arrow_x_mesh.set_material(mtl_red)
 
 arrow_y_mesh = bk.Mesh.load_from(bk.res_path('../01_transformation/assets/arrow.obj'))
 mtl_green = bk.Material()
-mtl_green.diffuse = bk.Color(0.0, 1.0, 0.0)
+mtl_green.kd = Vec3(0.0, 1.0, 0.0)
 arrow_y_mesh.set_material(mtl_green)
 
 arrow_z_mesh = bk.Mesh.load_from(bk.res_path('../01_transformation/assets/arrow.obj'))
 mtl_blue = bk.Material()
-mtl_blue.diffuse = bk.Color(0.0, 0.0, 1.0)
+mtl_blue.kd = Vec3(0.0, 0.0, 1.0)
 arrow_z_mesh.set_material(mtl_blue)
 
 arrows = [
@@ -95,9 +95,6 @@ arrows[1].set_visible(True)
 # z-axis
 arrows[2].set_transform(Mat4.from_translation(Vec3(0.0, 0.0, 7.0)) * Mat4.from_scale(Vec3(0.2)) * Mat4.from_rotation_x(90.0, degrees=True))
 arrows[2].set_visible(True)
-
-app.add_directional_light(dir=Vec3(-1.0, -1.0, -1.0), color=bk.Color.WHITE)
-app.add_directional_light(dir=Vec3(1.0, 1.0, 1.0), color=bk.Color.WHITE)
 
 """
 Here, we set the initial transformation of the car.
