@@ -5,9 +5,9 @@ from bk7084.math import *
 Exercise 2: Textures & Shading
 ------------------------------
 
-As the objects in the real world are not always uniform in color, they have
-different colors and patterns. In computer graphics, we model this by using
-textures. A texture is an image that is mapped to the surface of an object.
+Objects in the real world have lots of different colors that vary over the surface.
+In computer graphics, we model this with textures. 
+A texture is an image that is wrapped over the surface of an object.
 
 The goal of this assignment is to understand and learn how to use textures while
 shading objects in a scene.
@@ -34,8 +34,11 @@ plane_mesh = bk.Mesh.create_quad(4.0, bk.Alignment.XY)
 Here we create the material for the plane as in the previous exercise.
 The only difference is that we now load a texture from a file and assign it
 to the material. Just like in the previous exercise, we specify different
-parameters for the material, i.e., ambient, diffuse, specular, and shininess.
-We can also specify textures (images) for each of these parameters.
+parameters for the material: ambient, diffuse, specular, and shininess.
+
+Instead of one value for these parameters for the entire object,
+we can also specify textures (images) for each of these parameters.
+That way we can vary the parameters over the object.
 
 Task 2.1: Run the program and explain why the plane is shaded with greenish color. 
 """
@@ -45,7 +48,18 @@ mat.shininess = 32.0
 mat.specular = bk.Color(0.0, 0.9, 0.0)
 mat.ambient = bk.Color(0.8, 0.8, 0.8)
 
-# Here we create a dictionary to store the textures we want to use for the material.
+"""
+Here we create a dictionary to store the textures we want to use for the material.
+
+A dictionary is like a list, but instead of using indices,
+we can use labels to store and retrieve objects.
+
+For example, we can create a dictionary that stores the grades of Yang, Laura, and Steve:
+>>> grades = {'Yang': 9, 'Laura': 9.5, 'Steve': 8}
+We can add and retrieve entries by simply using brackets:
+>>> grades['Anne'] = 8.5
+>>> print(grades['Anne'])
+"""
 material_textures = {}
 
 """
@@ -58,28 +72,26 @@ You can also use the absolute path to the file, but this is not recommended.
 
 Task 2.2: Try to load a different texture from the assets folder and observe the effect.
 
-Hint: in the assets folder, all textures named with the suffix "_col" are diffuse textures. But
-you can also load other textures, just to see what happens.
+Hint: in the assets folder, all textures named with the suffix "_col" are diffuse textures.
+But you can also load other textures, just to see what happens.
 """
 material_textures["diffuse_texture"] = bk.res_path("./assets/stone_bricks_col.jpg")
 
 """
-We learned in the lecture that specular highlights are the bright spots on the surface
-of an object. As we can specify the color of the specular highlights for the whole object, 
-we can also use a texture to control the color of the specular highlights for each point
+We can also use a texture to control the color of the specular highlights for each point
 on the surface of the object.
 
 Task 2.3: Load the specular texture "stone_bricks.refl.jpg", and see what happens.          
           
-Hint: in the assets folder, all textures named with the suffix "_refl" are specular textures. But
-you are free to load other textures, just to see what happens.
+Hint: in the assets folder, all textures named with the suffix "_refl" are specular textures.
+You are free to load other textures, just to see what happens.
           
 Q1: What happens compared to the previous task? Why?
 """
 material_textures["specular_texture"] = None
 
 """
-Task 2.4: Just like what we did in the previous task, now load the shininess(glossiness) texture 
+Task 2.4: Just like what we did in the previous task, now load the shininess (glossiness) texture 
           from the assets folder and assign it to the material.
           
 Hint: in the assets folder, all textures named with the suffix "_gloss" are shininess textures.
@@ -87,11 +99,12 @@ Hint: in the assets folder, all textures named with the suffix "_gloss" are shin
 material_textures["shininess_texture"] = None
 
 """
-Our plane now has a diffuse texture, a specular texture, and a shininess texture. Take a close
-look at the plane you will see that the plane is not that realistic. This is because we are
-missing one important part: representing the surface bumps of the plane. 
+Our plane now has a diffuse texture, a specular texture, and a shininess texture.
+Take a close look at the plane you will see that the plane is not that realistic.
+Real brick walls have lots of bumps and cracks. Since we used a flat plane,
+none of these small surface details show up.
+How can we simulate these details without adding a lot of extra triangles?
 
-In the real world, the surface of the plane is not perfectly smooth, it has bumps and dents. 
 We can use a normal texture to represent the bumps and dents of the surface. A normal texture 
 is an image that stores the normal vectors of the surface. The normal vectors are the vectors 
 that are perpendicular to the surface. By using a normal texture, we can control the direction 
@@ -113,15 +126,16 @@ For example, you can try to load the diffuse texture "brickwall_col.jpg", the no
 """
 
 """
-Task 2.7: Take the diffuse texture of the brick wall from the assets folder and try to draw a window on the image by
-          modifying the it using an image editor. Don't forget to modify textures for the specular, shininess, and
-          the normal texture. For this task, you can manually modify the texture, for example using Photoshop,
+Task 2.7: Take the diffuse texture of the brick wall from the assets folder
+          and try to draw a window on the image by modifying the it using an image editor.
+          Don't forget to modify textures for the specular, shininess, and the normal texture. 
+          For this task, you can manually modify the texture, for example using Photoshop,
           GIMP or Photopea (https://www.photopea.com/).
 """
 
 """
-Extra task: Generate the normal map from your diffuse texture using external tool. See the link on the course website
-            for more details.
+Extra task: Generate the normal map from your diffuse texture.
+            See the link on the course website for more details.
 """
 
 """
