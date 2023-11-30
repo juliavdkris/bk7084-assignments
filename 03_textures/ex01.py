@@ -27,7 +27,7 @@ Explore the scene by moving the plane around with the following keys:
 
 win = bk.Window()
 win.set_title('BK7084 - Lab 3 - Textures & Shading [ex01]')
-win.set_size(1024, 1024)
+win.set_size(800, 800)
 win.set_resizable(True)
 
 app = bk.App()

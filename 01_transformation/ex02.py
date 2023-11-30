@@ -67,9 +67,6 @@ moon.set_visible(True)
 sun = app.add_mesh(bk.Mesh.load_from(osp.join(cwd, 'assets/sun.obj')))
 sun.set_visible(True)
 
-app.add_directional_light(dir=Vec3(-1.0, -1.0, -1.0), color=bk.Color.WHITE)
-app.add_directional_light(dir=Vec3(1.0, 1.0, 1.0), color=bk.Color.WHITE)
-
 
 """
 The on_update function is called every time the screen is updated.
