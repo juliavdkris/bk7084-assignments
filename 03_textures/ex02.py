@@ -76,7 +76,7 @@ you are free to load other textures, just to see what happens.
           
 Q1: What happens compared to the previous task? Why?
 """
-material_textures["specular_texture"] = bk.res_path("./assets/stone_bricks_refl.jpg")
+material_textures["specular_texture"] = None
 
 """
 Task 2.4: Just like what we did in the previous task, now load the shininess(glossiness) texture 
@@ -84,29 +84,45 @@ Task 2.4: Just like what we did in the previous task, now load the shininess(glo
           
 Hint: in the assets folder, all textures named with the suffix "_gloss" are shininess textures.
 """
-material_textures["shininess_texture"] = bk.res_path("./assets/stone_bricks_gloss.jpg")
+material_textures["shininess_texture"] = None
 
 """
-Task 2.5: Load the normal texture "stone_bricks_nrm.png" from the assets folder and assign it to the material.
+Our plane now has a diffuse texture, a specular texture, and a shininess texture. Take a close
+look at the plane you will see that the plane is not that realistic. This is because we are
+missing one important part: representing the surface bumps of the plane. 
+
+In the real world, the surface of the plane is not perfectly smooth, it has bumps and dents. 
+We can use a normal texture to represent the bumps and dents of the surface. A normal texture 
+is an image that stores the normal vectors of the surface. The normal vectors are the vectors 
+that are perpendicular to the surface. By using a normal texture, we can control the direction 
+of the surface normals for each point on the surface. This will make the surface look more realistic.
+
+Task 2.5: Load the normal texture "stone_bricks_nrm.png" and observe the effect.
+          What happens if you change the normal texture to "mosaic_tiles_nrm.png"?
+
+Hint: in the assets folder, all textures named with the suffix "_nrm" are normal textures.
+"""
+material_textures["normal_texture"] = None
+
+"""
+Task 2.6: Now try to mix different textures together and observe the effect.
+
+For example, you can try to load the diffuse texture "brickwall_col.jpg", the normal texture
+"mosaic_tiles_nrm.png", the specular texture "stone_bricks_refl.jpg", and the shininess texture
+"mosaic_tiles_gloss.png".
 """
 
-textures = {
-    "diffuse_texture": bk.res_path("./assets/stone_bricks_col.jpg"),
-    # "normal_texture": bk.res_path("./assets/stone_bricks_nrm.png"),
-    # "specular_texture": bk.res_path("./assets/stone_bricks_refl.jpg"),
-    # "shininess_texture": bk.res_path("./assets/stone_bricks_gloss.jpg"),
-
-    # "diffuse_texture": bk.res_path("./assets/mosaic_tiles_nrm.png"),
-    # "normal_texture": bk.res_path("./assets/mosaic_tiles_nrm.png"),
-    # "specular_texture": bk.res_path("./assets/mosaic_tiles_refl.png"),
-    # "shininess_texture": bk.res_path("./assets/mosaic_tiles_gloss.png"),
-
-    # "diffuse_texture": bk.res_path("./assets/brickwall.jpg"),
-    # "normal_texture": bk.res_path("./assets/brickwall_normal.jpg"),
-}
+"""
+Task 2.7: Take any texture from the assets folder and try to draw a window on the plane by
+          modifying the textures using an image editor.
+"""
 
 """
-Now we assign all the textures to the material.
+Extra task: See the link on the course website for generating normal maps from existing textures.
+"""
+
+"""
+We assign all the textures to the material. The material will later be assigned to the plane.
 """
 mat.textures = material_textures
 
