@@ -1,7 +1,4 @@
 import bk7084 as bk
-import numpy as np
-from bk7084.math import *
-
 
 stone_brick_material = bk.Material()
 stone_brick_material.textures = {
@@ -12,21 +9,24 @@ stone_brick_material.textures = {
 }
 
 
-# Mesh construction
-def create_basic_wall(width: float, height: float, materials: list = None):
-    create_basic_wall._mesh = bk.Mesh()
-    create_basic_wall._mesh.vertices = np.array(
-        [
-            [-width / 2, -height / 2, 0],
-            [width / 2, -height / 2, 0],
-            [width / 2, height / 2, 0],
-            [-width / 2, height / 2, 0],
+class BasicWallMesh(bk.Mesh):
+    def __new__(cls, *args, **kwargs):
+        return super().__new__(cls)
+
+    def __init__(self, w=1, h=1):  # , materials=None):
+        super().__init__()
+        self.w = w
+        self.h = h
+        # self.materials = materials
+        self.vertices = [
+            [-w / 2, -h / 2, 0],
+            [w / 2, -h / 2, 0],
+            [w / 2, h / 2, 0],
+            [-w / 2, h / 2, 0],
         ]
-    )
-    create_basic_wall._mesh.uvs = [[0, 0], [1, 0], [1, 1], [0, 1]]
-    create_basic_wall._mesh.triangles = [[0, 1, 2], [0, 2, 3]]
-    create_basic_wall._mesh.materials = materials
-    return create_basic_wall._mesh
+        self.uvs = [[0, 0], [1, 0], [1, 1], [0, 1]]
+        self.triangles = [[0, 1, 2], [0, 2, 3]]
+        self.set_material(stone_brick_material)
 
 
 win = bk.Window()
@@ -42,21 +42,15 @@ camera.set_as_main_camera()
 
 light = app.add_point_light(Vec3(0, 0, 5.2), bk.Color(0.8, 0.8, 0.8), show_light=False)
 
-wall_mesh = create_basic_wall(5, 5, [stone_brick_material])
+wall_mesh = BasicWallMesh(5, 5)
+wall0 = app.add_mesh(wall_mesh)
+wall1 = app.add_mesh(wall_mesh)
+wall.set_visible(True)
 
-for i in range(4):
-    wall = app.add_mesh(wall_mesh)
-    wall.set_transform(
-        Mat4.from_rotation_y(i * 90, degrees=True)
-        * Mat4.from_translation(Vec3(0, 0, 2.5))
-    )
-    wall.set_visible(True)
+house = app.create_building()
+house.add_wall(wall0)
 
-
-# house = app.create_building()
-# house.add_wall(wall0)
-
-# wall0.set_transform(Mat4.from_translation(Vec3(-2, 0, 0)))
+wall0.set_transform(Mat4.from_translation(Vec3(-2, 0, 0)))
 
 transform = Mat4.identity()
 
@@ -96,7 +90,7 @@ def on_update(input, dt, t):
     if input.is_key_pressed(bk.KeyCode.L):
         is_plane = False
 
-    # wall.set_transform(transform)
+    wall.set_transform(transform)
 
 
 app.run(win)
