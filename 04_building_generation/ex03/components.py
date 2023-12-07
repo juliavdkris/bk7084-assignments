@@ -1,6 +1,10 @@
 import bk7084 as bk
 import numpy as np
+from numpy.random import randint, rand
 
+"""
+Materials are used to define the appearance of a mesh.
+"""
 material_stone_bricks = bk.Material()
 material_stone_bricks.textures = {
     "diffuse_texture": bk.res_path("../03_textures/assets/stone_bricks_col.jpg"),
@@ -10,6 +14,7 @@ material_stone_bricks.textures = {
 }
 
 material_basic_bricks = bk.Material()
+material_basic_bricks.specular = bk.Color(0.1, 0.1, 0.1)
 material_basic_bricks.textures = {
     "diffuse_texture": bk.res_path("../assets/brick.jpg"),
 }
@@ -20,6 +25,11 @@ material_basic_floor.diffuse = bk.Color(0.8, 0.5, 0.5)
 material_basic_window = bk.Material()
 material_basic_window.textures = {
     "diffuse_texture": bk.res_path("../assets/window.jpg"),
+}
+
+material_basic_ground = bk.Material()
+material_basic_ground.textures = {
+    "diffuse_texture": bk.res_path("../assets/grass.jpg"),
 }
 
 
@@ -47,7 +57,14 @@ def create_basic_wall(w=1, h=1, m=material_basic_bricks):
     return create_basic_wall.mesh
 
 
-class BasicWallMesh(bk.Mesh):
+class BasicWall(bk.Mesh):
+    """
+    Create a basic wall mesh with the given size and material.
+    This class is a subclass of bk.Mesh, so it can be used as a mesh. For example,
+    you can create a mesh instance by `mesh = BasicWallMesh(...)`, and then add it to
+    a scene by `app.add_mesh(mesh)`. It's the same as using `mesh = create_basic_wall(...)`.
+    """
+
     def __new__(cls, *args, **kwargs):
         return super().__new__(cls)
 
@@ -56,7 +73,6 @@ class BasicWallMesh(bk.Mesh):
         self.w = w
         self.h = h
         self.name = "BasicWallMesh"
-        # self.materials = materials
         self.positions = [
             [-w / 2, -h / 2, 0],
             [w / 2, -h / 2, 0],
@@ -103,7 +119,7 @@ def create_basic_floor(w=1, h=1, m=material_basic_floor):
     return create_basic_floor.mesh
 
 
-class BasicFloorMesh(bk.Mesh):
+class BasicFloor(bk.Mesh):
     def __new__(cls, *args, **kwargs):
         return super().__new__(cls)
 
@@ -165,7 +181,7 @@ def create_basic_window_wall(w=1, h=1):
     return create_basic_window_wall.mesh
 
 
-class BasicWindowWallMesh(bk.Mesh):
+class BasicWindowWall(bk.Mesh):
     def __new__(cls, *args, **kwargs):
         return super().__new__(cls)
 

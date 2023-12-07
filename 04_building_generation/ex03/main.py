@@ -1,6 +1,74 @@
 import bk7084 as bk
 from buildings import *
+from components import material_basic_ground
 
+"""
+Exercise 04: Building Generation
+--------------------------------
+
+In the last exercise, we have learned how to construct a mesh with more complex
+geometry. In this exercise, we will learn how to generate buildings with
+different shapes and sizes.
+
+In this exercise, we have provided you with a buildings.py file that contains
+the Skyscraper, Highrise, and Office classes; a components.py file that
+contains the methods to generate the components of a building; and a main.py
+file that contains the code to generate the buildings.
+
+What does classes mean? 
+
+In Python, a class is a blueprint for creating objects. Objects are instances 
+of classes, and classes define properties (attributes) and behaviors (methods) 
+that the objects will have. In other words, classes are a way to bundle data
+and functionality together. For example, the Skyscraper class is a blueprint
+for creating skyscrapers. It contains the data and functionality to generate
+a skyscraper. 
+
+Before you start, check out the second line of the code above. It imports the
+buildings.py file. You can use everything defined in the buildings.py file
+in this file. This is how we can reuse code in Python. You can also import
+other Python files in the same way.
+
+Task 1: Check out the Skyscraper class and the code that creates the skyscraper.
+        Run the code and see what it looks like.
+        
+Task 2: Check out the components.py file. It contains the methods and classes
+        to generate the components of a building. Recall that in the last two
+        exercises, we have created a basic wall mesh and a wall mesh with a
+        window. Here we just put them in a file so that we can reuse them.
+        
+        - create_basic_wall: create a basic wall mesh, same as the one in the
+                             first exercise.
+        - BasicWall: a class that creates a basic wall mesh, same as 
+                         create_basic_wall, except that it is a subclass of
+                         bk.Mesh, so it can be used as a mesh.
+                         
+        In Python, a subclass is a class that is derived from another class, 
+        called the superclass or base class. The subclass inherits attributes 
+        and behaviors (methods) from its superclass. This allows you to create
+        a more specialized version of a class, adding or modifying functionality
+        as needed while still reusing most of the code in the superclass. In
+        other words, when you create a subclass (BasicWallMesh for example), you
+        get all the functionality of the superclass (bk.Mesh), plus whatever you 
+        add in the subclass (BasicWallMesh).
+        
+        - create_basic_floor: create a basic floor mesh.
+        - BasicFloor: a class that creates a basic floor mesh, same as
+                          create_basic_floor, except that it is a subclass of
+                          bk.Mesh, so it can be used as a mesh.
+                          
+        - create_basic_window_wall: create a wall mesh with a window, same as the
+                                    one in the last exercise.
+        - BasicWindowWall: a class that creates a wall mesh with a window, same
+                               as create_basic_window_wall, except that it is a 
+                               subclass of bk.Mesh, so it can be used as a mesh.
+
+        These methods and classes are used to create the skyscraper in the
+        Skyscraper class. You can also use them to create other buildings.
+
+Task 3: Use what you have learned to create your own signature building.
+        Be creative and have fun!
+"""
 
 win = bk.Window()
 win.set_title("BK7084 - Lab 4 - Building Generation [ex03]")
@@ -9,20 +77,26 @@ win.set_resizable(True)
 
 app = bk.App()
 camera = app.create_camera(
-    pos=Vec3(16, 18, 26), look_at=Vec3(0, 0, 0), fov_v=60.0, background=bk.Color.ICE_BLUE
+    pos=Vec3(18, 18, 26), look_at=Vec3(0, 0, 0), fov_v=60.0, background=bk.Color.ICE_BLUE
 )
 camera.set_as_main_camera()
 
-app.add_directional_light(Vec3(0, 0, -1), bk.Color(0.8, 0.8, 0.8))
+app.add_directional_light(Vec3(-1, -1, -1), bk.Color(0.8, 0.8, 0.8))
 
 skyscraper = Skyscraper(app, 5, 3)
 skyscraper.building.set_transform(Mat4.identity())
 
-highrise = Skyscraper(app, 3, 3)
-highrise.building.set_transform(Mat4.from_translation(Vec3(5, 0, 0)))
+highrise = Skyscraper(app, 1, 3)
+highrise.building.set_transform(Mat4.from_translation(Vec3(6, 0, 0)))
 
 office = Skyscraper(app, 2, 3)
-office.building.set_transform(Mat4.from_translation(Vec3(-5, 0, 0)))
+office.building.set_transform(Mat4.from_translation(Vec3(-6, 0, 0)))
+
+ground_mesh = bk.Mesh.create_quad(48, bk.Alignment.XY)
+ground_mesh.set_material(material_basic_ground)
+ground = app.add_mesh(ground_mesh)
+ground.set_transform(Mat4.from_rotation_x(-90, True))
+ground.set_visible(True)
 
 # Variables to avoid key spamming
 is_key_1_pressed = False
