@@ -56,8 +56,20 @@ and the indices of the vertices that form each triangle.
 We start by specifying the positions of the vertices. The positions are specified as a list of 3D vectors.
 Here we use a NumPy array to help us construct the list of vectors.
 
-NumPy is a Python library used for working with arrays (lists of numbers).
-It enables us to do math with arrays in Python.
+NumPy is a Python library that allows us to do math with lists of numbers (arrays).
+Say you have a list of grades for three students and a list of bonus points:
+>>> grades = [80, 90, 70]
+>>> bonus = [5, 10, 15]
+
+If you wanted to add each student's bonus points to their grade, you would have to do it one by one:
+>>> grades[0] = grades[0] + bonus[0]    
+>>> grades[1] = grades[1] + bonus[1]
+>>> grades[2] = grades[2] + bonus[2]
+
+NumPy allows us to do this in one line:
+>>> grades = np.array([80, 90, 70])
+>>> bonus = np.array([5, 10, 15])
+>>> grades = grades + bonus
 
 To construct a NumPy array, we can use the `np.array` function. The first argument is a list of any numeric
 type.
@@ -70,7 +82,7 @@ With NumPy array, we can do math with arrays. For example, we can add two arrays
 >>> a + b
 array([5, 7, 9])
 
-We can also multiply an array with a scalar:
+We can also multiply an array with a number:
 >>> a * 2
 array([2, 4, 6])
 
