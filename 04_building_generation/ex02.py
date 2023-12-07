@@ -6,8 +6,9 @@ from bk7084.math import *
 Exercise 02: Mesh Construction (continued)
 ------------------------------------------
 
-In the last exercise, we have learned what a mesh is and how it is constructed. In this exercise,
-we will learn some more advanced techniques to construct a mesh with more complex geometry.
+In the last exercise, we have learned what a mesh is and how you can construct one.
+In this exercise, we will learn some more advanced techniques
+to construct a mesh with more complex geometry.
 """
 
 win = bk.Window()
@@ -52,12 +53,11 @@ mesh = bk.Mesh()
 The mesh is constructed by specifying the positions of the vertices, the texture coordinates of the vertices,
 and the indices of the vertices that form each triangle.
 
-We start by specifying the positions of the vertices. The positions are specified as a list of 3d vectors.
+We start by specifying the positions of the vertices. The positions are specified as a list of 3D vectors.
 Here we use a NumPy array to help us construct the list of vectors.
 
-NumPy is a Python library used for working with arrays. It also has functions for working in domain of linear
-algebra, fourier transform, and matrices. It's a very powerful library, and it's widely used in the field of
-scientific computing. In short, NumPy enables us to do math with arrays in Python.
+NumPy is a Python library used for working with arrays (lists of numbers).
+It enables us to do math with arrays in Python.
 
 To construct a NumPy array, we can use the `np.array` function. The first argument is a list of any numeric
 type.
@@ -85,7 +85,7 @@ Try to run the following code to see the result.
 
 Remind yourself that the wall is a rectangle with a window in the middle. The window is a square hole in the wall.
 
-Q1: Why do we repeat 2nd row of vertices?
+Q1: Why do we repeat the 2nd row of vertices?
 Hint: Think about how the texture coordinates are used to map the texture to the mesh.
 """
 mesh.positions = np.array(
@@ -96,8 +96,8 @@ mesh.positions = np.array(
         ]
     ) * 8.0
 """
-Next, we specify the texture coordinates of the vertices. We don't need to do the math with texture coordinates,
-so we can just use a list of lists to specify the texture coordinates.
+Next, we specify the texture coordinates of the vertices. We don't need to do math with texture coordinates,
+so we can just use a list of lists instead of a NumPy array to specify the texture coordinates.
 """
 mesh.texcoords = [
     [0.0, 0.0], [1.0, 0.0], [1.0, 1.0], [0, 1.0],
@@ -156,8 +156,8 @@ We specify the sub-meshes of the mesh. A sub-mesh is a part of the mesh that use
 this case, we have two sub-meshes: one for the inner part of the wall, and one for the outer part of the wall.
 
 To specify a sub-mesh, we need to specify the starting index of the triangle indices, and the ending index
-of the triangle indices. NOTE: The ending index is exclusive. The index is the index of the triangle not the
-index of the vertex.
+of the triangle indices. NOTE: The ending index is not included in the sub-mesh.
+The index is the index of the triangle, not the index of the vertex.
 
 For example, if we have a mesh with 10 triangles, and we want to specify the first 5 triangles as a sub-mesh,
 we need to specify the starting index as 0 and the ending index as 5. The ending index is exclusive, so the
