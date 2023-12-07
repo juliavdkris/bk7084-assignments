@@ -17,12 +17,18 @@ file that contains the code to generate the buildings.
 
 # Classes
 
-If you're unfamiliar with classes, check out the introduction assignment.
+We've discussed the basics of classes and objects in the introduction assignment.
 A quick recap: a class is like a blueprint to create objects.
 The class describes what information the object should store (attributes) and
 how you can interact with the object and its information (methods).
-In this case, the Skyscraper class tells the program how to create a skyscraper
+
+In this case, the Skyscraper class tells Python how to create a skyscraper
 and every time a skyscraper is created, it is an instance of the Skyscraper class.
+An important method in Python classes is the __init__ method:
+this method is called when an instance of the class is created
+and is often used to set up all the starting values of the object.
+
+## Sub-classes
 
 We can often re-use functionality from one class in another. For example:
 We have a general Mesh class and we want to create a Mesh in the shape of a cube.

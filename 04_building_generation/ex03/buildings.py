@@ -31,7 +31,6 @@ time, we will use the app.spawn_building() function to spawn a base component
 for us. The app.spawn_building() function will spawn a base component with
 nothing in it. You can then parent other components to this base component.
 
-
 Check out the `self.building` variable in the Skyscraper class. It is the base
 component that we will use to parent other components. Go back to the main.py
 file and you will see that we apply a transformation to the self.building
@@ -62,11 +61,11 @@ class Skyscraper:
             # components to one 'base' component (floor1, see below). Then we
             # only have to move the base component up higher and the framework
             # takes care of the rest.
-            floor1 = app.add_mesh(create_basic_floor(max_width, max_width), parent=self.building)
+            floor1 = app.add_mesh(BasicFloor(max_width, max_width), parent=self.building)
             # Place the base component higher each time (i)
             floor1.set_transform(Mat4.from_translation(Vec3(0, max_width * i, 0)))
             floor1.set_visible(True)
-            floor2 = app.add_mesh(create_basic_floor(max_width, max_width), parent=floor1)
+            floor2 = app.add_mesh(BasicFloor(max_width, max_width), parent=floor1)
             floor2.set_transform(Mat4.from_translation(Vec3(0, max_width, 0)))
             floor2.set_visible(True)
             wall1 = app.add_mesh(BasicWindowWall(max_width, max_width), parent=floor1)

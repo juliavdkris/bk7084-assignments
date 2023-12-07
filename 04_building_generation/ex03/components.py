@@ -33,34 +33,6 @@ material_basic_ground.textures = {
 }
 
 
-def create_basic_wall(w=1, h=1, m=material_basic_bricks):
-    """
-    Create a basic wall mesh with the given size and material.
-    Args:
-        w: the width of the wall
-        h: the height of the wall
-        m (bk.Material): the material of the wall
-
-    Returns:
-        A bk.Mesh object representing the wall.
-    """
-    # In Python, functions are objects, so we can add attributes to functions.
-    # `hasattr` checks if the function has an attribute with the given name.
-    # The reason we use hasattr is to make sure the mesh is created only once.
-    # We don't want to create the same mesh multiple times.
-    # If the mesh is not created, create it.
-    if not hasattr(create_basic_wall, "mesh"):
-        create_basic_wall.mesh = bk.Mesh()
-        create_basic_wall.mesh.name = "BasicWallMesh"
-        create_basic_wall.mesh.positions = np.array([[-w, -h, 0], [w, -h, 0], [w, h, 0], [-w, h, 0]]) * 0.5
-        create_basic_wall.mesh.texcoords = [[0, 0], [1, 0], [1, 1], [0, 1]]
-        create_basic_wall.mesh.triangles = [[0, 1, 2], [0, 2, 3]]
-    if m is not None:
-        create_basic_wall.mesh.materials = [m]
-    # If the mesh is created, just return it.
-    return create_basic_wall.mesh
-
-
 class BasicWall(bk.Mesh):
     """
     Create a basic wall mesh with the given size and material.
@@ -88,37 +60,6 @@ class BasicWall(bk.Mesh):
         self.materials = [m]
 
 
-def create_basic_floor(w=1, h=1, m=material_basic_floor):
-    """
-    Create a basic floor mesh with the given size and material.
-    The floor is aligned with the xz-plane.
-
-    Args:
-        w: the width of the floor
-        h: the height of the floor
-        m (bk.Material): the material of the floor
-
-    Returns:
-        A bk.Mesh object representing the floor.
-    """
-    # If the mesh is not created, create it.
-    if not hasattr(create_basic_floor, "mesh"):
-        create_basic_floor.mesh = bk.Mesh()
-        create_basic_floor.mesh.name = "BasicFloorMesh"
-        create_basic_floor.mesh.positions = np.array([
-            [-w / 2, 0, -h / 2],
-            [w / 2, 0, -h / 2],
-            [w / 2, 0, h / 2],
-            [-w / 2, 0, h / 2],
-        ])
-        create_basic_floor.mesh.texcoords = [[0, 0], [1, 0], [1, 1], [0, 1]]
-        create_basic_floor.mesh.triangles = [[0, 2, 1], [0, 3, 2]]
-    if m is not None:
-        create_basic_floor.mesh.materials = [m]
-    # If the mesh is created, just return it.
-    return create_basic_floor.mesh
-
-
 class BasicFloor(bk.Mesh):
     def __new__(cls, *args, **kwargs):
         return super().__new__(cls)
@@ -138,47 +79,6 @@ class BasicFloor(bk.Mesh):
         self.texcoords = [[0, 0], [1, 0], [1, 1], [0, 1]]
         self.triangles = [[0, 2, 1], [0, 3, 2]]
         self.materials = [m]
-
-
-def create_basic_window_wall(w=1, h=1):
-    """
-    Create a window wall mesh with the given size and material.
-
-    Args:
-        w: the width of the wall
-        h: the height of the wall
-
-    Returns:
-        A bk.Mesh object representing the wall.
-    """
-    # If the mesh is not created, create it.
-    if not hasattr(create_basic_window_wall, "mesh"):
-        create_basic_window_wall.mesh = bk.Mesh()
-        create_basic_window_wall.mesh.name = "BasicWindowWallMesh"
-        create_basic_window_wall.mesh.positions = [
-            [-w/2, -h/2, 0.0], [w/2, -h/2, 0.0], [w/2, h/2, 0.0], [-w/2, h/2, 0.0],
-            [-w*0.2, -h*0.2, 0.0], [w*0.2, -h*0.2, 0.0], [w*0.2, h*0.2, 0.0], [-w*0.2, h*0.2, 0.0],
-            [-w*0.2, -h*0.2, 0.0], [w*0.2, -h*0.2, 0.0], [w*0.2, h*0.2, 0.0], [-w*0.2, h*0.2, 0.0],
-        ]
-        create_basic_window_wall.mesh.texcoords = [
-            [0.0, 0.0], [1.0, 0.0], [1.0, 1.0], [0, 1.0],
-            [0.3, 0.3], [0.7, 0.3], [0.7, 0.7], [0.3, 0.7],
-            [0.0, 0.0], [1.0, 0.0], [1.0, 1.0], [0, 1.0]
-        ]
-        create_basic_window_wall.mesh.triangles = [
-            [0, 1, 5], [0, 5, 4], [1, 2, 6], [1, 6, 5], [2, 3, 7], [2, 7, 6], [3, 0, 4], [3, 4, 7],
-            [8, 9, 10], [8, 10, 11],
-        ]
-        create_basic_window_wall.mesh.materials = [
-            material_basic_bricks,
-            material_basic_window,
-        ]
-        create_basic_window_wall.mesh.sub_meshes = [
-            bk.SubMesh(0, 8, 0),
-            bk.SubMesh(8, 10, 1),
-        ]
-    # If the mesh is created, just return it.
-    return create_basic_window_wall.mesh
 
 
 class BasicWindowWall(bk.Mesh):
