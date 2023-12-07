@@ -15,58 +15,46 @@ the Skyscraper, Highrise, and Office classes; a components.py file that
 contains the methods to generate the components of a building; and a main.py
 file that contains the code to generate the buildings.
 
-What does classes mean? 
+# Classes
 
-In Python, a class is a blueprint for creating objects. Objects are instances 
-of classes, and classes define properties (attributes) and behaviors (methods) 
-that the objects will have. In other words, classes are a way to bundle data
-and functionality together. For example, the Skyscraper class is a blueprint
-for creating skyscrapers. It contains the data and functionality to generate
-a skyscraper. 
+If you're unfamiliar with classes, check out the introduction assignment.
+A quick recap: a class is like a blueprint to create objects.
+The class describes what information the object should store (attributes) and
+how you can interact with the object and its information (methods).
+In this case, the Skyscraper class tells the program how to create a skyscraper
+and every time a skyscraper is created, it is an instance of the Skyscraper class.
 
-Before you start, check out the second line of the code above. It imports the
-buildings.py file. You can use everything defined in the buildings.py file
+We can often re-use functionality from one class in another. For example:
+We have a general Mesh class and we want to create a Mesh in the shape of a cube.
+To be able to re-use the functionality of the Mesh class, we can create a Cube
+class that is a sub-class of the Mesh class. The Cube class will *inherit*
+the functionality of the Mesh class, meaning that it can do everything that the Mesh class can do.
+
+# Back to the exercise
+
+Before you start, check out the second line of the code at the top of this document.
+It imports the buildings.py file. You can use everything defined in the buildings.py file
 in this file. This is how we can reuse code in Python. You can also import
 other Python files in the same way.
 
-Task 1: Check out the Skyscraper class and the code that creates the skyscraper.
-        Run the code and see what it looks like.
+Task 1: Check out the Skyscraper class and the code that creates the skyscraper in buildings.py.
+        Then run this file (main.py) and see what it looks like.
         
 Task 2: Check out the components.py file. It contains the methods and classes
         to generate the components of a building. Recall that in the last two
         exercises, we have created a basic wall mesh and a wall mesh with a
         window. Here we just put them in a file so that we can reuse them.
         
-        - create_basic_wall: create a basic wall mesh, same as the one in the
-                             first exercise.
-        - BasicWall: a class that creates a basic wall mesh, same as 
-                         create_basic_wall, except that it is a subclass of
-                         bk.Mesh, so it can be used as a mesh.
-                         
-        In Python, a subclass is a class that is derived from another class, 
-        called the superclass or base class. The subclass inherits attributes 
-        and behaviors (methods) from its superclass. This allows you to create
-        a more specialized version of a class, adding or modifying functionality
-        as needed while still reusing most of the code in the superclass. In
-        other words, when you create a subclass (BasicWallMesh for example), you
-        get all the functionality of the superclass (bk.Mesh), plus whatever you 
-        add in the subclass (BasicWallMesh).
+        The classes in the components.py file are sub-classes of the Mesh class.
+        That means they can be used in places where the program expects a Mesh class,
+        for example, when you add a mesh to the scene:
+        >>> wall = BasicWindowWall(max_width, max_width) # BasicWindowWall is a sub-class of Mesh
+        >>> app.add_mesh(wall)                           # add_mesh expects a Mesh, so wall is a valid argument
         
-        - create_basic_floor: create a basic floor mesh.
-        - BasicFloor: a class that creates a basic floor mesh, same as
-                          create_basic_floor, except that it is a subclass of
-                          bk.Mesh, so it can be used as a mesh.
-                          
-        - create_basic_window_wall: create a wall mesh with a window, same as the
-                                    one in the last exercise.
-        - BasicWindowWall: a class that creates a wall mesh with a window, same
-                               as create_basic_window_wall, except that it is a 
-                               subclass of bk.Mesh, so it can be used as a mesh.
+        You can check out how these components are used in the buildings.py file
+        in the Skyscraper class. You can also use them to create other buildings.
 
-        These methods and classes are used to create the skyscraper in the
-        Skyscraper class. You can also use them to create other buildings.
-
-Task 3: Use what you have learned to create your own signature building.
+Final assignment: Use what you have learned to create your own signature building.
         Be creative and have fun!
 """
 
