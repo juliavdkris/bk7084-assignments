@@ -8,7 +8,7 @@ Exercise 01: Mesh Construction
 
 In this exercise, you will learn how to construct a mesh from scratch.
 
-Start by running this file. You should only see a white sphere and a grey plane. . The sphere represents
+Start by running this file. You should only see a white sphere and a grey plane. The sphere represents
 the light source, and the plane represents the wall. You can use the mouse to rotate the camera, and
 use the keyboard to move the camera around. It's the same as the previous exercise. Except this time,
 you can only control the plane. 
@@ -36,10 +36,13 @@ light = app.add_point_light(Vec3(0, 0, 5.2), bk.Color(0.8, 0.8, 0.8), show_light
 """
 What is a mesh?
 
-In 3D computer graphics and modeling, a mesh is a collection of vertices, edges,
-and faces that define the shape of a 3D object. It's a fundamental component used
-to represent the geometry of 3D models. Let's break down the key terms used to
-describe a mesh:
+A mesh is a way to represent 3D objects. Because most interactions with objects happen
+on the outer surface (e.g. light bounces, collisions), we often only encode the surface of a 3D object.
+This is done by gluing together flat pieces of surface, typically triangles.
+These flat pieces of surface are called faces.
+Each face is defined by its corners (vertices) and the edges connecting the corners.
+
+In more detail:
 
 - Vertex: A vertex is a point in 3D space. It's the most basic component of a mesh.
           It can have different attributes such as position, normal, texture coordinate,
@@ -54,7 +57,7 @@ For example, a square can be represented by a mesh with four vertices, four edge
 one face. A cube can be represented by a mesh with eight vertices, twelve edges, and
 six faces.
 
-Even though faces can be any shape, triangle meshes are the most common type of mesh
+Even though faces can be any polygon, triangle meshes are the most common type of mesh
 used in computer graphics. This is because triangle meshes are simple, efficient, and
 flexible.
 
@@ -75,9 +78,11 @@ O - - -  O O
 O  O - - - O
 
 As you can see, the two added vertices are shared by the two faces. Now instead of
-listing the repeated vertices again and again for each face, we use something called
-indices. Think of indices as shortcuts - they tell us which vertices to connect for
-each face without repeating the same information over and over again.
+listing the repeated vertices again for each face, we use something called
+indices. Think of indices as shortcuts to the actual vertices.
+Instead of writing out the position of each vertex for each face (3x2=6 positions), we can just
+keep a list of vertex positions (4 positions) and the faces refer to the vertices by their
+indices. For example, the square above can be represented by the following indices:
 
 3 - - - - 2
 |      /  |
@@ -85,7 +90,7 @@ each face without repeating the same information over and over again.
 |  /      |
 0 - - - - 1
 
-Two construct the same square, we can use the following indices:
+To construct the square, we can use the following indices:
 
 [[0, 1, 2], [0, 2, 3]]
 
@@ -97,6 +102,8 @@ Now that you know what a mesh is, let's construct one from scratch.
 Task 1: Construct a wall
 
 Read the code below and try to understand what each line does.
+- Adjust the positions and see what happens.
+- Try to create a square with the same vertices, but using a different set of faces.
 
 Hint: In our framework, `bk.Mesh.positions` corresponds to the position attribute of
       each vertex, `bk.Mesh.texcoords` corresponds to the texture coordinate attribute of
@@ -144,9 +151,12 @@ wall = app.add_mesh(mesh)
 wall.set_visible(True)
 
 """
-Task 3: Add a hexagon to the scene.
+Task 3: Add a hexagon (six-sided face) to the scene.
 
 Now that you know how to construct a mesh, let's add a hexagon to the scene.
+The simplest way to construct a hexagon from triangles is to draw a dot in the center of the hexagon
+and draw six lines from the center to the vertices of the hexagon.
+You can also be creative and use other triangulations.
 
 Hint: Draw a hexagon on a piece of paper and label the vertices. Then, use the same method as above
       to construct the mesh.
