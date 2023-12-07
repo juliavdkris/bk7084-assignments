@@ -45,7 +45,7 @@ describe a mesh:
           It can have different attributes such as position, normal, texture coordinate,
           color, etc.
 
-- Edge: An edge is a line segment that connects two vertices.
+- Edge: An edge is a line segment that connects two vertices (Not used in the exercise).
 
 - Face: A face is a flat surface that connects any number of vertices. When each face
         is a triangle, the mesh is also called a triangle mesh.
@@ -171,6 +171,7 @@ hexagon_mesh.triangles = []    # TODO: Set the indices of the vertices that form
 # hexagon.set_visible(True)
 
 # TODO: Set the transform of the hexagon to make it possible to manipulate with the keyboard.
+#       Set the transform after the wall.set_transform(transform) line, at the end of the on_update function.
 
 transform = Mat4.identity()
 

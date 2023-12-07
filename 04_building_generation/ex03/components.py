@@ -44,6 +44,10 @@ def create_basic_wall(w=1, h=1, m=material_basic_bricks):
     Returns:
         A bk.Mesh object representing the wall.
     """
+    # In Python, functions are objects, so we can add attributes to functions.
+    # `hasattr` checks if the function has an attribute with the given name.
+    # The reason we use hasattr is to make sure the mesh is created only once.
+    # We don't want to create the same mesh multiple times.
     # If the mesh is not created, create it.
     if not hasattr(create_basic_wall, "mesh"):
         create_basic_wall.mesh = bk.Mesh()
@@ -98,10 +102,6 @@ def create_basic_floor(w=1, h=1, m=material_basic_floor):
         A bk.Mesh object representing the floor.
     """
     # If the mesh is not created, create it.
-    # In Python, functions are objects, so we can add attributes to functions.
-    # `hasattr` checks if the function has an attribute with the given name.
-    # The reason we use hasattr is to make sure the mesh is created only once.
-    # We don't want to create the same mesh multiple times.
     if not hasattr(create_basic_floor, "mesh"):
         create_basic_floor.mesh = bk.Mesh()
         create_basic_floor.mesh.name = "BasicFloorMesh"
