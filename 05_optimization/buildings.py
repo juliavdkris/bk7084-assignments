@@ -51,6 +51,7 @@ class Skyscraper:
         max_width (float):
             The maximum width for each component.
     """
+
     def __init__(self, app, num_floors, max_width):
         self.num_floors = num_floors
         # Spawn the building and save the reference to the building
@@ -61,7 +62,9 @@ class Skyscraper:
             # components to one 'base' component (floor1, see below). Then we
             # only have to move the base component up higher and the framework
             # takes care of the rest.
-            floor1 = app.add_mesh(BasicFloor(max_width, max_width), parent=self.building)
+            floor1 = app.add_mesh(
+                BasicFloor(max_width, max_width), parent=self.building
+            )
             # Place the base component higher each time (i)
             floor1.set_transform(Mat4.from_translation(Vec3(0, max_width * i, 0)))
             floor1.set_visible(True)
@@ -69,16 +72,27 @@ class Skyscraper:
             floor2.set_transform(Mat4.from_translation(Vec3(0, max_width, 0)))
             floor2.set_visible(True)
             wall1 = app.add_mesh(BasicWindowWall(max_width, max_width), parent=floor1)
-            wall1.set_transform(Mat4.from_translation(Vec3(0, max_width / 2, max_width / 2)))
+            wall1.set_transform(
+                Mat4.from_translation(Vec3(0, max_width / 2, max_width / 2))
+            )
             wall1.set_visible(True)
             wall2 = app.add_mesh(BasicWall(max_width, max_width), parent=floor1)
-            wall2.set_transform(Mat4.from_translation(Vec3(max_width / 2, max_width / 2, 0)) * Mat4.from_rotation_y(90, True))
+            wall2.set_transform(
+                Mat4.from_translation(Vec3(max_width / 2, max_width / 2, 0))
+                * Mat4.from_rotation_y(90, True)
+            )
             wall2.set_visible(True)
             wall3 = app.add_mesh(BasicWall(max_width, max_width), parent=floor1)
-            wall3.set_transform(Mat4.from_translation(Vec3(0, max_width / 2, -max_width / 2)) * Mat4.from_rotation_y(180, True))
+            wall3.set_transform(
+                Mat4.from_translation(Vec3(0, max_width / 2, -max_width / 2))
+                * Mat4.from_rotation_y(180, True)
+            )
             wall3.set_visible(True)
             wall4 = app.add_mesh(BasicWall(max_width, max_width), parent=floor1)
-            wall4.set_transform(Mat4.from_translation(Vec3(-max_width / 2, max_width / 2, 0)) * Mat4.from_rotation_y(-90, True))
+            wall4.set_transform(
+                Mat4.from_translation(Vec3(-max_width / 2, max_width / 2, 0))
+                * Mat4.from_rotation_y(-90, True)
+            )
             wall4.set_visible(True)
 
 
@@ -94,6 +108,7 @@ class Highrise:
         max_width (float):
             The maximum width for each component.
     """
+
     def __init__(self, app, num_floors, max_width):
         pass
 
@@ -110,5 +125,19 @@ class Office:
         max_width (float):
             The maximum width for each component.
     """
+
     def __init__(self, app, num_floors, max_width):
         pass
+
+
+class Park:
+    def __init__(self, app):
+        park = app.add_mesh(bk.Mesh.load_from(bk.res_path("./assets/Park.obj")))
+        park.set_visible(True)
+
+
+class House:
+    def __init__(self, app):
+        # house = app.add_mesh(bk.Mesh.load_from(bk.res_path("./assets/House.obj")))
+        # house.set_visible(True)
+        self.a = 1
