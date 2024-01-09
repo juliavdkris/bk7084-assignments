@@ -175,7 +175,7 @@ class City:
         - 25% of the plots should be offices
         - 37% of the plots should be houses
         - 15% of the plots should be parks
-        - 10% of the plots should be empty
+        - the remaining plots can be whatever you want
         """
         # TODO: Randomize the city grid in a smart way.
         for row in range(self._plots_per_row):
@@ -184,6 +184,13 @@ class City:
                 # and set the plot type accordingly
                 building_type = BuildingType(randint(0, 5))
                 self.construct_building(row, col, building_type)
+
+    def clear_grid(self):
+        """Clears the city grid.
+        This method will clear the plots and set all plots to empty.
+        """
+        for i in range(self._plots_per_col * self._plots_per_row):
+            self._plots[i] = None
 
     @property
     def rows(self) -> int:
@@ -296,6 +303,16 @@ class City:
             for col in range(self._plots_per_col):
                 print(self.get_building_type(row, col), end=" ")
             print()
+
+    def get_plot_center(self, row: int, col: int) -> Vec3:
+        """Returns the center of the plot at the given row and column."""
+        half_width = self._plots_per_col / 2
+        half_height = self._plots_per_row / 2
+        return Vec3(
+            (col - half_width) * self._plot_width * 1.5,
+            0,
+            (row - half_height) * self._plot_width * 1.5,
+        )
 
     def update(self, dt, t):
         """Updates all buildings in the city.
