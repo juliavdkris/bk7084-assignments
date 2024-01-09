@@ -43,7 +43,61 @@ Park.type = BuildingType.PARK
 
 
 class City:
+    """A city class that procedurally generates a city grid given a number of rows
+    and columns.
+
+    The city grid is a 2D grid of plots. Each plot can be empty or contain a building.
+    The building can be a house, office, highrise, skyscraper, or park.
+
+    The buildings of each plot are stored in a list in the order from the first row
+    to the last row, and from the first column to the last column. For example, the
+    following city grid has 3 rows and 4 columns:
+
+    +----+----+----+----+
+    | HS | OF | HR | PK |
+    +----+----+----+----+
+    | SK | ET | ET | ET |
+    +----+----+----+----+
+    | ET | ET | ET | ET |
+    +----+----+----+----+
+
+    ET = empty plot
+    HS = house
+    OF = office
+    HR = highrise
+    SK = skyscraper
+    PK = park
+
+    The buildings are stored in the following order in the list:
+    [HS, OF, HR, PK, SK, ET, ET, ET, ET, ET, ET, ET]
+
+    We can use the following formula to get the index of the building in the list:
+
+    index = row * num_cols + col
+
+    For example, the index of the building at row 1 and column 2 is:
+
+    index = 1 * 4 + 2 = 6
+
+    This means that the building at row 1 and column 2 is the 7th building in the list.
+
+    To facilitate the access of the buildings in the city grid, you can use the methods
+    `get_building`, `set_building`, and `get_building_type` to get the building at a
+    specific row and column, set the building at a specific row and column, and get
+    the type of the building at a specific row and column, respectively.
+    """
     def __init__(self, app, plots_per_col=8, plots_per_row=8, plot_width=3):
+        """Initializes the city grid.
+        Args:
+            app (bk.App):
+                The app instance.
+            plots_per_col (int):
+                The number of plots per column.
+            plots_per_row (int):
+                The number of plots per row.
+            plot_width (float):
+                The width of each plot.
+        """
         self._app = app
         self._plots_per_col = plots_per_col
         self._plots_per_row = plots_per_row
@@ -52,10 +106,12 @@ class City:
         self._ground = self.create_ground(app, self.width, self.height, *self.spacing)
         self._grid = self.create_grid(app, self.width, self.height, *self.spacing)
         app.update_shadow_map_ortho_proj(max(plots_per_col, plots_per_row) * plot_width)
-        self.reset()
+        # Reset (initialize) the city grid by assigning building to each plot
+        self.reset_grid()
 
     @staticmethod
     def create_ground(app, width, height, spacing_x, spacing_y):
+        """Creates the ground of the city."""
         ground_mesh = bk.Mesh.create_quad(1, bk.Alignment.XY)
         ground_mesh.set_material(material_basic_ground)
         ground = app.add_mesh(ground_mesh)
@@ -70,7 +126,8 @@ class City:
 
     @staticmethod
     def create_grid(app, width, height, spacing_x, spacing_y):
-        grid_mesh = bk.Mesh.create_grid(width, height, (spacing_x, spacing_y), bk.Alignment.XZ, bk.Color.RED)
+        """Creates the grid of the city."""
+        grid_mesh = bk.Mesh.create_grid(width, height, (spacing_x, spacing_y), bk.Alignment.XZ, bk.Color.WHITE)
         grid = app.add_mesh(grid_mesh)
         grid.set_transform(Mat4.from_translation(Vec3(-spacing_x * 0.5, 0.1, -spacing_x * 0.5)))
         grid.set_visible(True)
@@ -105,17 +162,20 @@ class City:
         """Returns the spacing between plots."""
         return self._plot_width * 1.5, self._plot_width * 1.5
 
-    def reset(self):
-        """Reset the city grid.
+    def reset_grid(self):
+        """Resets the city grid.
+        Can be also used to initialize the city grid.
         This method will reset the plots and then randomly assign plot types to each
         plot in the city grid.
 
         Complete this method to initialize your city to match the required specification:
-        - 24 skyscrapers
-        - 40 high rises
-        - 72 offices
-        - 104 houses
-        - 16 parks
+
+        - 5% of the plots should be skyscrapers
+        - 8% of the plots should be highrises
+        - 25% of the plots should be offices
+        - 37% of the plots should be houses
+        - 15% of the plots should be parks
+        - 10% of the plots should be empty
         """
         # TODO: Randomize the city grid in a smart way.
         for row in range(self._plots_per_row):
@@ -146,18 +206,21 @@ class City:
                 The type of building to construct.
         """
         building = None
-        building_width = self._plot_width * 0.8
 
         if building_type is BuildingType.HOUSE:
             building = House(self._app)
         elif building_type is BuildingType.OFFICE:
-            building = Skyscraper(self._app, 3, 3) # Office(self._app, 3, 3)
+            # TODO: replace the following line with your own code to create an office
+            num_floors = randint(3, 8)
+            building = Office(self._app, num_floors, 3)
         elif building_type is BuildingType.HIGHRISE:
+            # TODO: replace the following line with your own code to create a highrise
             building = Skyscraper(
-                self._app, 5, building_width
-            )  # Highrise(self._app, 5, 5)
+                self._app, 5, 3
+            )
         elif building_type is BuildingType.SKYSCRAPER:
-            building = Skyscraper(self._app, 8, building_width)
+            # TODO: replace the following line with your own code to create a skyscraper
+            building = Skyscraper(self._app, 8, 3)
         elif building_type is BuildingType.PARK:
             building = Park(self._app)
 
@@ -238,15 +301,18 @@ class City:
         """Updates all buildings in the city.
         This method will update the transform of each building in the city grid.
         """
-        for i, plot in enumerate(self._plots):
-            if plot is not None:
+        for i, plot_building in enumerate(self._plots):
+            if plot_building is not None:
                 # Get the row and column of the building
                 row = i // self._plots_per_col
                 col = i % self._plots_per_col
                 # Update the transform of the building according to the row and column
                 half_width = self._plots_per_col / 2
                 half_height = self._plots_per_row / 2
-                plot.building.set_transform(
+                pre_transform = Mat4.identity()
+                if hasattr(plot_building, "pre_transform"):
+                    pre_transform = plot_building.pre_transform
+                plot_building.building.set_transform(
                     Mat4.from_translation(
                         Vec3(
                             (col - half_width) * self._plot_width * 1.5,
@@ -254,4 +320,5 @@ class City:
                             (row - half_height) * self._plot_width * 1.5,
                         )
                     )
+                    * pre_transform
                 )

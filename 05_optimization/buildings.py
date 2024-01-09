@@ -1,3 +1,5 @@
+import random
+
 from bk7084.math import *
 from components import *
 
@@ -113,6 +115,11 @@ class Highrise:
         pass
 
 
+office_floor_model = bk.Mesh.load_from(bk.res_path("./assets/office_floor.obj"))
+office_base_model = bk.Mesh.load_from(bk.res_path("./assets/office_base.obj"))
+office_roof_model = bk.Mesh.load_from(bk.res_path("./assets/office_roof.obj"))
+
+
 class Office:
     """An office class that procedurally generates
     an office building given a number of floors and width.
@@ -127,17 +134,52 @@ class Office:
     """
 
     def __init__(self, app, num_floors, max_width):
-        pass
+        self.num_floors = num_floors
+        self.building = app.spawn_building()
+        self.building.set_visible(True)
+        self.pre_transform = (
+                Mat4.from_translation(Vec3(0, 1.4, 0))
+                * Mat4.from_scale(Vec3(0.5))
+        )
+        base = app.add_mesh(office_base_model, parent=self.building)
+        base_height = 2.0
+        base.set_visible(True)
+        for i in range(1, self.num_floors-1):
+            floor = app.add_mesh(office_floor_model, parent=base)
+            floor.set_transform(Mat4.from_translation(Vec3(0, 3 * i + base_height, 0)))
+            floor.set_visible(True)
+        roof = app.add_mesh(office_roof_model, parent=base)
+        roof.set_visible(True)
+        roof.set_transform(Mat4.from_translation(Vec3(0, 3 * (self.num_floors-1) + base_height, 0)))
+
+
+# pre-loaded park model
+park_model = bk.Mesh.load_from(bk.res_path("./assets/park.obj"))
 
 
 class Park:
     def __init__(self, app):
-        park = app.add_mesh(bk.Mesh.load_from(bk.res_path("./assets/Park.obj")))
-        park.set_visible(True)
+        self.building = app.add_mesh(park_model)
+        self.building.set_visible(True)
+        angle = random.randint(0, 3) * 90
+        self.pre_transform = (
+            Mat4.from_translation(Vec3(0, 1.4, 0))
+            * Mat4.from_scale(Vec3(0.5))
+            * Mat4.from_rotation_y(angle, True)
+        )
+
+
+# pre-loaded house model
+house_model = bk.Mesh.load_from(bk.res_path("./assets/house.obj"))
 
 
 class House:
     def __init__(self, app):
-        # house = app.add_mesh(bk.Mesh.load_from(bk.res_path("./assets/House.obj")))
-        # house.set_visible(True)
-        self.a = 1
+        self.building = app.add_mesh(house_model)
+        self.building.set_visible(True)
+        angle = random.randint(0, 3) * 90
+        self.pre_transform = (
+            Mat4.from_scale(Vec3(0.5))
+            * Mat4.from_translation(Vec3(0, 6.8, 0))
+            * Mat4.from_rotation_y(angle, True)
+        )

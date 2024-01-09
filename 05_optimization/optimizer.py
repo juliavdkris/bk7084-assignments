@@ -38,7 +38,7 @@ class Optimizer:
         """
         # TODO: Change this method to add a stopping criterion, e.g. stop when
         #  the score does not improve anymore.
-        self._city.reset()
+        self._city.reset_grid()
         print("Initial scores: ", self._city.compute_sunlight_scores())
         print("Initial scores sum: ", sum(self._city.compute_sunlight_scores()))
         print("Initial city layout: ")
