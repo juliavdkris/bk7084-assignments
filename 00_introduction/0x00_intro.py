@@ -2,13 +2,12 @@
 
   /$$$$$$$  /$$   /$$ /$$$$$$$$ /$$$$$$   /$$$$$$  /$$   /$$             
  | $$__  $$| $$  /$$/|_____ $$//$$$_  $$ /$$__  $$| $$  | $$             
- | $$  \ $$| $$ /$$/      /$$/| $$$$\ $$| $$  \ $$| $$  | $$             
+ | $$  \\ $$| $$ /$$/      /$$/| $$$$\\ $$| $$  \\ $$| $$  | $$             
  | $$$$$$$ | $$$$$/      /$$/ | $$ $$ $$|  $$$$$$/| $$$$$$$$             
- | $$__  $$| $$  $$     /$$/  | $$\ $$$$ >$$__  $$|_____  $$             
- | $$  \ $$| $$\  $$   /$$/   | $$ \ $$$| $$  \ $$      | $$             
- | $$$$$$$/| $$ \  $$ /$$/    |  $$$$$$/|  $$$$$$/      | $$             
- |_______/ |__/  \__/|__/      \______/  \______/       |__/                                                                                                                                
-
+ | $$__  $$| $$  $$     /$$/  | $$\\ $$$$ >$$__  $$|_____  $$             
+ | $$  \\ $$| $$\\  $$   /$$/   | $$ \\ $$$| $$  \\ $$      | $$             
+ | $$$$$$$/| $$ \\  $$ /$$/    |  $$$$$$/|  $$$$$$/      | $$             
+ |_______/ |__/  \\__/|__/      \\______/  \\______/       |__/                                                                                                                           
 
 Welcome to the lab exercises of BK7084!
 In this assignment, we will introduce you to the basics of graphics in Python:
@@ -33,7 +32,7 @@ If the terminal is not open yet, click on `Terminal > New Terminal` at the top o
 
 We assume that you have already installed Conda in the other course.
 If that's not the case, follow this manual to install miniconda3:
-https://conda.io/projects/conda/en/latest/user-guide/install/index.html
+https://docs.anaconda.com/miniconda/miniconda-install/
 
 Using the terminal, create a new environment with Python 3.9 installed.
 You don't have to type the `$`. It's used to show that you should run a line in the terminal.
@@ -83,7 +82,8 @@ An *object* is a packet of
 Objects are a way to organize your code so that you always have information and the corresponding tools in the same place.
 To create an object, we first need a recipe of what an object will look like and how it behaves: this recipe is called a *class*.
 
-Let's start with a simple example: a Rectangle class.
+Let's start with a simple example: a Rectangle class. Note that there is no such class, this is just for the sake of illustration. Nevertheless, you could create one yourself if needed.
+
 One way to describe a Rectangle is by it's width and height. These are the *attributes* of a Rectangle class.
 A common task that you might do with a Rectangle is to calculate it's area. This would be a *method* on the Rectangle.
 
@@ -115,7 +115,7 @@ An example could be a method that resizes your rectangle. You could give it a sc
 Not all parameters need to be given with their name. Most of the times, you can simply give the value:
 >>> rectangle1.resize(2)
 
-We'll stop here, as it's all you need to know for now.
+Note that inside the class the methods resize and compute_area should also be implemented (coded) for the example above to work. But we'll stop here, as it's all you need to know for now. 
 
 Let's start by creating a window object using the Window class.
 """
@@ -200,12 +200,14 @@ app.add_directional_light(dir=Vec3(0.0, 0.0, -1.0), color=bk.Color.WHITE)
 4. Scaling and transforming the triangle using a matrix
 -------------------------------------------------------
 
-With two triangles drawn, let's introduce some more concepts for you to try.
-You can try these concepts on triangle1 by scrolling back up to the comment [Bookmark for part 4].
+During the lectures, you will be introduced to many Linear Algebra concepts that allow you to transform your geometry. In this section we start to look into how to use those concepts in practice.
 
-    Quick tip: If you're a visual learner, check out 3Blue1Brown's YouTube series on linear algebra
+    Quick tip: As extra material, you might want to check out 3Blue1Brown's YouTube series on linear algebra
     The first 4 video's should be enough to get you started.
     https://www.youtube.com/watch?v=kjBOesZCoqc&list=PL0-GT3co4r2y2YErbmuJw2L5tW4Ew2O5B
+
+With two triangles drawn, let's introduce some more concepts for you to try.
+You can try these concepts on triangle1 by scrolling back up to the comment [Bookmark for part 4].
 
 You created a vector by simply typing three numbers. There's a more intuitive way to think of a vector:
 A vector describes a point in space. Each number in the vector is a coordinate for one of the axes in space, for example, x, y, z.

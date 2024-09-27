@@ -5,7 +5,7 @@ import numpy as np
 
 
 window = bk.Window()
-window.set_title('BK7084 - Lab 1 - Transformation [ex00]')
+window.set_title('BK7084 - Lab 1 - Transformation [ex01]')
 window.set_size(1024, 1024)
 window.set_resizable(True)
 
