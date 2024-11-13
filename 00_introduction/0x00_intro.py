@@ -7,6 +7,10 @@
  | $$__  $$| $$  $$     /$$/  | $$\\ $$$$ >$$__  $$|_____  $$             
  | $$  \\ $$| $$\\  $$   /$$/   | $$ \\ $$$| $$  \\ $$      | $$             
  | $$$$$$$/| $$ \\  $$ /$$/    |  $$$$$$/|  $$$$$$/      | $$             
+ |_______/ |__/  \\__/|__/      \\______/  \\______/       |__/                                                                                                                           
+ | $$__  $$| $$  $$     /$$/  | $$\\ $$$$ >$$__  $$|_____  $$             
+ | $$  \\ $$| $$\\  $$   /$$/   | $$ \\ $$$| $$  \\ $$      | $$             
+ | $$$$$$$/| $$ \\  $$ /$$/    |  $$$$$$/|  $$$$$$/      | $$             
  |_______/ |__/  \\__/|__/      \\______/  \\______/       |__/                                                                                                                                
 
 
@@ -33,6 +37,7 @@ If the terminal is not open yet, click on `Terminal > New Terminal` at the top o
 
 We assume that you have already installed Conda in the other course.
 If that's not the case, follow this manual to install miniconda3:
+https://docs.anaconda.com/miniconda/miniconda-install/
 https://docs.anaconda.com/miniconda/miniconda-install/
 
 Using the terminal, create a new environment with Python 3.9 installed.
@@ -86,6 +91,8 @@ An *object* is a packet of
 (2) tools to use and change this information, called methods.
 Objects are a way to organize your code so that you always have information and the corresponding tools in the same place.
 To create an object, we first need a recipe of what an object will look like and how it behaves: this recipe is called a *class*.
+
+Let's start with a simple example: a Rectangle class. Note that there is no such class, this is just for the sake of illustration. Nevertheless, you could create one yourself if needed.
 
 Let's start with a simple example: a Rectangle class. Note that there is no such class, this is just for the sake of illustration. Nevertheless, you could create one yourself if needed.
 
@@ -207,6 +214,12 @@ app.add_directional_light(dir=Vec3(0.0, 0.0, -1.0), color=bk.Color.WHITE)
 """
 4. Scaling and transforming the triangle using a matrix
 -------------------------------------------------------
+
+During the lectures, you will be introduced to many Linear Algebra concepts that allow you to transform your geometry. In this section we start to look into how to use those concepts in practice.
+
+    Quick tip: As extra material, you might want to check out 3Blue1Brown's YouTube series on linear algebra
+    The first 4 video's should be enough to get you started.
+    https://www.youtube.com/watch?v=kjBOesZCoqc&list=PL0-GT3co4r2y2YErbmuJw2L5tW4Ew2O5B
 
 During the lectures, you will be introduced to many Linear Algebra concepts that allow you to transform your geometry. In this section we start to look into how to use those concepts in practice.
 
