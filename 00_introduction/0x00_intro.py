@@ -2,12 +2,12 @@
 
   /$$$$$$$  /$$   /$$ /$$$$$$$$ /$$$$$$   /$$$$$$  /$$   /$$             
  | $$__  $$| $$  /$$/|_____ $$//$$$_  $$ /$$__  $$| $$  | $$             
- | $$  \ $$| $$ /$$/      /$$/| $$$$\ $$| $$  \ $$| $$  | $$             
+ | $$  \\ $$| $$ /$$/      /$$/| $$$$\\ $$| $$  \\ $$| $$  | $$             
  | $$$$$$$ | $$$$$/      /$$/ | $$ $$ $$|  $$$$$$/| $$$$$$$$             
- | $$__  $$| $$  $$     /$$/  | $$\ $$$$ >$$__  $$|_____  $$             
- | $$  \ $$| $$\  $$   /$$/   | $$ \ $$$| $$  \ $$      | $$             
- | $$$$$$$/| $$ \  $$ /$$/    |  $$$$$$/|  $$$$$$/      | $$             
- |_______/ |__/  \__/|__/      \______/  \______/       |__/                                                                                                                                
+ | $$__  $$| $$  $$     /$$/  | $$\\ $$$$ >$$__  $$|_____  $$             
+ | $$  \\ $$| $$\\  $$   /$$/   | $$ \\ $$$| $$  \\ $$      | $$             
+ | $$$$$$$/| $$ \\  $$ /$$/    |  $$$$$$/|  $$$$$$/      | $$             
+ |_______/ |__/  \\__/|__/      \\______/  \\______/       |__/                                                                                                                                
 
 
 Welcome to the lab exercises of BK7084!
@@ -33,12 +33,16 @@ If the terminal is not open yet, click on `Terminal > New Terminal` at the top o
 
 We assume that you have already installed Conda in the other course.
 If that's not the case, follow this manual to install miniconda3:
-https://conda.io/projects/conda/en/latest/user-guide/install/index.html
+https://docs.anaconda.com/miniconda/miniconda-install/
 
 Using the terminal, create a new environment with Python 3.9 installed.
 You don't have to type the `$`. It's used to show that you should run a line in the terminal.
 $ conda create -n compsim python=3.9
 $ conda activate compsim
+
+Before we run it, we need to make sure we are running the correct Python interpreter within VSCode.
+Open the **Command Palette** (*Ctrl+Shift+P*), and then type **Python:
+Select Interpreter** command to search, then select the command. The command presents a list of available interpreters that VSCode can find automatically, you should be able to select **compsim**, the environment we just created.
 
 Next, install the bk7084 framework with pip
 $ pip install bk7084
@@ -83,7 +87,8 @@ An *object* is a packet of
 Objects are a way to organize your code so that you always have information and the corresponding tools in the same place.
 To create an object, we first need a recipe of what an object will look like and how it behaves: this recipe is called a *class*.
 
-Let's start with a simple example: a Rectangle class.
+Let's start with a simple example: a Rectangle class. Note that there is no such class, this is just for the sake of illustration. Nevertheless, you could create one yourself if needed.
+
 One way to describe a Rectangle is by it's width and height. These are the *attributes* of a Rectangle class.
 A common task that you might do with a Rectangle is to calculate it's area. This would be a *method* on the Rectangle.
 
@@ -115,12 +120,14 @@ An example could be a method that resizes your rectangle. You could give it a sc
 Not all parameters need to be given with their name. Most of the times, you can simply give the value:
 >>> rectangle1.resize(2)
 
-We'll stop here, as it's all you need to know for now.
+Note that inside the class the methods resize and compute_area should also be implemented (coded) for the example above to work.
+But we'll stop here, as it's all you need to know for now. 
 
 Let's start by creating a window object using the Window class.
 """
 
-# This creates a window object, which we can use to draw graphics to the screen.
+# This creates a window object, which we can use to draw graphics to the screen. 
+# Think of it as any other program window (such as the VSCode window you are using).
 window = bk.Window()
 # This sets the title of the window and the size. You can change these values.
 window.set_title('BK7084 - Lab 0 - Introduction')
@@ -154,7 +161,7 @@ Here's the triangle that was drawn:
 """
 # This creates a mesh, which represents a triangle by it's three vertices.
 triangle0_mesh = bk.Mesh.create_triangle(Vec3(-2, -2, 1), Vec3(2, -2, 1), Vec3(0, 2, 1))
-# This creates a object, which is used to draw the triangle to the screen.
+# This creates an object, which is used to draw the triangle to the screen.
 triangle0 = app.add_mesh(triangle0_mesh)
 
 """
@@ -180,7 +187,7 @@ v2 = None # Complete this...
 >>> triangle1_mesh = bk.Mesh.create_triangle(.., .., ..)
 >>> triangle1 = app.add_mesh(triangle1_mesh)
 """
-triangle1_mesh = None # Complete this...
+
 
 """
 3. Drawing the triangle to the screen
@@ -196,16 +203,19 @@ app.add_directional_light(dir=Vec3(0.0, 0.0, -1.0), color=bk.Color.WHITE)
 
 # enable triangle1 drawing here...
 
+
 """
 4. Scaling and transforming the triangle using a matrix
 -------------------------------------------------------
 
-With two triangles drawn, let's introduce some more concepts for you to try.
-You can try these concepts on triangle1 by scrolling back up to the comment [Bookmark for part 4].
+During the lectures, you will be introduced to many Linear Algebra concepts that allow you to transform your geometry. In this section we start to look into how to use those concepts in practice.
 
-    Quick tip: If you're a visual learner, check out 3Blue1Brown's YouTube series on linear algebra
+    Quick tip: As extra material, you might want to check out 3Blue1Brown's YouTube series on linear algebra
     The first 4 video's should be enough to get you started.
     https://www.youtube.com/watch?v=kjBOesZCoqc&list=PL0-GT3co4r2y2YErbmuJw2L5tW4Ew2O5B
+
+With two triangles drawn, let's introduce some more concepts for you to try.
+You can try these concepts on triangle1 by scrolling back up to the comment [Bookmark for part 4].
 
 You created a vector by simply typing three numbers. There's a more intuitive way to think of a vector:
 A vector describes a point in space. Each number in the vector is a coordinate for one of the axes in space, for example, x, y, z.
@@ -272,6 +282,6 @@ You can find out what other methods are available by ctrl + clicking (command + 
 """
 
 """
-These two lines tell the application the window that you want to use, and then runs the app.
+These last line tells the application the window that you want to use, and then runs the app.
 """
 app.run(window)

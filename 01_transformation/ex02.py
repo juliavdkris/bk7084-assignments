@@ -4,7 +4,7 @@ from bk7084.math import *
 import numpy as np
 
 window = bk.Window()
-window.set_title('BK7084 - Lab 1 - Transformation [ex01]')
+window.set_title('BK7084 - Lab 1 - Transformation [ex02]')
 window.set_size(1024, 1024)
 window.set_resizable(True)
 
