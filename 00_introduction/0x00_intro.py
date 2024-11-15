@@ -276,7 +276,7 @@ You can find out what other methods are available by ctrl + clicking (command + 
 [b] Make sure that the result of this multiplication is stored, i.e.:
 >>> v0_scaled = matrix_scale @ v0
 >>> v1_scaled = ...
-[c] Draw another triangle with these changed coordinates. If you want, you can change the triangle color.
+[c] Draw another triangle with these changed coordinates.
 [d] Create some more matrices and try to understand what they do to the triangle.
 """
 
