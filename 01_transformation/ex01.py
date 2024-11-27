@@ -73,9 +73,9 @@ def translate(x: float, y: float, z: float) -> Mat4:
     # TODO Task 1a: complete this matrix
     mat = Mat4(
         [
-            [1, 0, 0, 0],
-            [0, 1, 0, 0],
-            [0, 0, 1, 0],
+            [1, 0, 0, x],
+            [0, 1, 0, y],
+            [0, 0, 1, z],
             [0, 0, 0, 1]
         ]
     )
@@ -96,10 +96,10 @@ def rotate_x(angle: float) -> Mat4:
     # hint: you can compute cos and sin with np.cos(angle) and np.sin(angle)
     mat = Mat4(
         [
-            [1, 0, 0, 0],
-            [0, 1, 0, 0],
-            [0, 0, 1, 0],
-            [0, 0, 0, 1]
+            [1, 0,             0,              0],
+            [0, np.cos(angle), -np.sin(angle), 0],
+            [0, np.sin(angle), np.cos(angle),  0],
+            [0, 0,             0,              1]
         ]
     )
     return mat
@@ -119,10 +119,10 @@ def rotate_y(angle: float) -> Mat4:
     # hint: you can compute cos and sin with np.cos(angle) and np.sin(angle)
     mat = Mat4(
         [
-            [1, 0, 0, 0],
-            [0, 1, 0, 0],
-            [0, 0, 1, 0],
-            [0, 0, 0, 1]
+            [np.cos(angle), 0, -np.sin(angle), 0],
+            [0,             1, 0,              0],
+            [np.sin(angle), 0, np.cos(angle),  0],
+            [0,             0, 0,              1]
         ]
     )
     return mat
@@ -142,10 +142,10 @@ def rotate_z(angle: float) -> Mat4:
     # hint: you can compute cos and sin with np.cos(angle) and np.sin(angle)
     mat = Mat4(
         [
-            [1, 0, 0, 0],
-            [0, 1, 0, 0],
-            [0, 0, 1, 0],
-            [0, 0, 0, 1]
+            [np.cos(angle), -np.sin(angle), 0, 0],
+            [np.sin(angle), np.cos(angle),  0, 0],
+            [0,             0,              1, 0],
+            [0,             0,              0, 1]
         ]
     )
     return mat
@@ -166,9 +166,9 @@ def scale(x: float, y: float, z: float) -> Mat4:
     # TODO Task 1c: complete this matrix
     mat = Mat4(
         [
-            [1, 0, 0, 0],
-            [0, 1, 0, 0],
-            [0, 0, 1, 0],
+            [x, 0, 0, 0],
+            [0, y, 0, 0],
+            [0, 0, z, 0],
             [0, 0, 0, 1]
         ]
     )
