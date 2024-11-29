@@ -51,11 +51,15 @@ Your tasks:
 3. Implement the intersection conditions based on the solution.
 """
 def intersect_ray_triangle(ray, tri):
-    mat_A = Mat3()      # 1. Set up matrix A
-    vec_b = Vec3()      # 1. Set up vector b
-    vec_x = None        # 2. Solve the linear system
+    mat_A = Mat3([
+        triangle.p0 - triangle.p1,
+        triangle.p0 - triangle.p2,
+        ray.direction
+    ])
+    vec_b = triangle.p0 - ray.origin
 
-    return False        # 3. Implement the intersection conditions based on the solution
+    vec_x = np.linalg.solve(mat_A, vec_b)
+    return vec_x[0] >= 0 and vec_x[1] >= 0 and vec_x[0] + vec_x[1] <= 1
 """
 If you have implemented everything correctly,
 you should see the triangle turn red when it's intersected by the ray.
