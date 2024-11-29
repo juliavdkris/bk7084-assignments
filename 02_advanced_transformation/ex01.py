@@ -1,7 +1,7 @@
 import os.path
 import numpy as np
 import bk7084 as bk
-from bk7084.math import *
+from bk7084.math import Vec3, Vec4, Mat3, Mat4
 
 """
 Exercise 1: Combining transformations and animation
@@ -253,6 +253,20 @@ def on_update(input, dt, t):
     
         """
         car_transform_update = Mat4.identity()
+
+        car_pos = Vec3.from_vec4(car_transform * Vec4(0, 0, 0, 1))
+
+        def rotate_around_self(angle):
+            return Mat4.from_translation(car_pos) * Mat4.from_rotation_y(angle, degrees=True) * Mat4.from_translation(-car_pos)
+
+        match current_type:
+            case 'straight':
+                car_transform_update = Mat4.from_translation(Vec3(-car_speed*dt, 0, 0))
+            case 'left_turn':
+                car_transform_update = rotate_around_self(car_turn_speed*dt)
+            case 'right_turn':
+                car_transform_update = rotate_around_self(-car_turn_speed*dt)
+
         car_transform = car_transform_update * car_transform
 
     """
