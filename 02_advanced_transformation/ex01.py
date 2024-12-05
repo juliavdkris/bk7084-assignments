@@ -254,20 +254,15 @@ def on_update(input, dt, t):
         """
         car_transform_update = Mat4.identity()
 
-        car_pos = Vec3.from_vec4(car_transform * Vec4(0, 0, 0, 1))
-
-        def rotate_around_self(angle):
-            return Mat4.from_translation(car_pos) * Mat4.from_rotation_y(angle, degrees=True) * Mat4.from_translation(-car_pos)
-
         match current_type:
             case 'straight':
-                car_transform_update = Mat4.from_translation(Vec3(-car_speed*dt, 0, 0))
+                car_transform_update = Mat4.from_translation(Vec3(car_speed*dt, 0, 0))
             case 'left_turn':
-                car_transform_update = rotate_around_self(car_turn_speed*dt)
+                car_transform_update = Mat4.from_rotation_y(car_turn_speed*dt, degrees=True)
             case 'right_turn':
-                car_transform_update = rotate_around_self(-car_turn_speed*dt)
+                car_transform_update = Mat4.from_rotation_y(-car_turn_speed*dt, degrees=True)
 
-        car_transform = car_transform_update * car_transform
+        car_transform = car_transform * car_transform_update
 
     """
     Task 3: Follow the car with the camera
