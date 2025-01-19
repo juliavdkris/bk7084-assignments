@@ -139,10 +139,10 @@ exercise. The textures are already provided in the `assets` folder of last exerc
 """
 mat = bk.Material()
 mat.textures = {
-     "diffuse_texture": None,    # TODO: Set the diffuse texture of the material.
-     "normal_texture": None,     # TODO: Set the normal texture of the material.
-     "specular_texture": None,   # TODO: Set the specular texture of the material.
-     "shininess_texture": None,  # TODO: Set the shininess texture of the material.
+     "diffuse_texture":   bk.res_path('../03_textures/assets/stone_bricks_col.jpg'),   # Set the diffuse texture of the material.
+     "normal_texture":    bk.res_path('../03_textures/assets/stone_bricks_nrm.png'),   # Set the normal texture of the material.
+     "specular_texture":  bk.res_path('../03_textures/assets/stone_bricks_refl.jpg'), # Set the specular texture of the material.
+     "shininess_texture": bk.res_path('../03_textures/assets/stone_bricks_gloss.jpg'),  # Set the shininess texture of the material.
 }
 mesh.set_material(mat)
 
@@ -171,14 +171,37 @@ Hint: Draw a hexagon on a piece of paper and label the vertices. Then, use the s
       Then you can set the positions of the vertices by calling `mesh.positions = positions`.
 """
 hexagon_mesh = bk.Mesh()
-hexagon_mesh.positions = None  # TODO: Set the positions of the vertices.
-hexagon_mesh.texcoords = []    # TODO: Set the texture coordinates of the vertices.
-hexagon_mesh.triangles = []    # TODO: Set the indices of the vertices that form each face.
+hexagon_mesh.positions = [
+    [0, 0, 0],
+    [.5, 1, 0],
+    [1, 0, 0],
+    [.5, -1, 0],
+    [-.5, -1, 0],
+    [-1, 0, 0],
+    [-.5, 1, 0]
+]
+hexagon_mesh.texcoords = [
+    [0, 0],
+    [.5, 1],
+    [1, 0],
+    [.5, -1],
+    [-.5, -1],
+    [-1, 0],
+    [-.5, 1]
+]
+hexagon_mesh.triangles = [
+    [0, 1, 2],
+    [0, 2, 3],
+    [0, 3, 4],
+    [0, 4, 5],
+    [0, 5, 6],
+    [0, 6, 1]
+]
 
 # Uncomment the following lines once you have completed the above TODOs.
-# hexagon_mesh.set_material(mat)
-# hexagon = app.add_mesh(hexagon_mesh)
-# hexagon.set_visible(True)
+hexagon_mesh.set_material(mat)
+hexagon = app.add_mesh(hexagon_mesh)
+hexagon.set_visible(True)
 
 # TODO: Set the transform of the hexagon to make it possible to manipulate with the keyboard.
 #       Set the transform after the wall.set_transform(transform) line, at the end of the on_update function.
@@ -246,6 +269,7 @@ def on_update(input, dt, t):
         is_key_2_pressed = False
 
     wall.set_transform(transform)
+    hexagon.set_transform(transform)
 
 
 app.run(win)
