@@ -99,6 +99,8 @@ Remind yourself that the wall is a rectangle with a window in the middle. The wi
 
 Q1: Why do we repeat the 2nd row of vertices?
 Hint: Think about how the texture coordinates are used to map the texture to the mesh.
+A: The inside border of the wall texture overlaps with the outside border of the window texture.
+   Since vertices are one-to-one mapped with texture coordinates, we need to repeat this row to use those vertices for both textures.
 """
 mesh.positions = np.array(
         [
@@ -160,7 +162,7 @@ However, in this case, we want to use different materials for different parts of
 need to first specify the materials for the whole mesh. Then we need to specify which part of the mesh uses
 which material.
 """
-mesh.materials = [mat_inner, mat_outer]
+mesh.materials = [mat_inner, mat_outer, mat_inner]
 """
 A sub-mesh is a part of the mesh that uses the same material. 
 
@@ -188,6 +190,7 @@ Task 1.3: Try to add another material to the mesh, and add another sub-mesh to t
 mesh.sub_meshes = [
     bk.SubMesh(0, 8, 1),
     bk.SubMesh(8, 10, 0),
+    bk.SubMesh(0, 4, 2),
 ]
 
 # We add the mesh to the app
