@@ -75,6 +75,34 @@ camera = app.create_camera(
 )
 camera.set_as_main_camera()
 
+mtl_red = bk.Material()
+mtl_green = bk.Material()
+mtl_blue = bk.Material()
+
+mtl_red.diffuse = bk.Color.RED
+mtl_green.diffuse = bk.Color.GREEN
+mtl_blue.diffuse = bk.Color.BLUE
+
+x_cube = bk.Mesh.create_cube(1)
+y_cube = bk.Mesh.create_cube(1)
+z_cube = bk.Mesh.create_cube(1)
+
+x_cube.set_material(mtl_red)
+y_cube.set_material(mtl_green)
+z_cube.set_material(mtl_blue)
+
+x_cube = app.add_mesh(x_cube)
+y_cube = app.add_mesh(y_cube)
+z_cube = app.add_mesh(z_cube)
+
+x_cube.set_transform(Mat4.from_translation(Vec3(1, 0, 0)))
+y_cube.set_transform(Mat4.from_translation(Vec3(0, 1, 0)))
+z_cube.set_transform(Mat4.from_translation(Vec3(0, 0, 1)))
+
+x_cube.set_visible(True)
+y_cube.set_visible(True)
+z_cube.set_visible(True)
+
 app.add_directional_light(Vec3(-1, -1, -1), bk.Color(0.8, 0.8, 0.8))
 
 skyscraper = Skyscraper(app, 5, 3)
