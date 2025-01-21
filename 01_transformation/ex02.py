@@ -168,7 +168,7 @@ def on_update(input, dt, t):
     """
 
     earth_transform = rotate_y(t) * earth_transform * rotate_y(t)
-    moon_transform = rotate_y(t) * moon_transform * rotate_y(t)
+    moon_transform = earth_transform * rotate_y(t) * moon_from_earth_translation * rotate_y(t)
 
     """
     This is where the complete transformations are applied to the planets.
