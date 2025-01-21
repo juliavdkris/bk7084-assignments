@@ -111,4 +111,20 @@ class Office:
 			The maximum width for each component.
 	"""
 	def __init__(self, app, num_floors, max_width):
-		pass
+		self.num_floors = num_floors
+		self.building = app.spawn_building()
+		self.building.set_visible(True)
+
+		for i in range(num_floors):
+			floor1 = app.add_mesh(HexagonalFloor(max_width), parent=self.building)
+			floor1.set_transform(Mat4.from_translation(Vec3(0, max_width * i, 0)))
+			floor1.set_visible(True)
+
+			floor2 = app.add_mesh(HexagonalFloor(max_width), parent=floor1)
+			floor2.set_transform(Mat4.from_translation(Vec3(0, max_width, 0)))
+			floor2.set_visible(True)
+
+			for i in range(6):
+				wall = app.add_mesh(BasicWall(max_width, max_width), parent=floor1)
+				wall.set_transform(Mat4.from_rotation_y(60*i, True) * Mat4.from_translation(Vec3(max_width, max_width/2, 0)) * Mat4.from_rotation_y(30, True) * Mat4.from_translation(Vec3(0, 0, -max_width/2)) * Mat4.from_rotation_y(90, True))
+				wall.set_visible(True)

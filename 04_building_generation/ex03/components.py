@@ -1,6 +1,8 @@
 import bk7084 as bk
 import numpy as np
+
 from numpy.random import randint, rand
+from math import sqrt
 
 """
 Materials are used to define the appearance of a mesh.
@@ -113,3 +115,41 @@ class BasicWindowWall(bk.Mesh):
 			bk.SubMesh(0, 8, 0),
 			bk.SubMesh(8, 10, 1),
 		]
+
+
+class HexagonalFloor(bk.Mesh):
+	def __new__(cls, *args, **kwargs):
+		return super().__new__(cls)
+
+	def __init__(self, w=1):
+		super().__init__()
+		self.w = w
+		self.name = "HexagonalFloorMesh"
+		self.positions = [
+			[0, 0, 0],
+			[w/2, 0, -sqrt(3)/2*w],
+			[-w/2, 0, -sqrt(3)/2*w],
+			[-w, 0, 0],
+			[-w/2, 0, sqrt(3)/2*w],
+			[w/2, 0, sqrt(3)/2*w],
+			[w, 0, 0],
+
+		]
+		self.texcoords = [
+			[0, 0],
+			[1, 0],
+			[1/2, sqrt(3)/2],
+			[-1/2, sqrt(3)/2],
+			[-1, 0],
+			[-1/2, -sqrt(3)/2],
+			[1/2, -sqrt(3)/2],
+		]
+		self.triangles = [
+			[0, 1, 2],
+			[0, 2, 3],
+			[0, 3, 4],
+			[0, 4, 5],
+			[0, 5, 6],
+			[0, 6, 1]
+		]
+		self.materials = [material_basic_floor]
