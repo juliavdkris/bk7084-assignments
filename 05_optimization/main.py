@@ -23,14 +23,23 @@ city grid and the buildings are represented in the code.
 Task 1: Check out the City class in the city.py file read carefully the comments
 		in the code then answer the following questions:
 		- How is the city grid represented in the code?
+			self._plots is a flattened array of length n*m, containing instances of building classes
 		- How is a building represented in the code?
+			Instances of building classes, containing properties of the building and its mesh
 		- How do we get the building at a specific row and column?
+			self._plots[row * self._plots_per_col + col]
 		- How do we set the building at a specific row and column?
+			self._plots[row * self._plots_per_col + col] = building
 		- How do we get the type of the building at a specific row and column?
+			Instances of the building classes have a `type` property that contains an enum variant of the building type
 		- How do we swap two buildings at different rows and columns?
+			We use the indexing formula mentioned above and Python's ability to swap two variables in a single line using the syntax `a, b = b, a`
 		- How do we compute the sunlight scores of the city?
+			It calls an application wide function that computes the sunlight exposure, implemented in the bk7084 framework which does some cool GPU magic
 		- How do we print the city grid in the console?
+			It iterates through each row and column and prints the building type
 		- How do we initialize the city grid?
+			In __init__ the grid is initialized as None values, then in reset_grid it is filled with random buildings.
 
 In the last exercise, you were asked to implement your own building classes: the
 Skyscraper, Highrise and Office classes. In this exercise, we will reuse the
