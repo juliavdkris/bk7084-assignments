@@ -124,7 +124,13 @@ class Office:
 			floor2.set_transform(Mat4.from_translation(Vec3(0, max_width, 0)))
 			floor2.set_visible(True)
 
-			for i in range(6):
+			for side in range(6):
 				wall = app.add_mesh(BasicWall(max_width, max_width), parent=floor1)
-				wall.set_transform(Mat4.from_rotation_y(60*i, True) * Mat4.from_translation(Vec3(max_width, max_width/2, 0)) * Mat4.from_rotation_y(30, True) * Mat4.from_translation(Vec3(0, 0, -max_width/2)) * Mat4.from_rotation_y(90, True))
+				wall.set_transform((
+					Mat4.from_rotation_y(60 * side, True)							# Rotate to corner of hexagon
+					* Mat4.from_translation(Vec3(max_width, max_width/2, 0))	# Move to corner of hexagon
+					* Mat4.from_rotation_y(30, True)							# Rotate to middle of vertex
+					* Mat4.from_translation(Vec3(0, 0, -max_width/2))			# Move to middle of vertex
+					* Mat4.from_rotation_y(90, True)							# Rotate to be perpendicular to center
+				))
 				wall.set_visible(True)

@@ -126,23 +126,23 @@ class HexagonalFloor(bk.Mesh):
 		self.w = w
 		self.name = "HexagonalFloorMesh"
 		self.positions = [
-			[0, 0, 0],
-			[w/2, 0, -sqrt(3)/2*w],
+			[0,    0, 0],
+			[w/2,  0, -sqrt(3)/2*w],
 			[-w/2, 0, -sqrt(3)/2*w],
-			[-w, 0, 0],
+			[-w,   0, 0],
 			[-w/2, 0, sqrt(3)/2*w],
-			[w/2, 0, sqrt(3)/2*w],
-			[w, 0, 0],
+			[w/2,  0, sqrt(3)/2*w],
+			[w,    0, 0],
 
 		]
 		self.texcoords = [
-			[0, 0],
-			[1, 0],
-			[1/2, sqrt(3)/2],
+			[0,    0],
+			[1,    0],
+			[1/2,  sqrt(3)/2],
 			[-1/2, sqrt(3)/2],
-			[-1, 0],
+			[-1,   0],
 			[-1/2, -sqrt(3)/2],
-			[1/2, -sqrt(3)/2],
+			[1/2,  -sqrt(3)/2],
 		]
 		self.triangles = [
 			[0, 1, 2],
