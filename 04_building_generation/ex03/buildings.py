@@ -116,11 +116,11 @@ class Office:
 		self.building.set_visible(True)
 
 		for i in range(num_floors):
-			floor1 = app.add_mesh(HexagonalFloor(max_width), parent=self.building)
+			floor1 = app.add_mesh(PolygonalFloor(max_width, 6), parent=self.building)
 			floor1.set_transform(Mat4.from_translation(Vec3(0, max_width * i, 0)))
 			floor1.set_visible(True)
 
-			floor2 = app.add_mesh(HexagonalFloor(max_width), parent=floor1)
+			floor2 = app.add_mesh(PolygonalFloor(max_width, 6), parent=floor1)
 			floor2.set_transform(Mat4.from_translation(Vec3(0, max_width, 0)))
 			floor2.set_visible(True)
 

@@ -117,39 +117,26 @@ class BasicWindowWall(bk.Mesh):
 		]
 
 
-class HexagonalFloor(bk.Mesh):
+class PolygonalFloor(bk.Mesh):
 	def __new__(cls, *args, **kwargs):
 		return super().__new__(cls)
 
-	def __init__(self, w=1):
+	def __init__(self, w=1, n=6):
 		super().__init__()
 		self.w = w
 		self.name = "HexagonalFloorMesh"
-		self.positions = [
-			[0,    0, 0],
-			[w/2,  0, -sqrt(3)/2*w],
-			[-w/2, 0, -sqrt(3)/2*w],
-			[-w,   0, 0],
-			[-w/2, 0, sqrt(3)/2*w],
-			[w/2,  0, sqrt(3)/2*w],
-			[w,    0, 0],
 
-		]
-		self.texcoords = [
-			[0,    0],
-			[1,    0],
-			[1/2,  sqrt(3)/2],
-			[-1/2, sqrt(3)/2],
-			[-1,   0],
-			[-1/2, -sqrt(3)/2],
-			[1/2,  -sqrt(3)/2],
-		]
-		self.triangles = [
-			[0, 1, 2],
-			[0, 2, 3],
-			[0, 3, 4],
-			[0, 4, 5],
-			[0, 5, 6],
-			[0, 6, 1]
-		]
+		# Note: position and texcoords are reversed so that the normals are facing up
+		self.positions = [[0, 0, 0]] + [[
+			w * np.cos(i/n * 2*np.pi),
+			0,
+			w * np.sin(i/n * 2*np.pi)
+		] for i in range(n)][::-1]
+
+		self.texcoords = [[0, 0]] + [[
+			w * np.cos(i/n * 2*np.pi),
+			w * np.sin(i/n * 2*np.pi)
+		] for i in range(n)][::-1]
+
+		self.triangles = [[i, i + 1, 0] for i in range(1, n)] + [[0, n, 1]]
 		self.materials = [material_basic_floor]
