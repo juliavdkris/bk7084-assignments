@@ -1,7 +1,9 @@
+from city import BuildingType, City
+
 import numpy as np
 
 from random import randint
-from copy import deepcopy
+from collections import deque
 
 
 class Plot:
@@ -32,31 +34,55 @@ class Swap:
 		return p1.row, p1.col, p2.row, p2.col
 
 
+class Cache:
+	def __init__(self, city):
+		self._city = city
+		self._cache: dict[int, tuple[list[BuildingType], float]] = {}
+
+	def get(self, plots) -> float:
+		plots_hash = hash(tuple(plots))
+		if plots_hash in self._cache:
+			_, score = self._cache[plots_hash]
+		else:
+			score = sum(self._city.compute_sunlight_scores())
+			self._cache[plots_hash] = (plots, score)
+		return score
+
+
 class Optimizer:
 	SWAPS_PER_STEP = 10
+	TABU_DEQUE_SIZE = 100
 
 	def __init__(self, city):
 		"""An optimizer that iteratively optimizes a given city grid."""
 		self._city = city
 		self._scores = self._city.compute_sunlight_scores()
-		self._best = city
+		self._best = self._city._plots.copy()
 		self._best_value = sum(self._scores)
-		self._tabu: set[Swap] = set()
+		self._cache = Cache(city)
+		self._tabu: deque[Swap] = deque(maxlen=self.TABU_DEQUE_SIZE)
 
 
 	def random_plot(self) -> Plot:
+		'''Returns a random plot in the city.'''
 		return Plot(randint(0, self._city._plots_per_row - 1), randint(0, self._city._plots_per_col - 1))
 
 
 	def random_swap(self) -> Swap:
+		'''Returns a random swap of two plots in the city.'''
 		return Swap(self.random_plot(), self.random_plot())
 
 
 	def score_swap(self, swap: Swap) -> float:
-		copy = deepcopy(self._city)
-		copy.swap_buildings(*swap.unpack())
+		'''Returns the score of a swap without modifying the city. Uses cache if available.'''
+		self._city.swap_buildings(*swap.unpack())
 
-		return sum(copy.compute_sunlight_scores())
+		plots = self._city._plots
+		score = self._cache.get(plots)
+
+		self._city.swap_buildings(*swap.unpack())
+
+		return score
 
 
 	def step(self, print_info=False):
@@ -73,11 +99,11 @@ class Optimizer:
 
 		# Update current
 		self._city.swap_buildings(*best_swap.unpack())
-		self._tabu.add(best_swap)
+		self._tabu.append(best_swap)
 
 		# If better than best, update best
 		if max(scores) > sum(self._scores):
-			self._best = deepcopy(self._city)
+			self._best = self._city._plots.copy()
 			self._best_value = sum(self._scores)
 
 		#  Hint: You can use the function `compute_sunlight_scores` of the City class
