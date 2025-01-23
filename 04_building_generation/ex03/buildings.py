@@ -110,30 +110,54 @@ class Office:
 		max_width (float):
 			The maximum width for each component.
 	"""
-	def __init__(self, app, num_floors, max_width):
+	def __init__(self, app, num_floors):
 		self.num_floors = num_floors
 		self.building = app.spawn_building()
 		self.building.set_visible(True)
 
-		for i in range(num_floors):
-			floor1 = app.add_mesh(PolygonalFloor(max_width, 8), parent=self.building)
-			floor1.set_transform(Mat4.from_translation(Vec3(0, max_width * i, 0)))
-			floor1.set_visible(True)
+		RADIUS = 1
+		FLOOR_HEIGHT = 2
+		side_length = RADIUS * np.sin(np.pi/8)
+		spacing = 3/2 * side_length
 
-			floor2 = app.add_mesh(PolygonalFloor(max_width, 8), parent=floor1)
-			floor2.set_transform(Mat4.from_translation(Vec3(0, max_width, 0)))
-			floor2.set_visible(True)
+		octagons = []
+		octagon_positions = [
+			[0, 2],
+			[2, 0],
+			[0, -2],
+			[-2, 0],
+			[2, 4],
+			[4, 2],
+			[4, -2],
+			[2, -4],
+			[-2, -4],
+			[-4, -2],
+			[-4, 2],
+			[-2, 4],
+		]
 
-			for side in range(8):
-				wall = app.add_mesh(BasicWall(1, 1), parent=floor1)
-				wall.set_transform((
-					Mat4.from_rotation_y(360/8 * side, True)					# Rotate to corner of octagon
-					* Mat4.from_translation(Vec3(max_width, max_width/2, 0))	# Move to corner of octagon
-					* Mat4.from_rotation_y(180/8, True)							# Rotate to middle of vertex
-					* Mat4.from_translation(Vec3(0, 0, -max_width * np.sin(np.pi/8)))			# Move to middle of vertex
-					* Mat4.from_rotation_y(90, True)							# Rotate to be perpendicular to center
-					* Mat4.from_scale(Vec3(2/3 * max_width * np.sin(np.pi/8), 1, 1))
-				))
-				wall.set_visible(True)
+		for oct_x, oct_y in octagon_positions:
+			floor_base = app.add_mesh(PolygonalFloor(RADIUS, 8), parent=self.building)
+			floor_base.set_transform(Mat4.from_translation(Vec3(oct_x * spacing, 0, oct_y * spacing)))
+			floor_base.set_visible(True)
+			floors = [floor_base]
+			octagons.append(floor_base)
 
-		# self.building.scale(2, 2)
+			for _ in range(num_floors):
+				last_floor = floors[-1]
+				floor = app.add_mesh(PolygonalFloor(RADIUS, 8), parent=last_floor)
+				floor.set_transform(Mat4.from_translation(Vec3(0, FLOOR_HEIGHT, 0)))
+				floor.set_visible(True)
+				floors.append(floor)
+
+				for side in range(8):
+					wall = app.add_mesh(BasicWall(1, 1), parent=last_floor)
+					wall.set_transform((
+						Mat4.from_rotation_y(360/8 * side, True)						# Rotate to corner of octagon
+						* Mat4.from_translation(Vec3(RADIUS, 0, 0))						# Move to corner of octagon
+						* Mat4.from_rotation_y(180/8, True)								# Rotate to middle of vertex
+						* Mat4.from_translation(Vec3(0, FLOOR_HEIGHT/2, -side_length))	# Move to middle of vertex
+						* Mat4.from_rotation_y(90, True)								# Rotate to be perpendicular to center
+						* Mat4.from_scale(Vec3(2/3 * side_length, FLOOR_HEIGHT/3, 2/3))
+					))
+					wall.set_visible(True)

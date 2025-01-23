@@ -35,6 +35,19 @@ material_basic_ground.textures = {
 }
 
 
+class Dummy(bk.Mesh):
+	'''Dummy mesh used as a container for other meshes'''
+	def __new__(cls, *args, **kwargs):
+		return super().__new__(cls)
+
+	def __init__(self):
+		super().__init__()
+		self.name = "Dummy"
+		self.positions = [[0, 0, 0]]
+		self.texcoords = [[0, 0]]
+		self.triangles = [[0, 0, 0]]
+
+
 class BasicWall(bk.Mesh):
 	"""
 	Create a basic wall mesh with the given size and material.
