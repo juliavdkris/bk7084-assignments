@@ -75,6 +75,16 @@ class BasicWall(bk.Mesh):
 		self.materials = [m]
 
 
+class BasicWall2(BasicWall):
+	'''
+	Copy of BasicWall with a different name, for weird parenting bug reasons
+	'''
+
+	def __init__(self, w=1, h=1, m=material_basic_bricks):
+		super().__init__(w, h, m)
+		self.name = 'BasicWall2Mesh'
+
+
 class BasicFloor(bk.Mesh):
 	def __new__(cls, *args, **kwargs):
 		return super().__new__(cls)
