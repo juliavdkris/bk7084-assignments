@@ -147,7 +147,7 @@ class PolygonalFloor(bk.Mesh):
 	def __init__(self, w=1, n=6):
 		super().__init__()
 		self.w = w
-		self.name = "HexagonalFloorMesh"
+		self.name = "PolygonalFloorMesh"
 
 		# Note: position and texcoords are reversed so that the normals are facing up
 		self.positions = [[0, 0, 0]] + [[

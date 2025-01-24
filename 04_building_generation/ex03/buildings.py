@@ -79,7 +79,10 @@ class Skyscraper:
 
 		for oct_x, oct_y in octagon_positions:
 			floor_base = app.add_mesh(PolygonalFloor(RADIUS, 8), parent=self.building)
-			floor_base.set_transform(Mat4.from_translation(Vec3(oct_x * spacing, 0, oct_y * spacing)))
+			floor_base.set_transform((
+				Mat4.from_translation(Vec3(oct_x * spacing, 0, oct_y * spacing)) *
+				Mat4.from_rotation_y(360/16, True)
+			))
 			floor_base.set_visible(True)
 			floors = [floor_base]
 			octagons.append(floor_base)
