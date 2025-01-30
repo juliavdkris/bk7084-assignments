@@ -63,6 +63,54 @@ class Optimizer:
 		self._tabu: deque[Swap] = deque(maxlen=self.TABU_DEQUE_SIZE)
 
 
+	def score(self) -> float:
+		'''Returns the score of the current city layout.
+		Criteria:
+			- (w=0.3) Skyscrapers and highrises should be close to the center of the city
+			- (w=0.4) Houses should be close to parks
+			- (w=0.2) Offices should be close to both a house and a highrise or skyscraper
+			- (w=0.1) Parks can only have one other parks directly adjacent
+		'''
+		w = [0.3, 0.4, 0.2, 0.1]
+		s1 = s2 = s3 = s4 = 0
+
+		c1 = self._city.count_buildings(BuildingType.SKYSCRAPER) + self._city.count_buildings(BuildingType.HIGHRISE)
+		c2 = self._city.count_buildings(BuildingType.HOUSE)
+		c3 = self._city.count_buildings(BuildingType.OFFICE)
+		c4 = self._city.count_buildings(BuildingType.PARK)
+
+		for row in range(self._city.rows):
+			for col in range(self._city.cols):
+				building_type = self._city.get_building_type(row, col)
+
+				# Skyscrapers and highrises should be close to the center of the city
+				if building_type == BuildingType.SKYSCRAPER or building_type == BuildingType.HIGHRISE:
+					manhattan_dist_from_center = abs(row - self._city.rows // 2) + abs(col - self._city.cols // 2)
+					s1 += 1 / manhattan_dist_from_center
+
+				# Houses should be close to parks
+				elif building_type == BuildingType.HOUSE:
+					s2 += 1 / self._city.dist_to_nearest(row, col, BuildingType.PARK)
+
+				# Offices should be close to both a house and a highrise or skyscraper
+				elif building_type == BuildingType.OFFICE:
+					dist_to_house = self._city.dist_to_nearest(row, col, BuildingType.HOUSE)
+					dist_to_highrise = self._city.dist_to_nearest(row, col, BuildingType.HIGHRISE)
+					dist_to_skyscraper = self._city.dist_to_nearest(row, col, BuildingType.SKYSCRAPER)
+					s3 += 1 / max(dist_to_house, min(dist_to_highrise, dist_to_skyscraper))
+
+				# Parks can only have one other parks directly adjacent
+				elif building_type == BuildingType.PARK:
+					s4 += 1 if self._city.count_adjacent(row, col, BuildingType.PARK) <= 1 else 0
+
+		s1 /= c1
+		s2 /= c2
+		s3 /= c3
+		s4 /= c4
+
+		return w[0] * s1 + w[1] * s2 + w[2] * s3 + w[3] * s4
+
+
 	def random_plot(self) -> Plot:
 		'''Returns a random plot in the city.'''
 		return Plot(randint(0, self._city._plots_per_row - 1), randint(0, self._city._plots_per_col - 1))

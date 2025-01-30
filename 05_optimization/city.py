@@ -1,6 +1,7 @@
 from enum import Enum
 
 import numpy as np
+import itertools
 
 from buildings import Office, Highrise, Skyscraper, House, Park
 from components import material_basic_ground
@@ -339,3 +340,55 @@ class City:
 					)
 					* pre_transform
 				)
+
+
+	def count_buildings(self, building_type: BuildingType) -> int:
+		'''Returns the number of buildings of the given type in the city.
+		Args:
+			building_type (BuildingType):
+				The type of the building to count.
+		'''
+		return sum([1 for (row, col) in itertools.product(range(self.rows), range(self.cols)) if self.get_building_type(row, col) == building_type])
+
+
+	def count_adjacent(self, row: int, col: int, building_type: BuildingType) -> int:
+		'''Returns the number of adjacent buildings of the given type.
+		Args:
+			row (int):
+				The row of the plot.
+			col (int):
+				The column of the plot.
+			building_type (BuildingType):
+				The type of the building to search for.
+		'''
+		count = 0
+		for i in range(-1, 2):
+			for j in range(-1, 2):
+				if i == 0 and j == 0:
+					continue
+				if row + i < 0 or row + i >= self.rows or col + j < 0 or col + j >= self.cols:
+					continue
+				if self.get_building_type(row + i, col + j) == building_type:
+					count += 1
+		return count
+
+
+	def dist_to_nearest(self, row: int, col: int, building_type: BuildingType) -> int:
+		'''Returns the distance to the nearest building of the given type.
+		Args:
+			row (int):
+				The row of the plot.
+			col (int):
+				The column of the plot.
+			building_type (BuildingType):
+				The type of the building to search for.
+		'''
+		for i in range(1, max(self.cols, self.rows)):
+			for j in range(-i, i + 1):
+				if row + j < 0 or row + j >= self.rows:
+					continue
+				for k in range(-i, i + 1):
+					if col + k < 0 or col + k >= self.cols:
+						continue
+					if self.get_building_type(row + j, col + k) == building_type:
+						return i
