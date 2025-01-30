@@ -223,7 +223,7 @@ class City:
 			building = Office(self._app, num_floors, 3)
 		elif building_type is BuildingType.HIGHRISE:
 			# TODO: replace the following line with your own code to create a highrise
-			building = Skyscraper(
+			building = Highrise(
 				self._app, 5, 3
 			)
 		elif building_type is BuildingType.SKYSCRAPER:

@@ -35,8 +35,8 @@ class Swap:
 
 
 class Cache:
-	def __init__(self, city):
-		self._city = city
+	def __init__(self, optimizer):
+		self._optimizer = optimizer
 		self._cache: dict[int, tuple[list[BuildingType], float]] = {}
 
 	def get(self, plots) -> float:
@@ -44,7 +44,7 @@ class Cache:
 		if plots_hash in self._cache:
 			_, score = self._cache[plots_hash]
 		else:
-			score = sum(self._city.compute_sunlight_scores())
+			score = self._optimizer.score()
 			self._cache[plots_hash] = (plots, score)
 		return score
 
@@ -56,10 +56,10 @@ class Optimizer:
 	def __init__(self, city):
 		"""An optimizer that iteratively optimizes a given city grid."""
 		self._city = city
-		self._scores = self._city.compute_sunlight_scores()
+		self._score = self.score()
 		self._best = self._city._plots.copy()
-		self._best_value = sum(self._scores)
-		self._cache = Cache(city)
+		self._best_score = self._score
+		self._cache = Cache(self)
 		self._tabu: deque[Swap] = deque(maxlen=self.TABU_DEQUE_SIZE)
 
 
@@ -85,7 +85,7 @@ class Optimizer:
 
 				# Skyscrapers and highrises should be close to the center of the city
 				if building_type == BuildingType.SKYSCRAPER or building_type == BuildingType.HIGHRISE:
-					manhattan_dist_from_center = abs(row - self._city.rows // 2) + abs(col - self._city.cols // 2)
+					manhattan_dist_from_center = max(abs(row - self._city.rows // 2) + abs(col - self._city.cols // 2), 1)
 					s1 += 1 / manhattan_dist_from_center
 
 				# Houses should be close to parks
@@ -150,19 +150,16 @@ class Optimizer:
 		self._tabu.append(best_swap)
 
 		# If better than best, update best
-		if max(scores) > sum(self._scores):
+		if max(scores) > self._best_score:
 			self._best = self._city._plots.copy()
-			self._best_value = sum(self._scores)
+			self._best_score = self._score
 
-		#  Hint: You can use the function `compute_sunlight_scores` of the City class
-		#  to compute the sunlight scores
-		new_scores = self._city.compute_sunlight_scores()
+		new_score = self.score()
 		if print_info:
-			print("New scores: ", new_scores)
-			print("New scores sum: ", sum(new_scores))
+			print("New score: ", new_score)
 			print("New city layout: ")
 			self._city.print_plots()
-		return sum(new_scores)
+		return new_score
 
 
 	def optimize(self, n_steps=100, print_info=False):
@@ -177,8 +174,7 @@ class Optimizer:
 		# TODO: Change this method to add a stopping criterion, e.g. stop when
 		#  the score does not improve anymore.
 		self._city.reset_grid()
-		print("Initial scores: ", self._city.compute_sunlight_scores())
-		print("Initial scores sum: ", sum(self._city.compute_sunlight_scores()))
+		print("Initial score: ", self.score())
 		print("Initial city layout: ")
 		self._city.print_plots()
 		print("Optimizing...")

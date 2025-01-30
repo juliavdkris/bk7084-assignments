@@ -112,7 +112,7 @@ class Highrise:
 	"""
 
 	def __init__(self, app, num_floors, max_width):
-		pass
+		self.building = app.spawn_building()
 
 
 office_floor_model = bk.Mesh.load_from(bk.res_path("./assets/office_floor.obj"))
