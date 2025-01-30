@@ -1,6 +1,8 @@
 from bk7084.math import *
 from components import *
 
+import random
+
 
 """
 This file contains the Skyscraper, Highrise, and Office classes.
@@ -51,15 +53,15 @@ class Skyscraper:
 		max_width (float):
 			The maximum width for each component.
 	"""
-	def __init__(self, app, num_floors):
-		self.num_floors = num_floors
+	def __init__(self, app, max_floors):
+		self.max_floors = max_floors
 		self.building = app.spawn_building()
 		self.building.set_visible(True)
 
 		RADIUS = 1
 		FLOOR_HEIGHT = 2
 		side_length = RADIUS * np.sin(np.pi/8)
-		spacing = (1 + 1/sqrt(2)) * side_length  # TODO: fix the spacing!!
+		spacing = (1 + 1/sqrt(2)) * side_length
 
 		octagons = []
 		octagon_positions = [
@@ -76,18 +78,19 @@ class Skyscraper:
 			[-4, 2],
 			[-2, 4],
 		]
+		octagon_floors = [random.randint(2, max_floors) for _ in range(len(octagon_positions))]
 
-		for oct_x, oct_y in octagon_positions:
+		for [oct_x, oct_z], oct_floors in zip(octagon_positions, octagon_floors):
 			floor_base = app.add_mesh(PolygonalFloor(RADIUS, 8), parent=self.building)
 			floor_base.set_transform((
-				Mat4.from_translation(Vec3(oct_x * spacing, 0, oct_y * spacing)) *
+				Mat4.from_translation(Vec3(oct_x * spacing, 0, oct_z * spacing)) *
 				Mat4.from_rotation_y(360/16, True)
 			))
 			floor_base.set_visible(True)
 			floors = [floor_base]
 			octagons.append(floor_base)
 
-			for _ in range(num_floors):
+			for _ in range(oct_floors):
 				last_floor = floors[-1]
 				floor = app.add_mesh(PolygonalFloor(RADIUS, 8), parent=last_floor)
 				floor.set_transform(Mat4.from_translation(Vec3(0, FLOOR_HEIGHT, 0)))

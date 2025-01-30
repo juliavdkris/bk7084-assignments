@@ -105,7 +105,7 @@ z_cube.set_visible(True)
 
 app.add_directional_light(Vec3(-1, -1, -1), bk.Color(0.8, 0.8, 0.8))
 
-skyscraper = Skyscraper(app, 3)
+skyscraper = Skyscraper(app, 5)
 skyscraper.building.set_transform(Mat4.identity())
 
 highrise = Office(app, 1, 3)
