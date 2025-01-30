@@ -59,7 +59,7 @@ class Skyscraper:
 		RADIUS = 1
 		FLOOR_HEIGHT = 2
 		side_length = RADIUS * np.sin(np.pi/8)
-		spacing = 3/2 * side_length
+		spacing = (1 + 1/sqrt(2)) * side_length  # TODO: fix the spacing!!
 
 		octagons = []
 		octagon_positions = [
