@@ -98,7 +98,7 @@ class Skyscraper:
 				floors.append(floor)
 
 				for side in range(8):
-					wall = app.add_mesh(BasicWall(1, 1), parent=last_floor)
+					wall = app.add_mesh(BasicWallObsidian(1, 1), parent=last_floor)
 					wall.set_transform((
 						Mat4.from_rotation_y(360/8 * side, True)						# Rotate to corner of octagon
 						* Mat4.from_translation(Vec3(RADIUS, 0, 0))						# Move to corner of octagon
@@ -158,12 +158,12 @@ class Office:
 			wall1 = app.add_mesh(BasicWindowWall(max_width, max_width), parent=floor1)
 			wall1.set_transform(Mat4.from_translation(Vec3(0, max_width / 2, max_width / 2)))
 			wall1.set_visible(True)
-			wall2 = app.add_mesh(BasicWall2(max_width, max_width), parent=floor1)
+			wall2 = app.add_mesh(BasicWall(max_width, max_width), parent=floor1)
 			wall2.set_transform(Mat4.from_translation(Vec3(max_width / 2, max_width / 2, 0)) * Mat4.from_rotation_y(90, True))
 			wall2.set_visible(True)
-			wall3 = app.add_mesh(BasicWall2(max_width, max_width), parent=floor1)
+			wall3 = app.add_mesh(BasicWall(max_width, max_width), parent=floor1)
 			wall3.set_transform(Mat4.from_translation(Vec3(0, max_width / 2, -max_width / 2)) * Mat4.from_rotation_y(180, True))
 			wall3.set_visible(True)
-			wall4 = app.add_mesh(BasicWall2(max_width, max_width), parent=floor1)
+			wall4 = app.add_mesh(BasicWall(max_width, max_width), parent=floor1)
 			wall4.set_transform(Mat4.from_translation(Vec3(-max_width / 2, max_width / 2, 0)) * Mat4.from_rotation_y(-90, True))
 			wall4.set_visible(True)

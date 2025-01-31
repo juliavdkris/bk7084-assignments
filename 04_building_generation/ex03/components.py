@@ -34,6 +34,11 @@ material_basic_ground.textures = {
 	"diffuse_texture": bk.res_path("../assets/grass.jpg"),
 }
 
+material_obsidian = bk.Material()
+material_obsidian.textures = {
+	"diffuse_texture": bk.res_path("../assets/obsidian.png"),
+}
+
 
 class Dummy(bk.Mesh):
 	'''Dummy mesh used as a container for other meshes'''
@@ -75,7 +80,7 @@ class BasicWall(bk.Mesh):
 		self.materials = [m]
 
 
-class BasicWall2(BasicWall):
+class BasicWallObsidian(BasicWall):
 	'''
 	Copy of BasicWall with a different name, for weird parenting bug reasons
 	'''
@@ -83,6 +88,7 @@ class BasicWall2(BasicWall):
 	def __init__(self, w=1, h=1, m=material_basic_bricks):
 		super().__init__(w, h, m)
 		self.name = 'BasicWall2Mesh'
+		self.materials = [material_obsidian]
 
 
 class BasicFloor(bk.Mesh):
@@ -162,4 +168,4 @@ class PolygonalFloor(bk.Mesh):
 		] for i in range(n)][::-1]
 
 		self.triangles = [[i, i + 1, 0] for i in range(1, n)] + [[0, n, 1]]
-		self.materials = [material_basic_floor]
+		self.materials = [material_obsidian]
