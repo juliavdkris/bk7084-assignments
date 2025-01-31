@@ -4,6 +4,7 @@ import numpy as np
 
 from random import randint
 from collections import deque
+from time import perf_counter_ns
 
 
 class Plot:
@@ -50,8 +51,8 @@ class Cache:
 
 
 class Optimizer:
-	SWAPS_PER_STEP = 10
-	TABU_DEQUE_SIZE = 100
+	SWAPS_PER_STEP = 20
+	TABU_DEQUE_SIZE = 10
 
 	def __init__(self, city):
 		"""An optimizer that iteratively optimizes a given city grid."""
@@ -73,11 +74,6 @@ class Optimizer:
 		'''
 		w = [0.3, 0.4, 0.2, 0.1]
 		s1 = s2 = s3 = s4 = 0
-
-		c1 = self._city.count_buildings(BuildingType.SKYSCRAPER) + self._city.count_buildings(BuildingType.HIGHRISE)
-		c2 = self._city.count_buildings(BuildingType.HOUSE)
-		c3 = self._city.count_buildings(BuildingType.OFFICE)
-		c4 = self._city.count_buildings(BuildingType.PARK)
 
 		for row in range(self._city.rows):
 			for col in range(self._city.cols):
@@ -103,10 +99,10 @@ class Optimizer:
 				elif building_type == BuildingType.PARK:
 					s4 += 1 if self._city.count_adjacent(row, col, BuildingType.PARK) <= 1 else 0
 
-		s1 /= c1
-		s2 /= c2
-		s3 /= c3
-		s4 /= c4
+		s1 /= self._city.num_skyscrapers + self._city.num_highrises
+		s2 /= self._city.num_houses
+		s3 /= self._city.num_offices
+		s4 /= self._city.num_parks
 
 		return w[0] * s1 + w[1] * s2 + w[2] * s3 + w[3] * s4
 
@@ -166,7 +162,7 @@ class Optimizer:
 		return new_score
 
 
-	def optimize(self, n_steps=100, print_info=False):
+	def optimize(self, n_steps=200, print_info=False):
 		"""
 		Runs the optimizer for a fixed number of steps.
 		Args:
