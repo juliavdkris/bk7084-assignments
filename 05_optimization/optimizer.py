@@ -118,11 +118,15 @@ class Optimizer:
 
 	def random_swap(self) -> Swap:
 		'''Returns a random swap of two plots in the city.'''
-		return Swap(self.random_plot(), self.random_plot())
+		p1 = self.random_plot()
+		while p1 == (p2 := self.random_plot()):
+			pass
+
+		return Swap(p1, p2)
 
 
 	def score_swap(self, swap: Swap) -> float:
-		'''Returns the score of a swap without modifying the city. Uses cache if available.'''
+		'''Returns the score of a swap "without modifying the city".'''
 		self._city.swap_buildings(*swap.unpack())
 
 		plots = self._city._plots
