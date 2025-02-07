@@ -41,7 +41,7 @@ material_obsidian.textures = {
 
 material_roof = bk.Material()
 material_roof.textures = {
-	"diffuse_texture": bk.res_path("../assets/Roof.png"),
+	"diffuse_texture": bk.res_path("../assets/grass.jpg"),
 }
 
 material_roof2 = bk.Material()
@@ -53,15 +53,25 @@ material_grass = bk.Material()
 material_grass.textures = {
 	"diffuse_texture": bk.res_path("../assets/obsidian.png"),
 }
-material_wood_frame_glass = bk.Material()
-material_wood_frame_glass.textures = {
-	"diffuse_texture": bk.res_path("../assets/Wood_Frame _Glass.png"),
-	"normal_texture": bk.res_path("../04_building_generation/assets/stone_bricks_nrm.png")
+material_Highrise_Texture = bk.Material()
+material_Highrise_Texture.textures = {
+	"diffuse_texture": bk.res_path("../assets/Highrise_Texture.png"),
 }
 
-material_facade = bk.Material()
-material_facade.textures = {
-	"diffuse_texture": bk.res_path("../assets/Facade.png"),
+material_Highrise_Door_Texture = bk.Material()
+material_Highrise_Door_Texture.textures = {
+	"diffuse_texture": bk.res_path("../assets/Highrise_Door_Texture.png"),
+}
+
+material_Office_Texture = bk.Material()
+material_Office_Texture.textures = {
+	"diffuse_texture": bk.res_path("../assets/Office_Texture.png"),
+
+}
+
+material_Office_Door_Texture = bk.Material()
+material_Office_Door_Texture.textures = {
+	"diffuse_texture": bk.res_path("../assets/Office_Door_Texture.png"),
 
 }
 class Dummy(bk.Mesh):
@@ -115,7 +125,7 @@ class BasicWallObsidian(BasicWall):
 		self.materials = [material_obsidian]
 
 
-class WoodFrame(BasicWall):
+class Highrise_Texture(BasicWall):
 	'''
 	Copy of BasicWall with a different name, for weird parenting bug reasons
 	'''
@@ -123,9 +133,9 @@ class WoodFrame(BasicWall):
 	def __init__(self, w=1, h=1, m=material_basic_bricks):
 		super().__init__(w, h, m)
 		self.name = 'BasicWall3Mesh'
-		self.materials = [material_wood_frame_glass]
+		self.materials = [material_Highrise_Texture]
 
-class Facade(BasicWall):
+class Highrise_Door_Texture(BasicWall):
 	'''
 	Copy of BasicWall with a different name, for weird parenting bug reasons
 	'''
@@ -133,7 +143,27 @@ class Facade(BasicWall):
 	def __init__(self, w=1, h=1, m=material_basic_bricks):
 		super().__init__(w, h, m)
 		self.name = 'BasicWall4Mesh'
-		self.materials = [material_facade]
+		self.materials = [material_Highrise_Door_Texture]
+
+class Office_Texture(BasicWall):
+	'''
+	Copy of BasicWall with a different name, for weird parenting bug reasons
+	'''
+
+	def __init__(self, w=1, h=1, m=material_basic_bricks):
+		super().__init__(w, h, m)
+		self.name = 'BasicWall5Mesh'
+		self.materials = [material_Office_Texture]
+
+class Office_Door_Texture(BasicWall):
+	'''
+	Copy of BasicWall with a different name, for weird parenting bug reasons
+	'''
+
+	def __init__(self, w=1, h=1, m=material_basic_bricks):
+		super().__init__(w, h, m)
+		self.name = 'BasicWall7Mesh'
+		self.materials = [material_Office_Door_Texture]
 
 
 class BasicFloor(bk.Mesh):
@@ -315,3 +345,4 @@ class RoundedSquareFloor(bk.Mesh):
 			[0,12,1]
 		]
 		self.materials = [material_obsidian]
+

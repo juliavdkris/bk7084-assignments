@@ -111,8 +111,10 @@ skyscraper.building.set_transform(Mat4.identity())
 highrise = Highrise(app, random.randint(8, 12))
 highrise.building.set_transform(Mat4.from_translation(Vec3(10, 0, 0)))
 
+
 office = Office(app, 5)
 office.building.set_transform(Mat4.from_translation(Vec3(-10, 0, 0)))
+
 
 ground_mesh = bk.Mesh.create_quad(48, bk.Alignment.XY)
 ground_mesh.set_material(material_basic_ground)

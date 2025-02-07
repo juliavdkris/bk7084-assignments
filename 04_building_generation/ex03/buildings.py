@@ -141,7 +141,7 @@ class Office:
 			[WIDTH,WIDTH],
 			[-WIDTH,-WIDTH],
 			[0,-2*WIDTH],
-			[0,-2*WIDTH],
+			[0,2*WIDTH],
 		]
 
 		Squared_positions_random = [
@@ -167,7 +167,7 @@ class Office:
 			floors = [floor_base]
 			Squared.append(floor_base)
 
-			for _ in range(square_floors):
+			for i in range(square_floors):
 				last_floor = floors[-1]
 				floor = app.add_mesh(Roof2(WIDTH, WIDTH), parent=last_floor)
 				floor.set_transform(Mat4.from_translation(Vec3(0, FLOOR_HEIGHT, 0)))
@@ -175,14 +175,26 @@ class Office:
 				floors.append(floor)
 
 				for side in range(4):
-					wall = app.add_mesh(Facade(1, 1), parent=last_floor)
-					wall.set_transform((
-						Mat4.from_rotation_y(360/4 * side, True)
-						* Mat4.from_translation(Vec3(0, FLOOR_HEIGHT/2, WIDTH/2))
-						* Mat4.from_scale(Vec3(WIDTH , FLOOR_HEIGHT, 2))
+					if i == 0:
+						wall0 = app.add_mesh(Office_Door_Texture(1, 1), parent=last_floor)
+						wall0.set_transform((
+							Mat4.from_rotation_y(360/4 * side, True)
+							* Mat4.from_translation(Vec3(0, FLOOR_HEIGHT/2, WIDTH/2))
+							* Mat4.from_scale(Vec3(WIDTH , FLOOR_HEIGHT, 2))
 
-					))
-					wall.set_visible(True)
+						))
+						wall0.set_visible(True)
+
+					else:
+						wall = app.add_mesh(Office_Texture(1, 1), parent=last_floor)
+						wall.set_transform((
+							Mat4.from_rotation_y(360/4 * side, True)
+							* Mat4.from_translation(Vec3(0, FLOOR_HEIGHT/2, WIDTH/2))
+							* Mat4.from_scale(Vec3(WIDTH , FLOOR_HEIGHT, 2))
+
+						))
+						wall.set_visible(True)
+
 
 
 class Highrise:
@@ -195,7 +207,6 @@ class Highrise:
 		RADIUS = 1
 		FLOOR_HEIGHT = 1
 		side_length = RADIUS * np.sin(np.pi/8)
-		spacing = (1 + 1/sqrt(2)) * side_length
 
 		octagons = []
 		octagon_positions = [
@@ -233,13 +244,29 @@ class Highrise:
 				floors.append(floor)
 
 				for side in range(8):
-					wall = app.add_mesh(WoodFrame(1, 1), parent=last_floor)
-					wall.set_transform((
-						Mat4.from_rotation_y(360/8 * side, True)						# Rotate to corner of octagon
-						* Mat4.from_translation(Vec3(RADIUS, 0, 0))						# Move to corner of octagon
-						* Mat4.from_rotation_y(180/8, True)								# Rotate to middle of vertex
-						* Mat4.from_translation(Vec3(0, FLOOR_HEIGHT/2, -side_length))	# Move to middle of vertex
-						* Mat4.from_rotation_y(90, True)								# Rotate to be perpendicular to center
-						* Mat4.from_scale(Vec3(2 * side_length, FLOOR_HEIGHT, 2))		# Scale to fit
-					))
-					wall.set_visible(True)
+					if i == 0:
+						wall0 = app.add_mesh(Highrise_Door_Texture(1, 1), parent=last_floor)
+						wall0.set_transform((
+							Mat4.from_rotation_y(360/8 * side, True)						# Rotate to corner of octagon
+							* Mat4.from_translation(Vec3(RADIUS, 0, 0))						# Move to corner of octagon
+							* Mat4.from_rotation_y(180/8, True)								# Rotate to middle of vertex
+							* Mat4.from_translation(Vec3(0, FLOOR_HEIGHT/2, -side_length))	# Move to middle of vertex
+							* Mat4.from_rotation_y(90, True)								# Rotate to be perpendicular to center
+							* Mat4.from_scale(Vec3(2 * side_length, FLOOR_HEIGHT, 2))		# Scale to fit
+						))
+						wall0.set_visible(True)
+
+					else:
+						wall = app.add_mesh(Highrise_Texture(1, 1), parent=last_floor)
+						wall.set_transform((
+							Mat4.from_rotation_y(360/8 * side, True)						# Rotate to corner of octagon
+							* Mat4.from_translation(Vec3(RADIUS, 0, 0))						# Move to corner of octagon
+							* Mat4.from_rotation_y(180/8, True)								# Rotate to middle of vertex
+							* Mat4.from_translation(Vec3(0, FLOOR_HEIGHT/2, -side_length))	# Move to middle of vertex
+							* Mat4.from_rotation_y(90, True)								# Rotate to be perpendicular to center
+							* Mat4.from_scale(Vec3(2 * side_length, FLOOR_HEIGHT, 2))		# Scale to fit
+						))
+						wall.set_visible(True)
+
+
+
