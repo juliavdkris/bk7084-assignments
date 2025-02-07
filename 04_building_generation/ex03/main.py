@@ -105,14 +105,14 @@ z_cube.set_visible(True)
 
 app.add_directional_light(Vec3(-1, -1, -1), bk.Color(0.8, 0.8, 0.8))
 
-skyscraper = Skyscraper(app, 5)
+skyscraper = Skyscraper(app, 8)
 skyscraper.building.set_transform(Mat4.identity())
 
-highrise = Office(app, 1, 3)
-highrise.building.set_transform(Mat4.from_translation(Vec3(6, 0, 0)))
+highrise = Highrise(app, random.randint(8, 12))
+highrise.building.set_transform(Mat4.from_translation(Vec3(10, 0, 0)))
 
-office = Office(app, 5, 3)
-office.building.set_transform(Mat4.from_translation(Vec3(-6, 0, 0)))
+office = Office(app, 5)
+office.building.set_transform(Mat4.from_translation(Vec3(-10, 0, 0)))
 
 ground_mesh = bk.Mesh.create_quad(48, bk.Alignment.XY)
 ground_mesh.set_material(material_basic_ground)
