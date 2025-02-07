@@ -52,7 +52,7 @@ class Cache:
 
 class Optimizer:
 	SWAPS_PER_STEP = 20
-	TABU_DEQUE_SIZE = 10
+	TABU_DEQUE_SIZE = 30
 
 	def __init__(self, city):
 		"""An optimizer that iteratively optimizes a given city grid."""
@@ -162,7 +162,7 @@ class Optimizer:
 		return new_score
 
 
-	def optimize(self, n_steps=200, print_info=False):
+	def optimize(self, n_steps=300, print_info=False):
 		"""
 		Runs the optimizer for a fixed number of steps.
 		Args:
